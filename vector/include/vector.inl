@@ -147,23 +147,26 @@ T & ls::Vector<T>::at( std::size_t pos){
 
 template <typename T>
 T & ls::Vector<T>::operator[]( std::size_t pos){
-	if( pos < 0 or pos >= m_len)
-		throw std::out_of_range("[at()] Cannot recover element out of range.");
 
 	return m_data[pos]; 
 }
 
 template <typename T>
+/** Increase the storage capacity of the array to a value that’s is greater or equal to new_cap. */
 void ls::Vector<T>::reserve( std::size_t new_cap ){
 
-	T *temp = new T[ new_cap ]; //Novo vetor
+	if(new_cap > m_size){
 
-	 std::copy(m_data, m_data + new_cap, temp);  //Copia para novo vetor
+		T *temp = new T[ new_cap ]; //Novo vetor
 
-	 delete m_data;
+		std::copy(m_data, m_data + new_cap, temp);  //Copia para novo vetor
 
-	 m_data = temp;							//Aponta para o novo endereço
-	 m_size = new_cap; //Atualizar tamanho;
+		delete m_data;
+
+		m_data = temp;							//Aponta para o novo endereço
+		m_size = new_cap; //Atualizar tamanho;
+	}
+	
 }
 
 template <typename T>
