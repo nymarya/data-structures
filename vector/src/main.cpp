@@ -18,5 +18,8 @@ int main(){
 	v.push_front(6);
 	v.print();
 
+	std::cout << v.at(1) << std::endl;
+	std::cout << v[2] << std::endl;
+
 	return 0;
 }

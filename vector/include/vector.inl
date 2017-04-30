@@ -1,4 +1,5 @@
 #include "vector.hpp"
+#include <stdexcept>
 
 //<! Função auxiliar que dobra array
 template <typename T>
@@ -123,4 +124,20 @@ void ls::Vector<T>::print( ) const{
 	std::copy( &m_data[0], &m_data[m_len], std::ostream_iterator<T>(std::cout, " "));
 
 	std::cout << "], len=" << m_len << ", capacity=" << m_size <<".\n"; 
+}
+
+template <typename T>
+T & ls::Vector<T>::at( std::size_t pos){
+	if( pos < 0 or pos >= m_len)
+		throw std::out_of_range("[at()] Cannot recover element out of range.");
+
+	return m_data[pos];
+}
+
+template <typename T>
+T & ls::Vector<T>::operator[]( std::size_t pos){
+	if( pos < 0 or pos >= m_len)
+		throw std::out_of_range("[at()] Cannot recover element out of range.");
+
+	return m_data[pos]; 
 }

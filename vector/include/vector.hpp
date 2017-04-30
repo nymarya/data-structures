@@ -69,6 +69,10 @@ namespace ls{
 			void clear();
 
 			void print( ) const;
+
+			T & at( std::size_t pos);
+
+			T & operator[]( std::size_t pos);
 	};
 
 }
