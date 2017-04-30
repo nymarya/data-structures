@@ -25,5 +25,8 @@ int main(){
 	assert( v.capacity() == 8);
 	v.reserve(20);
 	assert( v.capacity() == 20);
+	
+	v.shrink_to_fit();
+	assert( v.capacity() == 5);
 	return 0;
 }
