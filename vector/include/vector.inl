@@ -15,6 +15,17 @@ void ls::Vector<T>::doubleArray ( T * &A , std::size_t & currentSize ){
 	 currentSize *= 2; //Atualizar tamanho;
 }
 
+template <typename T>
+ls::Vector<T>::Vector(std::size_t size)
+: m_data(new T[size + 1]) //<! Posição extra para end()
+, m_len(0)
+, m_size(size)
+{/*empty*/}
+
+template <typename T>
+ls::Vector<T>::~Vector( ){
+	delete [] m_data;
+}
 
 template <typename T>
 //!< Return number of elements of array
@@ -153,4 +164,10 @@ void ls::Vector<T>::reserve( std::size_t new_cap ){
 
 	 m_data = temp;							//Aponta para o novo endereço
 	 m_size = new_cap; //Atualizar tamanho;
+}
+
+template <typename T>
+void ls::Vector<T>::shrink_to_fit(){
+
+	m_size = m_len;
 }

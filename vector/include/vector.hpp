@@ -28,15 +28,10 @@ namespace ls{
 		public:
 
 			//!<Default constructor
-			explicit Vector(std::size_t size = DEFAULT_SIZE)
-                : m_data(new T[size + 1]) //<! Posição extra para end()
-                , m_len(0)
-                , m_size(size)
-                {/*empty*/}
+			explicit Vector(std::size_t size = DEFAULT_SIZE);
 
-			~Vector( ){
-                delete [] m_data;
-            }
+			//!<Destructor
+			~Vector( );
 
 			//!< Return number of elements of array
 			std::size_t size() const;
@@ -50,10 +45,13 @@ namespace ls{
 			//!< Inserts element at the end of the array
 			void push_back(const T & value);
 
+			//!< Inserts element at the beginning of the array
 			void push_front(const T & value);
 
+			/** Removes the element at the end of the array. */
 			T pop_back();
 
+			/** Removes the element at the beginning of the array. */
 			void pop_front();
 
 			//!< Returns first element of the array
@@ -68,13 +66,19 @@ namespace ls{
 			//!< Clear vector 
 			void clear();
 
+			//!< Prints vector
 			void print( ) const;
 
+			//!< Gets element at some position
 			T & at( std::size_t pos);
 
+			//!< Returns the object at the position pos
 			T & operator[]( std::size_t pos);
 
+			/** Increase the storage capacity of the array to a value that’s is greater or equal to new_cap. */
 			void reserve( std::size_t new_cap );
+
+			void shrink_to_fit();
 	};
 
 }
