@@ -73,6 +73,8 @@ namespace ls{
 			T & at( std::size_t pos);
 
 			T & operator[]( std::size_t pos);
+
+			void reserve( std::size_t new_cap );
 	};
 
 }

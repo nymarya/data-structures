@@ -141,3 +141,16 @@ T & ls::Vector<T>::operator[]( std::size_t pos){
 
 	return m_data[pos]; 
 }
+
+template <typename T>
+void ls::Vector<T>::reserve( std::size_t new_cap ){
+
+	T *temp = new T[ new_cap ]; //Novo vetor
+
+	 std::copy(m_data, m_data + new_cap, temp);  //Copia para novo vetor
+
+	 delete m_data;
+
+	 m_data = temp;							//Aponta para o novo endereço
+	 m_size = new_cap; //Atualizar tamanho;
+}

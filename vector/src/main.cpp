@@ -1,4 +1,5 @@
 #include "../include/vector.hpp"
+#include <cassert>
 
 int main(){
 
@@ -21,5 +22,8 @@ int main(){
 	std::cout << v.at(1) << std::endl;
 	std::cout << v[2] << std::endl;
 
+	assert( v.capacity() == 8);
+	v.reserve(20);
+	assert( v.capacity() == 20);
 	return 0;
 }
