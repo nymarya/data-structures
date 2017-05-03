@@ -214,9 +214,18 @@ T ls::Vector<T>::back() const {
 	return m_data[m_len-1];
 }
 
-
+///////////////////////////
+//  [V] OPERATORS        //
+///////////////////////////
 
 template <typename T>
 bool operator==( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
+
+	if( lhs.size() != rhs.size() ) return false;
+	else{
+		for ( auto i(0ul); i < rhs.size(); ++i)
+			if( rhs[i] != lhs[i] ) return false;
+	}
+
 	return true;
 }

@@ -33,7 +33,7 @@ int main(){
 	assert( v.capacity() == 5);
 
 	ls::Vector<int> v2(v);
-	v2.print();
+	assert( v2 == v);
 
 	v2.push_back(10);
 
@@ -41,8 +41,6 @@ int main(){
 	v3 = v2;
 
 	v3.print();
-
-	assert( v2 == v);
 
 
 	return 0;
