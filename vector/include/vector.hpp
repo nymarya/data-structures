@@ -30,8 +30,8 @@ namespace ls{
 			//!<Default constructor
 			explicit Vector(std::size_t size = DEFAULT_SIZE);
 
-			/* Copy constructor. */
-			Vector( const Vector& other );
+			/* Copy constructor */
+			Vector( Vector&& other );
 
 			//!<Destructor
 			~Vector( );
@@ -64,7 +64,7 @@ namespace ls{
 			T back();
 
 			/* Replaces the content of the list with copies of value 'value' */
-			void assign( const T & value );
+			void assign( const T & value )
 
 			//!< Return the actual size of array
 			std::size_t capacity() const ;

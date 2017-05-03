@@ -17,20 +17,19 @@ void ls::Vector<T>::doubleArray ( T * &A , std::size_t & currentSize ){
 
 template <typename T>
 ls::Vector<T>::Vector(std::size_t size)
-	: m_data(new T[size + 1]) //<! Posição extra para end()
-	, m_len(0)
-	, m_size(size)
-	{/*empty*/}
-
+: m_data(new T[size + 1]) //<! Posição extra para end()
+, m_len(0)
+, m_size(size)
+{/*empty*/}
 
 template <typename T>
 /* Copy constructor */
-ls::Vector<T>::Vector( const Vector& other )
+ls::Vector<T>::Vector( Vector&& other )
 	:m_data(new T[other.m_size])
-	,m_len(other.m_len)
 	,m_size( other.m_size)
+	,m_len(other.m_len)
 {
-	for( auto i(0ul); i< m_size; ++i)
+	for(auto i(0ul); i< m_size; ++i)
 		m_data[i] = other.m_data[i];
 }
 
