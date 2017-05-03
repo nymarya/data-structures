@@ -9,7 +9,6 @@ int main(){
 
 	v.push_front(1);
 	v.push_front(2);
-	v.print();
 	
 	assert( v.front() == 2);
 	assert( v.at(1) == 1);
@@ -19,7 +18,6 @@ int main(){
 	v.push_back(4);
 	v.push_back(5);
 	v.push_front(6);
-	v.print();
 
 	assert( v.at(0) == 6);
 	assert( v.at(1) == 2);
@@ -40,7 +38,7 @@ int main(){
 	ls::Vector<int> v3;
 	v3 = v2;
 
-	v3.print();
+	assert( v2 == v3);
 
 
 	return 0;
