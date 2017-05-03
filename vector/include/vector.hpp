@@ -23,8 +23,6 @@ namespace ls{
 			std::size_t m_size;//!< Size of the array.
 
 
-			void doubleArray(T * & A, std::size_t &currentSize);
-
 		public:
 			///////////////////////////
 			//  [I] SPECIAL MEMBERS  //

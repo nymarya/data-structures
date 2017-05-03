@@ -1,20 +1,6 @@
 #include "vector.hpp"
 #include <stdexcept>
 
-//<! Função auxiliar que dobra array
-template <typename T>
-void ls::Vector<T>::doubleArray ( T * &A , std::size_t & currentSize ){
-
-	 T *data = new T[ currentSize * 2]; //Novo vetor
-
-	 std::copy(A, A+currentSize, data);  //Copia para novo vetor
-
-	 delete A;
-
-	 A = data;							//Aponta para o novo endereço
-	 currentSize *= 2;                 //Atualizar tamanho;
-}
-
 
 ///////////////////////////
 //  [I] SPECIAL MEMBERS  //
@@ -101,7 +87,7 @@ bool ls::Vector<T>::full ()const
 template <typename T>
 void ls::Vector<T>::push_back(const T & value){
 
-	if( full() ) doubleArray(m_data, m_size);
+	if( full() ) reserve( m_size * 2);
 
 	m_data[m_len++] = value;
 
@@ -111,7 +97,7 @@ void ls::Vector<T>::push_back(const T & value){
 template <typename T>
 void ls::Vector<T>::push_front(const T & value){
 
-	if ( full() ) doubleArray(m_data, m_size);
+	if ( full() ) reserve( m_size * 2 );
 
 	for ( auto i(m_len+1); i > 0; --i)
 		m_data[i] =  m_data[i-1];
