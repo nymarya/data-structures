@@ -30,7 +30,6 @@ ls::Vector<T>::Vector(const Vector& other )
 	,m_size(other.m_size)
 {
 
-	std::cout << "teste: "<<other.m_size << std::endl;
 	for(auto i(0ul); i< m_size; ++i)
 		m_data[i] =  other.m_data[i] ;
 }
