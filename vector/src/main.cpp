@@ -4,14 +4,16 @@
 int main(){
 
 	ls::Vector<int> v(1);
-	std::cout << "Size: " << v.size() << std::endl;
+	assert ( v.size() == 0);
 
 
 	v.push_front(1);
 	v.push_front(2);
 	v.print();
+	
+	assert( v.front() == 2);
+	assert( v.at(1) == 1);
 	v.pop_back();
-	v.print();
 
 	v.push_back(3);
 	v.push_back(4);
@@ -19,8 +21,9 @@ int main(){
 	v.push_front(6);
 	v.print();
 
-	std::cout << v.at(1) << std::endl;
-	std::cout << v[2] << std::endl;
+	assert( v.at(0) == 6);
+	assert( v.at(1) == 2);
+	assert( v[2] == 3 );
 
 	assert( v.capacity() == 8);
 	v.reserve(20);
