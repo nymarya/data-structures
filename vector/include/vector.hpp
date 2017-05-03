@@ -60,6 +60,9 @@ namespace ls{
 			//!< Returns last element of the array
 			T back();
 
+			/* Replaces the content of the list with copies of value 'value' */
+			void assign( const T & value )
+
 			//!< Return the actual size of array
 			std::size_t capacity() const ;
 
