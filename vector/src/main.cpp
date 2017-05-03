@@ -32,6 +32,13 @@ int main(){
 	ls::Vector<int> v2(v);
 	v2.print();
 
+	v2.push_back(10);
+
+	ls::Vector<int> v3;
+	v3 = v2;
+
+	v3.print();
+
 
 	return 0;
 }

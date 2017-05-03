@@ -29,6 +29,8 @@ ls::Vector<T>::Vector(const Vector& other )
 	,m_len( other.m_len)
 	,m_size(other.m_size)
 {
+
+	std::cout << "teste: "<<other.m_size << std::endl;
 	for(auto i(0ul); i< m_size; ++i)
 		m_data[i] =  other.m_data[i] ;
 }
@@ -38,6 +40,24 @@ ls::Vector<T>::~Vector( ){
 	delete [] m_data;
 }
 
+template <typename T>
+/* Copy assignment operator. */
+ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
+
+	if (this == &other) return *this;
+
+	delete [] m_data; //<! Deallocate any previous value
+
+	m_data = new T[other.m_size ];
+	m_size = other.m_size;
+	m_len  = other.m_len; 
+
+	//<! Copy values from other to this
+	for(auto i(0ul); i < m_size; ++i)
+		m_data[i] = other.m_data[i];
+
+	return *this;
+}
 
 template <typename T>
 //!< Return number of elements of array
