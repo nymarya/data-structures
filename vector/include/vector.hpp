@@ -26,68 +26,92 @@ namespace ls{
 			void doubleArray(T * & A, std::size_t &currentSize);
 
 		public:
+			///////////////////////////
+			//  [I] SPECIAL MEMBERS  //
+			///////////////////////////
 
-			//!<Default constructor
+			/* Default constructor */;
 			explicit Vector(std::size_t size = DEFAULT_SIZE);
 
 			/* Copy constructor */
 			Vector( const Vector& other );
 
-			//!<Destructor
+			/* Destructor. */
 			~Vector( );
 
 			/* Copy assignment operator. */
 			Vector& operator=( const Vector& other );
 
-			//!< Return number of elements of array
+			///////////////////////////
+			//  [II] ITERATORS       //
+			///////////////////////////
+
+			///////////////////////////
+			//  [III] CAPACITY       //
+			///////////////////////////
+
+			/* Return number of elements of array. */
 			std::size_t size() const;
 
-			//!< Returns true is vector has no elements
+			/* Return the actual size of array. */
+			std::size_t capacity() const ;
+
+			/* Returns true is vector has no elements. */
 			bool empty ()const;
 
-			//!< Returns true if vector is full
+			/* Returns true if vector is full. */
 			bool full ()const;
 
-			//!< Inserts element at the end of the array
+			///////////////////////////
+			//  [IV] MODIFIERS       //
+			///////////////////////////
+
+			/* Inserts element at the end of the array. */
 			void push_back(const T & value);
 
-			//!< Inserts element at the beginning of the array
+			/* Inserts element at the beginning of the array. */
 			void push_front(const T & value);
 
-			/** Removes the element at the end of the array. */
+			/* Removes the element at the end of the array. */
 			T pop_back();
 
-			/** Removes the element at the beginning of the array. */
+			/* Removes the element at the beginning of the array. */
 			void pop_front();
-
-			//!< Returns first element of the array
-			T front() const;
-
-			//!< Returns last element of the array
-			T back();
 
 			/* Replaces the content of the list with copies of value 'value' */
 			void assign( const T & value );
 
-			//!< Return the actual size of array
-			std::size_t capacity() const ;
-
-			//!< Clear vector 
+			/* Clear vector. */
 			void clear();
 
-			//!< Prints vector
-			void print( ) const;
-
-			//!< Gets element at some position
-			T & at( std::size_t pos);
-
-			//!< Returns the object at the position pos
-			T & operator[]( std::size_t pos);
-
-			/** Increase the storage capacity of the array to a value that’s is greater or equal to new_cap. */
+			/* Increase the storage capacity of the array to a value that’s is greater or equal to new_cap. */
 			void reserve( std::size_t new_cap );
 
 			void shrink_to_fit();
+
+			///////////////////////////
+			//  [V] ELEMENT ACCESS   //
+			///////////////////////////
+
+			/* Prints vector. */
+			void print( ) const;
+
+			/* Gets element at some position. */
+			T & at( std::size_t pos) const;
+
+			/* Returns the object at the position pos. */
+			T & operator[]( std::size_t pos) const;
+
+			/* Returns first element of the array. */
+			T front() const;
+
+			/* Returns last element of the array. */
+			T back() const;
+
+			///////////////////////////
+			//  [V] OPERATORS        //
+			///////////////////////////
+
 	};
 
 }

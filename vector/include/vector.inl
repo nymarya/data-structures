@@ -12,7 +12,7 @@ void ls::Vector<T>::doubleArray ( T * &A , std::size_t & currentSize ){
 	 delete A;
 
 	 A = data;							//Aponta para o novo endereço
-	 currentSize *= 2; //Atualizar tamanho;
+	 currentSize *= 2;                 //Atualizar tamanho;
 }
 
 template <typename T>
@@ -145,7 +145,7 @@ T ls::Vector<T>::front() const{
 
 template <typename T>
 //!< Returns last element of the array
-T ls::Vector<T>::back(){
+T ls::Vector<T>::back() const {
 	if(empty())
 		throw std::out_of_range("[back()] Cannot recover element from an empty vector.");
 
@@ -177,7 +177,7 @@ void ls::Vector<T>::print( ) const{
 }
 
 template <typename T>
-T & ls::Vector<T>::at( std::size_t pos){
+T & ls::Vector<T>::at( std::size_t pos) const{
 	if( pos < 0 or pos >= m_len)
 		throw std::out_of_range("[at()] Cannot recover element out of range.");
 
@@ -185,7 +185,7 @@ T & ls::Vector<T>::at( std::size_t pos){
 }
 
 template <typename T>
-T & ls::Vector<T>::operator[]( std::size_t pos){
+T & ls::Vector<T>::operator[]( std::size_t pos) const{
 
 	return m_data[pos]; 
 }
@@ -212,4 +212,9 @@ template <typename T>
 void ls::Vector<T>::shrink_to_fit(){
 
 	m_size = m_len;
+}
+
+template <typename T>
+bool operator==( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
+	return true;
 }
