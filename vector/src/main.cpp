@@ -28,5 +28,10 @@ int main(){
 	
 	v.shrink_to_fit();
 	assert( v.capacity() == 5);
+
+	ls::Vector<int> v2(v);
+	v2.print();
+
+
 	return 0;
 }

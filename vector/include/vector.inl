@@ -24,19 +24,20 @@ ls::Vector<T>::Vector(std::size_t size)
 
 template <typename T>
 /* Copy constructor */
-ls::Vector<T>::Vector( Vector&& other )
+ls::Vector<T>::Vector(const Vector& other )
 	:m_data(new T[other.m_size])
-	,m_size( other.m_size)
-	,m_len(other.m_len)
+	,m_len( other.m_len)
+	,m_size(other.m_size)
 {
 	for(auto i(0ul); i< m_size; ++i)
-		m_data[i] = other.m_data[i];
+		m_data[i] =  other.m_data[i] ;
 }
 
 template <typename T>
 ls::Vector<T>::~Vector( ){
 	delete [] m_data;
 }
+
 
 template <typename T>
 //!< Return number of elements of array
