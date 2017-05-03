@@ -61,7 +61,7 @@ bool ls::Vector<T>::empty ()const{
 
 template <typename T>
 //!< Returns true if vector is full
-bool ls::Vector<T>::full ()const {
+bool ls::Vector<T>::full ()const{
 
 	return (m_len == m_size);
 }
@@ -133,13 +133,12 @@ T ls::Vector<T>::back(){
 	return m_data[m_len-1];
 }
 
-template <typename T>
+template <typename T> 
 /* Replaces the content of the list with copies of value 'value' */
 void ls::Vector<T>::assign( const T & value ){
 
-	for(auto i(0ul); i< m_size; ++i)
-		m_data[i] = value[i]; //C
-
+	for( auto i(0ul); i < m_size; ++i)
+		m_data[i] = value;
 }
 
 template <typename T>
