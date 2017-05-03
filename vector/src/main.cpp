@@ -39,6 +39,8 @@ int main(){
 
 	v3.print();
 
+	assert( v2 == v);
+
 
 	return 0;
 }
