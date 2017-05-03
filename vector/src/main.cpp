@@ -38,7 +38,7 @@ int main(){
 	ls::Vector<int> v3;
 	v3 = v2;
 
-	assert( v2 == v3);
+	assert( (v2 != v3) == false );
 
 
 	return 0;

@@ -35,7 +35,6 @@ ls::Vector<T>::~Vector( ){
 /* Copy assignment operator. */
 template <typename T>
 ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
-
 	if (this == &other) return *this;
 
 	delete [] m_data; //<! Deallocate any previous value
@@ -86,17 +85,14 @@ bool ls::Vector<T>::full ()const
 /* Inserts element at the end of the array. */
 template <typename T>
 void ls::Vector<T>::push_back(const T & value){
-
 	if( full() ) reserve( m_size * 2);
 
 	m_data[m_len++] = value;
-
 }
 
 /* Inserts element at the beginning of the array. */
 template <typename T>
 void ls::Vector<T>::push_front(const T & value){
-
 	if ( full() ) reserve( m_size * 2 );
 
 	for ( auto i(m_len+1); i > 0; --i)
@@ -104,24 +100,20 @@ void ls::Vector<T>::push_front(const T & value){
 
 	m_data[0] = value;
 	m_len++;
-
 }
 
 /* Removes the element at the end of the array. */
 template <typename T>
 T ls::Vector<T>::pop_back(){
-
 	if(empty())
 		throw std::out_of_range("[pop_back()] Cannot recover element from an empty vector.");
 
 	return m_data[--m_len];
-
 }
 
 /* Removes the element at the beginning of the array. */
 template <typename T>
 void ls::Vector<T>::pop_front (){
-
 	if(empty())
 		throw std::out_of_range("[pop_back()] Cannot recover element from an empty vector.");
 
@@ -129,13 +121,11 @@ void ls::Vector<T>::pop_front (){
 		m_data[i] = m_data[i+1];
 
 	m_len--;
-
 }
 
 /* Replaces the content of the list with copies of value 'value' */
 template <typename T>
 void ls::Vector<T>::assign( const T & value ){
-
 	for( auto i(0ul); i < m_size; ++i)
 		m_data[i] = value;
 }
@@ -148,9 +138,7 @@ void ls::Vector<T>::clear()
 /* Increase the storage capacity of the array to a value that’s is greater or equal to new_cap. */
 template <typename T>
 void ls::Vector<T>::reserve( std::size_t new_cap ){
-
 	if(new_cap > m_size){
-
 		T *temp = new T[ new_cap ]; //Novo vetor
 
 		std::copy(m_data, m_data + new_cap, temp);  //Copia para novo vetor
@@ -160,7 +148,6 @@ void ls::Vector<T>::reserve( std::size_t new_cap ){
 		m_data = temp;							//Aponta para o novo endereço
 		m_size = new_cap; //Atualizar tamanho;
 	}
-	
 }
 
 /* Requests the removal of unused capacity. */
@@ -175,7 +162,6 @@ void ls::Vector<T>::shrink_to_fit()
 /* Prints vector. */
 template <typename T>
 void ls::Vector<T>::print( ) const{
-
 	std::cout << ">>> [";
 	std::copy( &m_data[0], &m_data[m_len], std::ostream_iterator<T>(std::cout, " "));
 
@@ -218,9 +204,9 @@ T ls::Vector<T>::back() const {
 //  [V] OPERATORS        //
 ///////////////////////////
 
+/* Checks if the contents of lhs and rhs are equal.*/
 template <typename T>
 bool operator==( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
-
 	if( lhs.size() != rhs.size() ) return false;
 	else{
 		for ( auto i(0ul); i < rhs.size(); ++i)
@@ -228,4 +214,16 @@ bool operator==( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
 	}
 
 	return true;
+}
+
+/* Checks if the contents of lhs and rhs are different.*/
+template <typename T>
+bool operator!=( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
+	if( lhs.size() != rhs.size() ) return true;
+	else{
+		for ( auto i(0ul); i < rhs.size(); ++i)
+			if( rhs[i] != lhs[i] ) return true;
+	}
+
+	return false;
 }
