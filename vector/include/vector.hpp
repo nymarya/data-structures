@@ -85,6 +85,7 @@ namespace ls{
 			/* Increase the storage capacity of the array to a value that’s is greater or equal to new_cap. */
 			void reserve( std::size_t new_cap );
 
+			/* Requests the removal of unused capacity. */
 			void shrink_to_fit();
 
 			///////////////////////////
