@@ -40,6 +40,15 @@ int main(){
 
 	assert( (v2 != v3) == false );
 
+	auto v_begin = v.begin();
+	auto v2_begin = v2.begin();
+	assert( *v_begin == v[0]);
+	assert( *v2_begin == v2[0]);
+	assert( v_begin != v2_begin);
 
+	v_begin++;
+	assert( *v_begin == v[1]);
+	
+	std::cout << ">>>Normal exiting..." <<std::endl;
 	return 0;
 }

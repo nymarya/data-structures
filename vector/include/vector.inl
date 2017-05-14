@@ -1,7 +1,6 @@
 #include "vector.hpp"
 #include <stdexcept>
 
-
 ///////////////////////////
 //  [I] SPECIAL MEMBERS  //
 ///////////////////////////
@@ -53,6 +52,26 @@ ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
 ///////////////////////////
 //  [II] ITERATORS       //
 ///////////////////////////
+
+/* Returns an iterator pointing to the first item in the list. */
+template <typename T>
+typename ls::Vector<T>::iterator ls::Vector<T>::begin( void )
+{ return ls::Vector<T>::iterator(&m_data[0]); }
+
+/* Returns an iterator pointing to the end mark in the list. */
+template <typename T>
+typename ls::Vector<T>::iterator ls::Vector<T>::end( void )
+{ return ls::Vector<T>::iterator(&m_data[m_len]); }
+
+/* Returns a constant iterator pointing to the first item in the list. */
+template <typename T>
+typename ls::Vector<T>::const_iterator ls::Vector<T>::cbegin( void ) const
+{ return ls::Vector<T>::const_iterator(&m_data[0]); }
+
+/* Returns a constant iterator pointing to the end mark in the list. */
+template <typename T>
+typename ls::Vector<T>::const_iterator ls::Vector<T>::cend( void ) const
+{ return ls::Vector<T>::const_iterator(&m_data[m_len]); }
 
 ///////////////////////////
 //  [III] CAPACITY       //
@@ -226,4 +245,65 @@ bool operator!=( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
 	}
 
 	return false;
+}
+
+///////////////////////////
+//  [VI] VECTORITERATOR  //
+///////////////////////////
+
+/*Default constructor for iterator class*/
+template <typename T>
+ls::Vector<T>::iterator::VectorIterator(T * current)
+: m_current( current)
+{ /*empty*/ }
+
+/* Returns a reference to the object located at the position pointed by the iterator */
+template <typename T>
+ T& ls::Vector<T>::iterator::operator*() const {
+	assert( m_current != nullptr); 				
+	return *m_current;
+}
+
+/* Advances iterator to the next location within the list. */
+template <typename T>
+typename ls::Vector<T>::iterator& ls::Vector<T>::iterator::operator++() {
+	m_current++;				
+	return *this;
+}
+
+/* Advances iterator to the next location within the list. (it++) */
+template <typename T>
+typename ls::Vector<T>::iterator ls::Vector<T>::iterator::operator++(int) {
+	ls::Vector<T>::iterator temp = *this; 			
+	m_current++; 				
+	return temp;
+}
+
+/* Advances iterator to the next location within the list. (--it) */
+template <typename T>
+typename ls::Vector<T>::iterator& ls::Vector<T>::iterator::operator--() {
+	m_current--;				
+	return *this;
+}
+
+/* Advances iterator to the next location within the list. (it--) */
+template <typename T>
+typename ls::Vector<T>::iterator ls::Vector<T>::iterator::operator--(int) {
+	ls::Vector<T>::iterator temp = *this; 			
+	m_current--; 				
+	return temp;
+}
+
+/* Returns true if both iterators refer to the same location within the list, 
+ * and false otherwise. */
+template <typename T>
+bool ls::Vector<T>::iterator::operator==( const ls::Vector<T>::iterator & rhs ) const{
+	return m_current == rhs.m_current;
+}
+
+/* Returns true if both iterators refer to the different location within the list, 
+ * and false otherwise. */
+template <typename T>
+bool  ls::Vector<T>::iterator::operator!=( const  ls::Vector<T>::iterator & rhs ) const{
+	return m_current != rhs.m_current;
 }

@@ -13,6 +13,25 @@ namespace ls{
 
 	class Vector{
 
+		public:
+			class VectorIterator {
+				private:
+					T * m_current;
+
+				public:
+
+					explicit VectorIterator( T * current = nullptr );
+					T & operator*( ) const;
+					VectorIterator & operator++( );   // ++it;
+					VectorIterator operator++( int ); // it++;
+					VectorIterator & operator--( );   // --it;
+					VectorIterator operator--( int ); // it--;
+					bool operator==( const VectorIterator & rhs ) const;
+					bool operator!=( const VectorIterator & rhs ) const;
+				
+			};
+		
+
 		private:
 
 			//!< Default size for the vector
@@ -24,6 +43,10 @@ namespace ls{
 
 
 		public:
+
+			using iterator = VectorIterator;
+			using const_iterator = const VectorIterator;
+
 			///////////////////////////
 			//  [I] SPECIAL MEMBERS  //
 			///////////////////////////
@@ -43,6 +66,11 @@ namespace ls{
 			///////////////////////////
 			//  [II] ITERATORS       //
 			///////////////////////////
+
+			iterator begin( void );
+			iterator end( void );
+			const_iterator cbegin( void ) const;
+			const_iterator cend( void ) const;
 
 			///////////////////////////
 			//  [III] CAPACITY       //
@@ -109,6 +137,7 @@ namespace ls{
 			///////////////////////////
 			//  [V] OPERATORS        //
 			///////////////////////////
+
 
 	};
 
