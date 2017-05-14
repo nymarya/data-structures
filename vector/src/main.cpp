@@ -48,6 +48,12 @@ int main(){
 
 	v_begin++;
 	assert( *v_begin == v[1]);
+
+	v.insert(v_begin, 10);
+	for( auto i( v.begin() ); i!= v.end(); ++i ){
+		std::cout << *i << " ";
+	}
+	std::cout << std::endl;
 	
 	std::cout << ">>>Normal exiting..." <<std::endl;
 	return 0;

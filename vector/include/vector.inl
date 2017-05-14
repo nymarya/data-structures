@@ -121,6 +121,18 @@ void ls::Vector<T>::push_front(const T & value){
 	m_len++;
 }
 
+/* Adds value into the list before the position given by the iterator pos. */
+template <typename T>
+typename ls::Vector<T>::iterator 
+ls::Vector<T>::insert( ls::Vector<T>::iterator pos, const T & value ){
+	for (auto i( end() ); i != pos; ){
+		*i = *(--i);
+	}
+	*pos = value;
+	m_len++;
+	return pos;
+}
+
 /* Removes the element at the end of the array. */
 template <typename T>
 T ls::Vector<T>::pop_back(){

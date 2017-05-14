@@ -98,6 +98,9 @@ namespace ls{
 			/* Inserts element at the beginning of the array. */
 			void push_front(const T & value);
 
+			/* Adds value into the list before the position given by the iterator pos. */
+			iterator insert( iterator pos, const T & value );
+
 			/* Removes the element at the end of the array. */
 			T pop_back();
 
