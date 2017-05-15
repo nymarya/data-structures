@@ -76,6 +76,9 @@ namespace ls{
 			/* Move assignment operator. */
 			Vector& operator=( Vector&& other );
 
+			/* Replaces the contents with those identified by initializer list ilist.*/
+			Vector& operator=( std::initializer_list<T> ilist );
+
 			///////////////////////////
 			//  [II] ITERATORS       //
 			///////////////////////////
