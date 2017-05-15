@@ -65,10 +65,10 @@ ls::Vector<T>::Vector( std::initializer_list<T> init )
 : m_len( init.size() )
 , m_size( init.size() )
 {
-	//Cria novo vector
+	//<! Create new vector
 	m_data = new T[m_size];
 
-	//Copia os elementos do range para o novo vetor
+	//<! Copy the resource from range to vector
 	int count = 0;
 	for (auto &e : init)
 	{
@@ -90,6 +90,7 @@ ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
 
 	delete [] m_data; //<! Deallocate any previous value
 
+	//<! Allocate new vector
 	m_data = new T[other.m_size ];
 	m_size = other.m_size;
 	m_len  = other.m_len; 
@@ -101,6 +102,26 @@ ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
 	return *this;
 }
 
+/* Move assignment operator. */
+template<typename T>
+ls::Vector<T>& ls::Vector<T>::operator=( Vector&& other ){
+	//<! Self-assignment detection
+	if (&other == this)
+		return *this;
+	
+	//<! Release storage
+	delete[] m_data;
+
+	//<! Transfer ownership
+	m_len = other.m_len;
+	m_size = other.m_size;
+	m_data = other.m_data;
+	other.m_len = 0;
+	other.m_size = 0;
+	other.m_data = nullptr;
+
+	return *this;
+}
 ///////////////////////////
 //  [II] ITERATORS       //
 ///////////////////////////

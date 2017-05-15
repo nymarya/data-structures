@@ -73,6 +73,9 @@ namespace ls{
 			/* Copy assignment operator. */
 			Vector& operator=( const Vector& other );
 
+			/* Move assignment operator. */
+			Vector& operator=( Vector&& other );
+
 			///////////////////////////
 			//  [II] ITERATORS       //
 			///////////////////////////
