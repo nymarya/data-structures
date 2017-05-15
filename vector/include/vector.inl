@@ -50,7 +50,7 @@ ls::Vector<T>::Vector(const Vector& other )
 /* Move constructor. */
 template <typename T>
 ls::Vector<T>::Vector( Vector && other)
-: m_data( other.m_data)
+: m_data( std::move(other.m_data))
 , m_len( other.m_len)
 , m_size( other.m_size)
 {
