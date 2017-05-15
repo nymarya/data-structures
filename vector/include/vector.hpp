@@ -64,6 +64,9 @@ namespace ls{
 			/* Move constructor. */
 			Vector( Vector && );
 
+			/* Constructs the list with the contents of the initializer list. */
+			Vector( std::initializer_list<T> init );
+
 			/* Destructor. */
 			~Vector( );
 

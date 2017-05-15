@@ -59,6 +59,24 @@ ls::Vector<T>::Vector( Vector && other)
 	other.m_data = nullptr;
 }
 
+/* Constructs the list with the contents of the initializer list. */
+template<typename T>
+ls::Vector<T>::Vector( std::initializer_list<T> init )
+: m_len( init.size() )
+, m_size( init.size() )
+{
+	//Cria novo vector
+	m_data = new T[m_size];
+
+	//Copia os elementos do range para o novo vetor
+	int count = 0;
+	for (auto &e : init)
+	{
+		m_data[count] = e;
+		++count;
+	}
+}
+
 /* Destructor. */
 template <typename T>
 ls::Vector<T>::~Vector( ){
@@ -305,7 +323,7 @@ ls::Vector<T>::iterator::VectorIterator(T * current)
 
 /* Returns a reference to the object located at the position pointed by the iterator */
 template <typename T>
- T& ls::Vector<T>::iterator::operator*() const {
+T& ls::Vector<T>::iterator::operator*() const {
 	assert( m_current != nullptr); 				
 	return *m_current;
 }
