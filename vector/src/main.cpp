@@ -52,8 +52,13 @@ int main(){
 	v3 = v2;
 	assert( v3 == v2 );
 
-	//Test construtor initialize_list
+	//Test constructor with initialize_list
 	ls::Vector<std::string > strs{ "aa","ee", "ii", "oo", "uu"};
+
+	//Test
+	assert( strs[2] == "ccc");
+	strs = { "aa", "bbb", "ccc", "dd"};
+	assert( strs[2] == "ccc");
 	
 	//Test iterators
 	auto v_begin = v.begin();
