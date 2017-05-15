@@ -36,15 +36,14 @@ int main(){
 
 	v2.push_back(10);
 
-	ls::Vector<int> v3;
-	v3 = v2;
+	//ls::Vector<int> v3;
+	//v3 = v2;
 
-	assert( (v2 != v3) == false );
+	//assert( (v2 != v3) == false );
 
-	std::vector<int> copiado = { 1, 2, 3, 4};
-	ls::Vector<int>v4(copiado.begin(), copiado.end());
-	assert( v4 == v3);
-
+	ls::Vector<int> v4(v2.begin(), v2.end() );
+	assert( v4 == v2 );
+	
 	auto v_begin = v.begin();
 	auto v2_begin = v2.begin();
 	assert( *v_begin == v[0]);

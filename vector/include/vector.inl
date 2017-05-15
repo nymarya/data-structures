@@ -17,11 +17,20 @@ ls::Vector<T>::Vector(std::size_t size)
 template<typename T>
 template<typename InputIt >
 ls::Vector<T>::Vector( InputIt first, InputIt last ){
-	m_size = std::distance( first, last);
-	m_len = m_size;
-	m_data = new T[m_size];
+	auto temp(first);
+	//Calcula distância
+	std::size_t distance(0ul);
+	while( temp != last ){
+		distance++; temp++;
+	}
 
-	for ( auto i(0ul); first != last; ++first, ++i){
+	//Cria novo vector
+	m_size = distance;
+	m_len = m_size;
+	m_data = new T[distance];
+
+	//Copia os elementos do range para o novo vetor
+	for ( auto i(0ul); i < distance; ++first, ++i){
 		m_data[i] = *first;
 	}
 }
@@ -149,7 +158,7 @@ void ls::Vector<T>::push_front(const T & value){
 /* Adds value into the list before the position given by the iterator pos. */
 template <typename T>
 typename ls::Vector<T>::iterator 
-ls::Vector<T>::insert( ls::Vector<T>::iterator pos, const T & value ){
+ls::Vector<T>::insert( iterator pos, const T & value ){
 	for (auto i( end() ); i != pos; ){
 		*i = *(--i);
 	}
