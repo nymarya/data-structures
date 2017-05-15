@@ -54,8 +54,15 @@ namespace ls{
 			/* Default constructor */;
 			explicit Vector(std::size_t size = DEFAULT_SIZE);
 
+			/* Constructs the list with the contents of the range [first, last). */
+			template< typename InputIt >
+			Vector( InputIt first, InputIt last );
+
 			/* Copy constructor */
 			Vector( const Vector& other );
+
+			/* Move constructor. */
+			Vector( Vector && );
 
 			/* Destructor. */
 			~Vector( );

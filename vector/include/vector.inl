@@ -13,6 +13,19 @@ ls::Vector<T>::Vector(std::size_t size)
 , m_size(size)
 {/*empty*/}
 
+/* Constructs the list with the contents of the range [first, last). */
+template<typename T>
+template<typename InputIt >
+ls::Vector<T>::Vector( InputIt first, InputIt last ){
+	m_size = std::distance( first, last);
+	m_len = m_size;
+	m_data = new T[m_size];
+
+	for ( auto i(0ul); first != last; ++first, ++i){
+		m_data[i] = *first;
+	}
+}
+
 /* Copy constructor. */
 template <typename T>
 ls::Vector<T>::Vector(const Vector& other )
@@ -23,6 +36,18 @@ ls::Vector<T>::Vector(const Vector& other )
 
 	for(auto i(0ul); i< m_size; ++i)
 		m_data[i] =  other.m_data[i] ;
+}
+
+/* Move constructor. */
+template <typename T>
+ls::Vector<T>::Vector( Vector && other)
+: m_data( other.m_data)
+, m_len( other.m_len)
+, m_size( other.m_size)
+{
+	other.m_len = 0;
+	other.m_size = 0;
+	other.m_data = nullptr;
 }
 
 /* Destructor. */

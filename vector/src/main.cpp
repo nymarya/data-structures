@@ -1,5 +1,6 @@
 #include "../include/vector.hpp"
 #include <cassert>
+#include <vector>
 
 int main(){
 
@@ -39,6 +40,10 @@ int main(){
 	v3 = v2;
 
 	assert( (v2 != v3) == false );
+
+	std::vector<int> copiado = { 1, 2, 3, 4};
+	ls::Vector<int>v4(copiado.begin(), copiado.end());
+	assert( v4 == v3);
 
 	auto v_begin = v.begin();
 	auto v2_begin = v2.begin();
