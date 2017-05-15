@@ -243,14 +243,15 @@ void ls::Vector<T>::clear()
 template <typename T>
 void ls::Vector<T>::reserve( std::size_t new_cap ){
 	if(new_cap > m_size){
-		T *temp = new T[ new_cap ]; //Novo vetor
+		T *temp = new T[ new_cap ]; //<! New vector
 
-		std::copy(m_data, m_data + new_cap, temp);  //Copia para novo vetor
+		//<! Do copy
+		std::copy(m_data, m_data + new_cap, temp);
 
 		delete m_data;
 
-		m_data = temp;							//Aponta para o novo endereço
-		m_size = new_cap; //Atualizar tamanho;
+		m_data = temp;	  //<! Transfer pointer to new adress
+		m_size = new_cap; //<! Update size
 	}
 }
 
