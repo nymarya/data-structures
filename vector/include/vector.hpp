@@ -10,26 +10,27 @@
 namespace ls{ 
 
 	template<typename T>
+	class VectorIterator {
+		private:
+			T * m_current;
 
+		public:
+
+			explicit VectorIterator( T * current = nullptr );
+			T & operator*( ) const;
+			VectorIterator & operator++( );   // ++it;
+			VectorIterator operator++( int ); // it++;
+			VectorIterator & operator--( );   // --it;
+			VectorIterator operator--( int ); // it--;
+			bool operator==( const VectorIterator & rhs ) const;
+			bool operator!=( const VectorIterator & rhs ) const;
+		
+	};
+
+	template<typename T>
 	class Vector{
 
 		public:
-			class VectorIterator {
-				private:
-					T * m_current;
-
-				public:
-
-					explicit VectorIterator( T * current = nullptr );
-					T & operator*( ) const;
-					VectorIterator & operator++( );   // ++it;
-					VectorIterator operator++( int ); // it++;
-					VectorIterator & operator--( );   // --it;
-					VectorIterator operator--( int ); // it--;
-					bool operator==( const VectorIterator & rhs ) const;
-					bool operator!=( const VectorIterator & rhs ) const;
-				
-			};
 		
 
 		private:
@@ -44,8 +45,8 @@ namespace ls{
 
 		public:
 
-			using iterator = VectorIterator;
-			using const_iterator = const VectorIterator;
+			using iterator = VectorIterator<T>;
+			using const_iterator = VectorIterator<const T>;
 
 			///////////////////////////
 			//  [I] SPECIAL MEMBERS  //
@@ -61,9 +62,6 @@ namespace ls{
 			/* Copy constructor */
 			Vector( const Vector& other );
 
-			/* Move constructor. */
-			Vector( Vector && );
-
 			/* Constructs the list with the contents of the initializer list. */
 			Vector( std::initializer_list<T> init );
 
@@ -72,9 +70,6 @@ namespace ls{
 
 			/* Copy assignment operator. */
 			Vector& operator=( const Vector& other );
-
-			/* Move assignment operator. */
-			Vector& operator=( Vector&& other );
 
 			/* Replaces the contents with those identified by initializer list ilist.*/
 			Vector& operator=( std::initializer_list<T> ilist );

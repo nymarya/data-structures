@@ -8,7 +8,7 @@
 /* Default constructor */;
 template <typename T>
 ls::Vector<T>::Vector(std::size_t size)
-: m_data(new T[size + 1]) //<! Posição extra para end()
+: m_data(new T[size])
 , m_len(0)
 , m_size(size)
 {/*empty*/}
@@ -18,13 +18,13 @@ template<typename T>
 template<typename InputIt >
 ls::Vector<T>::Vector( InputIt first, InputIt last ){
 	auto temp(first);
-	//Calcula distância
+	//<! Get distance
 	std::size_t distance(0ul);
 	while( temp != last ){
 		distance++; temp++;
 	}
 
-	//Cria novo vector
+	//<! Creates new storage area
 	m_size = distance;
 	m_len = m_size;
 	m_data = new T[distance];
@@ -47,28 +47,16 @@ ls::Vector<T>::Vector(const Vector& other )
 		m_data[i] =  other.m_data[i] ;
 }
 
-/* Move constructor. */
-template <typename T>
-ls::Vector<T>::Vector( Vector && other)
-: m_data( std::move(other.m_data))
-, m_len( other.m_len)
-, m_size( other.m_size)
-{
-	other.m_len = 0;
-	other.m_size = 0;
-	other.m_data = nullptr;
-}
-
 /* Constructs the list with the contents of the initializer list. */
 template<typename T>
 ls::Vector<T>::Vector( std::initializer_list<T> init )
 : m_len( init.size() )
 , m_size( init.size() )
 {
-	//<! Create new vector
+	//<! Creates new vector
 	m_data = new T[m_size];
 
-	//<! Copy the resource from range to vector
+	//<! Backups the data into the new vector
 	int count = 0;
 	for (auto &e : init)
 	{
@@ -88,40 +76,37 @@ template <typename T>
 ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
 	if (this == &other) return *this;
 
-	delete [] m_data; //<! Deallocate any previous value
+	delete [] m_data; //<! Delete the old storage area.
 
-	//<! Allocate new vector
+	//<! Creates new storage area
 	m_data = new T[other.m_size ];
 	m_size = other.m_size;
 	m_len  = other.m_len; 
 
-	//<! Copy values from other to this
+	//<! Backups the data into the new vector
 	for(auto i(0ul); i < m_size; ++i)
 		m_data[i] = other.m_data[i];
 
 	return *this;
 }
 
-/* Move assignment operator. */
+/* Replaces the contents with those identified by initializer list.*/
 template<typename T>
-ls::Vector<T>& ls::Vector<T>::operator=( Vector&& other ){
-	//<! Self-assignment detection
-	if (&other == this)
-		return *this;
-	
-	//<! Release storage
-	delete[] m_data;
+ls::Vector<T>& ls::Vector<T>::operator=( std::initializer_list<T> ilist ){
+	delete [] m_data; //<! Delete the old storage area
 
-	//<! Transfer ownership
-	m_len = other.m_len;
-	m_size = other.m_size;
-	m_data = other.m_data;
-	other.m_len = 0;
-	other.m_size = 0;
-	other.m_data = nullptr;
+	//<! Updates logical and actual size
+	m_len = ilist.size();
+	m_size = ilist.size();
+	m_data = new T[m_size];
+
+	//<! Backups the data into the new vector
+	for (auto &e : ilist)
+		*(m_data++) = e;
 
 	return *this;
 }
+
 ///////////////////////////
 //  [II] ITERATORS       //
 ///////////////////////////
@@ -243,12 +228,13 @@ void ls::Vector<T>::clear()
 template <typename T>
 void ls::Vector<T>::reserve( std::size_t new_cap ){
 	if(new_cap > m_size){
-		T *temp = new T[ new_cap ]; //<! New vector
+		 //<! Creates new vector
+		T *temp = new T[ new_cap ];
 
 		//<! Do copy
 		std::copy(m_data, m_data + new_cap, temp);
 
-		delete m_data;
+		delete m_data;    //<! Delete old storage area
 
 		m_data = temp;	  //<! Transfer pointer to new adress
 		m_size = new_cap; //<! Update size
@@ -339,43 +325,43 @@ bool operator!=( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
 
 /*Default constructor for iterator class*/
 template <typename T>
-ls::Vector<T>::iterator::VectorIterator(T * current)
+ls::VectorIterator<T>::VectorIterator(T * current)
 : m_current( current)
 { /*empty*/ }
 
 /* Returns a reference to the object located at the position pointed by the iterator */
 template <typename T>
-T& ls::Vector<T>::iterator::operator*() const {
+T& ls::VectorIterator<T>::operator*() const {
 	assert( m_current != nullptr); 				
 	return *m_current;
 }
 
 /* Advances iterator to the next location within the list. */
 template <typename T>
-typename ls::Vector<T>::iterator& ls::Vector<T>::iterator::operator++() {
+ls::VectorIterator<T>& ls::VectorIterator<T>::operator++() {
 	m_current++;				
 	return *this;
 }
 
 /* Advances iterator to the next location within the list. (it++) */
 template <typename T>
-typename ls::Vector<T>::iterator ls::Vector<T>::iterator::operator++(int) {
-	ls::Vector<T>::iterator temp = *this; 			
+ls::VectorIterator<T> ls::VectorIterator<T>::operator++(int) {
+	typename ls::Vector<T>::iterator temp = *this; 			
 	m_current++; 				
 	return temp;
 }
 
 /* Advances iterator to the next location within the list. (--it) */
 template <typename T>
-typename ls::Vector<T>::iterator& ls::Vector<T>::iterator::operator--() {
+ls::VectorIterator<T>& ls::VectorIterator<T>::operator--() {
 	m_current--;				
 	return *this;
 }
 
 /* Advances iterator to the next location within the list. (it--) */
 template <typename T>
-typename ls::Vector<T>::iterator ls::Vector<T>::iterator::operator--(int) {
-	ls::Vector<T>::iterator temp = *this; 			
+ls::VectorIterator<T> ls::VectorIterator<T>::operator--(int) {
+	typename ls::Vector<T>::iterator temp = *this; 			
 	m_current--; 				
 	return temp;
 }
@@ -383,13 +369,13 @@ typename ls::Vector<T>::iterator ls::Vector<T>::iterator::operator--(int) {
 /* Returns true if both iterators refer to the same location within the list, 
  * and false otherwise. */
 template <typename T>
-bool ls::Vector<T>::iterator::operator==( const ls::Vector<T>::iterator & rhs ) const{
+bool ls::VectorIterator<T>::operator==( const typename ls::VectorIterator<T> & rhs ) const{
 	return m_current == rhs.m_current;
 }
 
 /* Returns true if both iterators refer to the different location within the list, 
  * and false otherwise. */
 template <typename T>
-bool  ls::Vector<T>::iterator::operator!=( const  ls::Vector<T>::iterator & rhs ) const{
+bool  ls::VectorIterator<T>::operator!=( const typename ls::VectorIterator<T> & rhs ) const{
 	return m_current != rhs.m_current;
 }
