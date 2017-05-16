@@ -52,7 +52,7 @@ int main(){
 	v3 = v2;
 	assert( v3 == v2 );
 
-	//Test constructor with initialize_list
+	//Test c++11 initializer list syntax
 	ls::Vector<std::string > strs{ "aa","ee", "ii", "oo", "uu"};
 
 	//Test
@@ -71,8 +71,9 @@ int main(){
 	assert( *v_begin == v[1]);
 
 	v.insert(v_begin, 10);
-	for( auto i( v.begin() ); i!= v.end(); ++i ){
-		std::cout << *i << " ";
+	Vector::iterator it = v.begin();
+	for( /*empty*/; it != v.end(); ++it ){
+		std::cout << *it << " ";
 	}
 	std::cout << std::endl;
 	
