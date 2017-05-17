@@ -96,6 +96,12 @@ int main(){
 		std::cout << *it << " ";
 	}
 	std::cout <<"]"<< std::endl;
+
+	//Test remove
+	it--;
+	assert( v.back() == 5 );
+	ls::Vector<int>::iterator result = v.erase(it);
+	assert( v.back() == 4 );
 	
 	std::cout << ">>>Normal exiting..." <<std::endl;
 	return 0;

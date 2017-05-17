@@ -29,10 +29,6 @@ namespace ls{
 
 	template<typename T>
 	class Vector{
-
-		public:
-		
-
 		private:
 
 			//!< Default size for the vector
@@ -118,6 +114,12 @@ namespace ls{
 
 			/* Inserts elements from the initializer list before pos. */
 			iterator insert( iterator, std::initializer_list< T > );
+
+			/* Removes o elemento na posição pos. */
+			iterator erase( iterator );
+
+			/*Remove os elementos no intervalo [first, last). */
+			iterator erase( iterator, iterator );
 
 			/* Removes the element at the end of the array. */
 			T pop_back();

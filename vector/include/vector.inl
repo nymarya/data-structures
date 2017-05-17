@@ -259,6 +259,31 @@ ls::VectorIterator<T> ls::Vector<T>::insert( iterator pos, std::initializer_list
 	return pos;
 }
 
+/* Remove o elemento na posição pos. */
+template<typename T>
+ls::VectorIterator<T> ls::Vector<T>::erase( iterator pos ){
+
+	//<! Get position of the removed item
+    auto position(0ul);
+	for( auto i(begin()); i!= pos; ++i)
+		position++;
+	
+	//<! Goes to the element that follow pos
+	pos++;	
+
+	//<! Overrides element
+	std::copy(&m_data[position+1], &m_data[m_len], &m_data[position]);
+
+	m_len--;
+	return pos;
+}
+
+/*Remove os elementos no intervalo [first, last). */
+template<typename T>
+ls::VectorIterator<T> ls::Vector<T>::erase( iterator first, iterator last ){
+	
+}
+
 /* Removes the element at the end of the array. */
 template <typename T>
 T ls::Vector<T>::pop_back(){
