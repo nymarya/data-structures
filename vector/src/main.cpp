@@ -55,21 +55,31 @@ int main(){
 	ls::Vector<std::string > strs{ "aa","ee", "ii", "oo", "uu"};
 
 	assert( strs[2] == "ii");
-	//strs = { "aa", "bbb", "ccc", "dd"};
-	//assert( strs[2] == "ccc");
+	strs = { "aa", "bbb", "ccc", "dd"};
+	assert( strs[2] == "ccc");
 	
 	//Test iterators
-	auto v_begin = v.begin();
+	v.reserve(20);
+	auto v_it = v.begin();
 	auto v2_begin = v2.begin();
-	assert( *v_begin == v[0]);
+	assert( *v_it == v[0]);
 	assert( *v2_begin == v2[0]);
-	assert( v_begin != v2_begin);
+	assert( v_it != v2_begin);
 
-	v_begin++;
-	assert( *v_begin == v[1]);
+	v_it++;
+	assert( *v_it == v[1]);
 
-	v.insert(v_begin, 10);
+	v_it = v.insert(v_it, 10); //Inserts before position 1
 	ls::Vector<int>::iterator it = v.begin();
+	for( /*empty*/; it != v.end(); ++it ){
+		std::cout << *it << " ";
+	}
+	std::cout << std::endl;
+
+	//Test insert elements from range
+	v3 = {1, 2, 3};
+	it = v.begin();
+	v.insert(v.begin(), v3.begin(), v3.end());
 	for( /*empty*/; it != v.end(); ++it ){
 		std::cout << *it << " ";
 	}

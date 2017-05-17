@@ -60,8 +60,7 @@ ls::Vector<T>::Vector( std::initializer_list<T> init )
 	int count = 0;
 	for (auto &e : init)
 	{
-		m_data[count] = e;
-		++count;
+		m_data[count++] = e;
 	}
 }
 
@@ -96,13 +95,14 @@ ls::Vector<T>& ls::Vector<T>::operator=( std::initializer_list<T> ilist ){
 	delete [] m_data; //<! Delete the old storage area
 
 	//<! Updates logical and actual size
+	m_data = new T[ilist.size()];
 	m_len = ilist.size();
 	m_size = ilist.size();
-	m_data = new T[m_size];
 
 	//<! Backups the data into the new vector
+	auto i(0);
 	for (auto &e : ilist)
-		*(m_data++) = e;
+		m_data[i++] = e;	
 
 	return *this;
 }
@@ -118,7 +118,7 @@ typename ls::Vector<T>::iterator ls::Vector<T>::begin( void )
 
 /* Returns an iterator pointing to the end mark in the list. */
 template <typename T>
-typename ls::Vector<T>::iterator ls::Vector<T>::end( void )
+ls::VectorIterator<T> ls::Vector<T>::end( void )
 { return ls::Vector<T>::iterator(&m_data[m_len]); }
 
 /* Returns a constant iterator pointing to the first item in the list. */
@@ -175,19 +175,59 @@ void ls::Vector<T>::push_front(const T & value){
 	for ( auto i(m_len+1); i > 0; --i)
 		m_data[i] =  m_data[i-1];
 
-	m_data[0] = value;
-	m_len++;
+	m_data[0] = value; //<! Inserts value
+	m_len++;           //<! Update size
 }
 
 /* Adds value into the list before the position given by the iterator pos. */
 template <typename T>
 typename ls::Vector<T>::iterator 
 ls::Vector<T>::insert( iterator pos, const T & value ){
-	for (auto i( end() ); i != pos; ){
-		*i = *(--i);
+	//<! Counting how many elements to move
+	auto position(0);
+	for (auto i( begin() ); i != pos; ++i)
+		position++;
+
+	//<! Duplicate size if vector is full
+	if( full() ) reserve(m_size * 2 );
+
+	//<! Backups the data
+	std::copy(&m_data[position], &m_data[m_len], &m_data[position+1]);
+	
+	m_data[position] = value; //<! Inserts values
+	m_len++;      //<! Updates size
+	return pos;
+}
+
+/* Inserts elements from the range [first; last) before pos. */
+template<typename T>
+template<typename InputItr>
+ls::VectorIterator<T> ls::Vector<T>::insert( iterator pos, InputItr first, InputItr last){
+	//!< Get distance 
+	auto distance(0ul);
+	auto i(first);
+	while(i != last){
+		distance++; i++;
 	}
-	*pos = value;
-	m_len++;
+
+	//<! Get position
+	auto position(0ul);
+	i = begin();
+	while(i != pos){
+		position++; i++;
+	}
+
+	//<! Reallocate if new size is greater than capacity
+	if( m_len + distance > m_size ) reserve(m_len + distance);
+	//<! Backups data
+	std::copy(&m_data[position], &m_data[m_len], &m_data[distance]);
+
+	//<! Inserts elements from the range
+	for( auto i(position); i < distance; ++i)
+		m_data[i] = *first++;
+
+	//<! Updates size
+	m_len += distance;
 	return pos;
 }
 
@@ -320,7 +360,7 @@ bool operator!=( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
 }
 
 ///////////////////////////
-//  [VI] VECTORITERATOR  //
+//  VECTORITERATOR CLASS //
 ///////////////////////////
 
 /*Default constructor for iterator class*/

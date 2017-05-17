@@ -112,6 +112,13 @@ namespace ls{
 			/* Adds value into the list before the position given by the iterator pos. */
 			iterator insert( iterator pos, const T & value );
 
+			/* Inserts elements from the range [first; last) before pos. */
+			template<typename InputItr>
+			iterator insert( iterator , InputItr , InputItr );
+
+			/* Inserts elements from the initializer list before pos. */
+			iterator insert( iterator, std::initializer_list< T > );
+
 			/* Removes the element at the end of the array. */
 			T pop_back();
 
