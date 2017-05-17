@@ -231,9 +231,38 @@ ls::VectorIterator<T> ls::Vector<T>::insert( iterator pos, InputItr first, Input
 	return pos;
 }
 
+/* Inserts elements from the initializer list before pos. */
+template<typename T>
+ls::VectorIterator<T> ls::Vector<T>::insert( iterator pos, std::initializer_list<T> ilist ){
+	//!< Get distance 
+	auto distance = ilist.size();
+
+	//<! Get position
+	auto position(0ul);
+	auto i(begin());
+	while(i != pos){
+		position++; i++;
+	}
+
+	//<! Reallocate if new size is greater than capacity
+	if( m_len + distance > m_size ) reserve(m_len + distance);
+
+	//<! Backups data
+	std::copy(&m_data[position], &m_data[m_len], &m_data[position+distance]);
+
+	//<! Inserts elements from the range
+	for( auto &e: ilist)
+		m_data[position++] = e;
+
+	//<! Updates size
+	m_len += distance;
+	return pos;
+}
+
 /* Removes the element at the end of the array. */
 template <typename T>
 T ls::Vector<T>::pop_back(){
+	//<! Throw exception is list is empty
 	if(empty())
 		throw std::out_of_range("[pop_back()] Cannot recover element from an empty vector.");
 
@@ -243,18 +272,22 @@ T ls::Vector<T>::pop_back(){
 /* Removes the element at the beginning of the array. */
 template <typename T>
 void ls::Vector<T>::pop_front (){
+	//<! Throw exception is list is empty
 	if(empty())
 		throw std::out_of_range("[pop_back()] Cannot recover element from an empty vector.");
 
+	//<! Removes the element
 	for(auto i(0ul); i < m_len-1; ++i)
 		m_data[i] = m_data[i+1];
 
-	m_len--;
+	//<! Update size
+	m_len--; 
 }
 
 /* Replaces the content of the list with copies of value 'value' */
 template <typename T>
 void ls::Vector<T>::assign( const T & value ){
+	//<! Replacing the content
 	for( auto i(0ul); i < m_size; ++i)
 		m_data[i] = value;
 }

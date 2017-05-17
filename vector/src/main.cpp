@@ -68,22 +68,34 @@ int main(){
 
 	v_it++;
 	assert( *v_it == v[1]);
-
+	std::cout << "Inserting -10- before " << *v_it << " at position 1 = [";
 	v_it = v.insert(v_it, 10); //Inserts before position 1
 	ls::Vector<int>::iterator it = v.begin();
 	for( /*empty*/; it != v.end(); ++it ){
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl;
+	std::cout <<"]" << std::endl;
 
 	//Test insert elements from range
 	v3 = {1, 2, 3};
 	it = v.begin();
-	v.insert(v.begin(), v3.begin(), v3.end());
+	std::cout << "Inserting {1, 2, 3} before " << *it << " at 0 = [";
+	v.insert(it, v3.begin(), v3.end());
 	for( /*empty*/; it != v.end(); ++it ){
 		std::cout << *it << " ";
 	}
-	std::cout << std::endl;
+	std::cout << "]"<<std::endl;
+
+	//Test insert elements from initializer list
+	it = v.begin();
+	it++;
+	std::cout << "Inserting {11, 22, 33} before " << *it << " at 1 = [";
+	v.insert(it, {11, 22, 33});
+	it = v.begin();
+	for( /*empty*/; it != v.end(); ++it ){
+		std::cout << *it << " ";
+	}
+	std::cout <<"]"<< std::endl;
 	
 	std::cout << ">>>Normal exiting..." <<std::endl;
 	return 0;
