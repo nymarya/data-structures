@@ -130,6 +130,10 @@ namespace ls{
 			/* Replaces the content of the list with copies of value 'value' */
 			void assign( const T & value );
 
+			/* Replaces the contents of the list with copies of the elements in the range [first; last).*/
+			template < typename InputItr>
+			void assign( InputItr first, InputItr last);
+
 			/* Clear vector. */
 			void clear();
 

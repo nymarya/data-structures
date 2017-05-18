@@ -115,6 +115,16 @@ int main(){
 		std::cout << *it << " ";
 	}
 	std::cout <<"]"<< std::endl;
+
+	//Test assign with input iterator
+	v2.assign(v3.begin(), v3.end());
+	it = v2.begin();
+	std::cout << "Removing v3{16, 26, 36}, V = [";
+	for( /*empty*/; it != v2.end(); ++it ){
+		std::cout << *it << " ";
+	}
+	std::cout <<"]"<< std::endl;
+
 	
 	std::cout << "\n>>>Normal exiting..." <<std::endl;
 	return 0;

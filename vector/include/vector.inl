@@ -333,6 +333,28 @@ void ls::Vector<T>::assign( const T & value ){
 		m_data[i] = value;
 }
 
+/* Replaces the contents of the list with copies of the elements in the range [first; last).*/
+template <typename T>
+template <typename InputItr>
+void ls::Vector<T>::assign( InputItr first, InputItr last){
+	//<! Get number of elements between first and last
+	auto distance(0ul);
+	for(auto i(first); i!= last; ++i)
+		distance++;
+
+	std::cout << distance << std::endl;
+
+	//<! Reallocate if new size is greater than capacity
+	if(distance > m_size) reserve(distance);
+
+	//<! Replacing the content
+	for(auto i(0ul); i < distance ; ++i)
+		m_data[i] = *(first++);
+
+	//<! Update size
+	m_len = distance;
+}
+
 /* Clear vector. */
 template <typename T>
 void ls::Vector<T>::clear()
