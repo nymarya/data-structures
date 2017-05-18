@@ -1,2 +1,2 @@
 # data_structures
-Implementing some data structures, inlcuding vector, stack and queue
+Implementing some data structures, including vector, stack and queue

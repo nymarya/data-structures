@@ -11,7 +11,7 @@ A classe Vector consiste na implementação do tipo abstrato de dado (TAD) lista
 | 1      | Compilar | ```$ make``` |
 | 2      | Executar   | ```$ ./build/drive_vector``` |
 
-## Como fazer utilizar em outros programas
+## Como utilizar em outros programas
 
 1º Copie os arquivos .hpp e .inl da pasta ```include/```<br/>
 2º Inclua o arquivo .hpp no seu programa.<br/>
