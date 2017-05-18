@@ -134,6 +134,9 @@ namespace ls{
 			template < typename InputItr>
 			void assign( InputItr first, InputItr last);
 
+			/* Substitui o conteúdo da lista pelos elementos de ilist. */
+			void assign( std::initializer_list<T> ilist );
+
 			/* Clear vector. */
 			void clear();
 

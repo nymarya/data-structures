@@ -342,8 +342,6 @@ void ls::Vector<T>::assign( InputItr first, InputItr last){
 	for(auto i(first); i!= last; ++i)
 		distance++;
 
-	std::cout << distance << std::endl;
-
 	//<! Reallocate if new size is greater than capacity
 	if(distance > m_size) reserve(distance);
 
@@ -353,6 +351,25 @@ void ls::Vector<T>::assign( InputItr first, InputItr last){
 
 	//<! Update size
 	m_len = distance;
+}
+
+/* Substitui o conteúdo da lista pelos elementos de ilist. */
+template< typename T>
+void ls::Vector<T>::assign( std::initializer_list<T> ilist ){
+	//<! Guarda novo tamanho
+	auto sz = ilist.size();
+
+	//<! Realoca se o novo tamanho é maior que a capacidade
+	if(sz > m_size) reserve(sz);
+
+	//<! Substitui o conteudo da lista
+	auto i(0);
+	for(auto &e : ilist )
+		m_data[i++] = e;
+
+	//<! Update size
+	m_len = sz;
+
 }
 
 /* Clear vector. */

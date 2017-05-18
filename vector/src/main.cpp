@@ -125,6 +125,15 @@ int main(){
 	}
 	std::cout <<"]"<< std::endl;
 
+	//Teste assign com initialize list
+	v2.assign({123, 132, 321, 231});
+	it = v2.begin();
+	std::cout << "Substituindo v2 por {123, 132, 321, 231}, V = [";
+	for( /*empty*/; it != v2.end(); ++it ){
+		std::cout << *it << " ";
+	}
+	std::cout <<"]"<< std::endl;
+
 	
 	std::cout << "\n>>>Normal exiting..." <<std::endl;
 	return 0;
