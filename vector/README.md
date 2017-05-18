@@ -17,7 +17,7 @@ A classe Vector consiste na implementação do tipo abstrato de dado (TAD) lista
 2º Inclua o arquivo .hpp no seu programa.<br/>
 3º Instancie a classe com o namespace ```ls```  o tipo dos elementos entre ```<>```
 
-#### Exemplo de utilização
+### Exemplo de utilização
 ```cpp
 #include <iostream>
 #include "../include/vector.hpp"
@@ -35,7 +35,9 @@ int main(){
 }
 ```
 
-**Importante!** Lembrar de incluir o arquivo ```.hpp``` e ```.inl``` na hora de compilar.
+**Importante!** Lembrar de incluir os arquivos ```.hpp``` e ```.inl``` ao compilar.
+
+## Possíveis erros
 
 ## Autoria
 
