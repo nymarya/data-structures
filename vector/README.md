@@ -2,7 +2,7 @@
 
 ## Sobre a classe
 
-A classe Vector consiste na implementação do tipo abstrato de dado (TAD) lista.
+A classe Vector consiste na implementação do tipo abstrato de dado (TAD) lista, com as propriedades estruturais e operações referentes à TAD.
 
 ## Como executar
 
