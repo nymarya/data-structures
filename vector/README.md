@@ -42,8 +42,6 @@ Uma exceção ```std::out_of_range``` pode ser jogada ao chamar os métodos ```p
 
 ## Autoria
 
-Desenvolvido por Mayra Dantas de Azevedo (<mayradazevedo@gmail.com >)
-
-2017.1
+Desenvolvido por Mayra Dantas de Azevedo (<mayradazevedo@gmail.com >), 2017.1
 
 &copy; IMD/UFRN 2017.
