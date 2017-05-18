@@ -390,9 +390,11 @@ void ls::Vector<T>::reserve( std::size_t new_cap ){
 		T *temp = new T[ new_cap ];
 
 		//<! Copia os valores para a nova lista
-		std::copy(m_data, m_data + new_cap, temp);
+		//std::copy(m_data, m_data + new_cap, temp);
+		for (auto i(0u); i < m_size; i++) 
+			temp[i] = m_data[i];
 
-		delete m_data;    //<! Deleta espaço de armazenamento antigo
+		delete [] m_data;    //<! Deleta espaço de armazenamento antigo
 
 		m_data = temp;	  //<! Transfere o ponteiro para o novo endereço
 		m_size = new_cap; //<! Atualiza tamanho

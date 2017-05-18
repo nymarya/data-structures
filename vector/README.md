@@ -38,7 +38,7 @@ int main(){
 **Importante!** Lembrar de incluir os arquivos ```.hpp``` e ```.inl``` ao compilar.
 
 ## Possíveis erros
-Uma exceção ```std::out_of_range``` pode ser jogada ao chamar os métodos ```pop_back()```, ```pop_front()```, ```back()``` e ```front()```numa lista vazia. A mesma exceção pode ser acionada ao usar o método ```at()``` utilizando uma posição inválida.
+A exceção ```std::out_of_range``` pode ser lançada ao chamar os métodos ```pop_back()```, ```pop_front()```, ```back()``` e ```front()```numa lista vazia. A mesma exceção pode ser acionada ao usar o método ```at()``` utilizando uma posição inválida.
 
 ## Autoria
 
