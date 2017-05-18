@@ -68,7 +68,7 @@ int main(){
 
 	v_it++;
 	assert( *v_it == v[1]);
-	std::cout << "Inserting -10- before " << *v_it << " at position 1 = [";
+	std::cout << ">Inserting -10- before " << *v_it << " at position 1 = [";
 	v_it = v.insert(v_it, 10); //Inserts before position 1
 	ls::Vector<int>::iterator it = v.begin();
 	for( /*empty*/; it != v.end(); ++it ){
@@ -77,9 +77,9 @@ int main(){
 	std::cout <<"]" << std::endl;
 
 	//Test insert elements from range
-	v3 = {1, 2, 3};
+	v3 = {16, 26, 36};
 	it = v.begin();
-	std::cout << "Inserting {1, 2, 3} before " << *it << " at 0 = [";
+	std::cout << "Inserting {16, 26, 36} before " << *it << " at 0 = [";
 	v.insert(it, v3.begin(), v3.end());
 	for( /*empty*/; it != v.end(); ++it ){
 		std::cout << *it << " ";
@@ -99,10 +99,23 @@ int main(){
 
 	//Test remove
 	it--;
-	assert( v.back() == 5 );
+	it--;
 	ls::Vector<int>::iterator result = v.erase(it);
-	assert( v.back() == 4 );
+	assert(*result == 5);
+
+	//Test remove with range
+	it--;
+	it--;
+	auto iterat = v.begin();
+	std::cout << "Removing ["<<*(++iterat) << ", "<< *it << ") = [";
+	result = v.erase(iterat, it);
+	assert( v.size() == 4 );
+	it = v.begin();
+	for( /*empty*/; it != v.end(); ++it ){
+		std::cout << *it << " ";
+	}
+	std::cout <<"]"<< std::endl;
 	
-	std::cout << ">>>Normal exiting..." <<std::endl;
+	std::cout << "\n>>>Normal exiting..." <<std::endl;
 	return 0;
 }

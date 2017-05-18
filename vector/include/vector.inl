@@ -281,7 +281,23 @@ ls::VectorIterator<T> ls::Vector<T>::erase( iterator pos ){
 /*Remove os elementos no intervalo [first, last). */
 template<typename T>
 ls::VectorIterator<T> ls::Vector<T>::erase( iterator first, iterator last ){
-	
+	//<! Gets position of the first item
+    auto position(0ul);
+	for( auto i(begin()); i!= first; ++i)
+		position++;
+
+	//<! Gets position of the first item
+    auto distance(0ul);
+	for( auto i(first); i!= last; ++i)
+		distance++;
+
+	auto pos = ++last;
+
+	//<! Overrides elements
+	std::copy(&m_data[position+distance], &m_data[m_len], &m_data[position]);
+
+	m_len -= distance;
+	return pos;
 }
 
 /* Removes the element at the end of the array. */
