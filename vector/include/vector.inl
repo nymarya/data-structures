@@ -390,7 +390,6 @@ void ls::Vector<T>::reserve( std::size_t new_cap ){
 		T *temp = new T[ new_cap ];
 
 		//<! Copia os valores para a nova lista
-		//std::copy(m_data, m_data + new_cap, temp);
 		for (auto i(0u); i < m_size; i++) 
 			temp[i] = m_data[i];
 
