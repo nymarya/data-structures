@@ -69,7 +69,7 @@ ls::Vector<T>::~Vector( ){
 	delete [] m_data;
 }
 
-/* Copy assignment operator. */
+/* Operador de atribuição por cópia. */
 template <typename T>
 ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
 	if (this == &other) return *this;
@@ -120,7 +120,7 @@ template <typename T>
 ls::VectorIterator<T> ls::Vector<T>::end( void )
 { return ls::Vector<T>::iterator(&m_data[m_len]); }
 
-/* Returna iterador constante que aponta para o começo do vetor. */
+/* Retorna iterador constante que aponta para o começo do vetor. */
 template <typename T>
 typename ls::Vector<T>::const_iterator ls::Vector<T>::cbegin( void ) const
 { return ls::Vector<T>::const_iterator(&m_data[0]); }
@@ -134,7 +134,7 @@ typename ls::Vector<T>::const_iterator ls::Vector<T>::cend( void ) const
 //  [III] CAPACITY       //
 ///////////////////////////
 
-/* Returna número de elementos da lista. */
+/* Retorna número de elementos da lista. */
 template <typename T>
 std::size_t ls::Vector<T>::size() const
 { return m_len; }
@@ -426,12 +426,12 @@ T & ls::Vector<T>::at( std::size_t pos) const{
 	return m_data[pos];
 }
 
-/* Returna o objeto na posição pos. */
+/* Retorna o objeto na posição pos. */
 template <typename T>
 T & ls::Vector<T>::operator[]( std::size_t pos) const
 { return m_data[pos]; }
 
-/* Returna primeiro elemento da lista. */
+/* Retorna primeiro elemento da lista. */
 template <typename T>
 T ls::Vector<T>::front() const{
 	//<! Joga exceção se o vetor está vazio
@@ -441,7 +441,7 @@ T ls::Vector<T>::front() const{
 	return m_data[0];
 }
 
-/* Returna último elemento da lista. */
+/* Retorna último elemento da lista. */
 template <typename T>
 T ls::Vector<T>::back() const {
 	//<! Joga exceção se o vetor está vazio
@@ -493,21 +493,21 @@ ls::VectorIterator<T>::VectorIterator(T * current)
 : m_current( current)
 { /*empty*/ }
 
-/* Returna uma referência para o objeto lozalizado na posição apontada pelo iterador */
+/* Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador */
 template <typename T>
 T& ls::VectorIterator<T>::operator*() const {
 	assert( m_current != nullptr); 				
 	return *m_current;
 }
 
-/* Advances iterator to the next location within the list. */
+/* Avança iterador para a próxima posição na lista. (++it)*/
 template <typename T>
 ls::VectorIterator<T>& ls::VectorIterator<T>::operator++() {
 	m_current++;				
 	return *this;
 }
 
-/* Advances iterator to the next location within the list. (it++) */
+/* Avança iterador para a próxima posição na lista. (it++) */
 template <typename T>
 ls::VectorIterator<T> ls::VectorIterator<T>::operator++(int) {
 	typename ls::Vector<T>::iterator temp = *this; 			
@@ -515,14 +515,14 @@ ls::VectorIterator<T> ls::VectorIterator<T>::operator++(int) {
 	return temp;
 }
 
-/* Advances iterator to the next location within the list. (--it) */
+/* Move iterador para a posição anterior na lista. (--it) */
 template <typename T>
 ls::VectorIterator<T>& ls::VectorIterator<T>::operator--() {
 	m_current--;				
 	return *this;
 }
 
-/* Advances iterator to the next location within the list. (it--) */
+/* Move iterador para a posição anterior na lista. (it--) */
 template <typename T>
 ls::VectorIterator<T> ls::VectorIterator<T>::operator--(int) {
 	typename ls::Vector<T>::iterator temp = *this; 			
@@ -530,15 +530,13 @@ ls::VectorIterator<T> ls::VectorIterator<T>::operator--(int) {
 	return temp;
 }
 
-/* Returns true if both iterators refer to the same location within the list, 
- * and false otherwise. */
+/* Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista. */
 template <typename T>
 bool ls::VectorIterator<T>::operator==( const typename ls::VectorIterator<T> & rhs ) const{
 	return m_current == rhs.m_current;
 }
 
-/* Returns true if both iterators refer to the different location within the list, 
- * and false otherwise. */
+/* Retorna verdadeiro se os iteradores fazem referência para pontos diferentes da lista. */
 template <typename T>
 bool  ls::VectorIterator<T>::operator!=( const typename ls::VectorIterator<T> & rhs ) const{
 	return m_current != rhs.m_current;
