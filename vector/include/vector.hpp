@@ -12,11 +12,13 @@ namespace ls{
 	template<typename T>
 	class VectorIterator {
 		private:
-			T * m_current;
+			T * m_current; //<! Ponteiro para elemento de vector
 
 		public:
-
+			/* Construtor padrão para classe iterator. */
 			explicit VectorIterator( T * current = nullptr );
+
+			/* Returna uma referência para o objeto lozalizado na posição apontada pelo iterador */
 			T & operator*( ) const;
 			VectorIterator & operator++( );   // ++it;
 			VectorIterator operator++( int ); // it++;
@@ -31,12 +33,12 @@ namespace ls{
 	class Vector{
 		private:
 
-			//!< Default size for the vector
+			//!< Tamanho padrão
 			static constexpr std::size_t DEFAULT_SIZE{100};
 			
-			T *m_data;       //!< Dynamic storage area
-			std::size_t m_len; //!< Logical length.
-			std::size_t m_size;//!< Size of the array.
+			T *m_data;         //!< Área de armmazenamento dinâmica
+			std::size_t m_len; //!< Tamanho lógico.
+			std::size_t m_size;//!< Tamanho da lista.
 
 
 		public:
@@ -48,71 +50,78 @@ namespace ls{
 			//  [I] SPECIAL MEMBERS  //
 			///////////////////////////
 
-			/* Default constructor */;
+			/* Construtor padrão */
 			explicit Vector(std::size_t size = DEFAULT_SIZE);
 
-			/* Constructs the list with the contents of the range [first, last). */
+			/* Constroi a lista com os elementos do intervalo [first, last). */
 			template< typename InputIt >
 			Vector( InputIt first, InputIt last );
 
-			/* Copy constructor */
+			/* Construtor cópia */
 			Vector( const Vector& other );
 
-			/* Constructs the list with the contents of the initializer list. */
+			/* Construtor com conteúdo de initializer list. */
 			Vector( std::initializer_list<T> init );
 
 			/* Destructor. */
 			~Vector( );
 
-			/* Copy assignment operator. */
+			/* Operador de substituição por cópia. */
 			Vector& operator=( const Vector& other );
 
-			/* Replaces the contents with those identified by initializer list ilist.*/
+			/* Substitui o conteúdo da lista pelos elementos de ilist.*/
 			Vector& operator=( std::initializer_list<T> ilist );
 
 			///////////////////////////
 			//  [II] ITERATORS       //
 			///////////////////////////
 
+			/* Retorna iterador que aponta para o começo do vetor. */
 			iterator begin( void );
+
+			/* Retorna iterador que aponta para o final do vetor. */
 			iterator end( void );
+
+			/* Retorna iterador constante que aponta para o começo do vetor. */
 			const_iterator cbegin( void ) const;
+
+			/* Retorna iterador constante que aponta para o final do vetor. */
 			const_iterator cend( void ) const;
 
 			///////////////////////////
 			//  [III] CAPACITY       //
 			///////////////////////////
 
-			/* Return number of elements of array. */
+			/* Returna número de elementos da lista. */
 			std::size_t size() const;
 
-			/* Return the actual size of array. */
+			/* Retorna o tamanho físico da lista. */
 			std::size_t capacity() const ;
 
-			/* Returns true is vector has no elements. */
+			/* Verifica se o vetor não tem elementos. */
 			bool empty ()const;
 
-			/* Returns true if vector is full. */
+			/* Verifica se vetor está cheio. */
 			bool full ()const;
 
 			///////////////////////////
 			//  [IV] MODIFIERS       //
 			///////////////////////////
 
-			/* Inserts element at the end of the array. */
+			/* Insere elemento no final da lista. */
 			void push_back(const T & value);
 
-			/* Inserts element at the beginning of the array. */
+			/* Insere elemento no início da lista. */
 			void push_front(const T & value);
 
-			/* Adds value into the list before the position given by the iterator pos. */
+			/* Adiciona valor value antes de pos. */
 			iterator insert( iterator pos, const T & value );
 
-			/* Inserts elements from the range [first; last) before pos. */
+			/* Insere os elementos do intervalo [first; last) antes de pos. */
 			template<typename InputItr>
 			iterator insert( iterator , InputItr , InputItr );
 
-			/* Inserts elements from the initializer list before pos. */
+			/* Insere elementos de std::initializer_list antes de pos. */
 			iterator insert( iterator, std::initializer_list< T > );
 
 			/* Removes o elemento na posição pos. */
@@ -121,48 +130,48 @@ namespace ls{
 			/*Remove os elementos no intervalo [first, last). */
 			iterator erase( iterator, iterator );
 
-			/* Removes the element at the end of the array. */
+			/* Remove o elemento no final da lista. */
 			T pop_back();
 
-			/* Removes the element at the beginning of the array. */
+			/* Remove o elemento no início do array. */
 			void pop_front();
 
-			/* Replaces the content of the list with copies of value 'value' */
+			/* Substitui o conteúdo da lista por cópias do valor 'value' */
 			void assign( const T & value );
 
-			/* Replaces the contents of the list with copies of the elements in the range [first; last).*/
+			/* Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).*/
 			template < typename InputItr>
 			void assign( InputItr first, InputItr last);
 
 			/* Substitui o conteúdo da lista pelos elementos de ilist. */
 			void assign( std::initializer_list<T> ilist );
 
-			/* Clear vector. */
+			/* Limpa vector. */
 			void clear();
 
-			/* Increase the storage capacity of the array to a value that’s is greater or equal to new_cap. */
+			/* Aumenta a capacidade de armazenamento da lista para um valor que é maior ou igual a new_cap. */
 			void reserve( std::size_t new_cap );
 
-			/* Requests the removal of unused capacity. */
+			/* Remove capacidade que não é utilizada. */
 			void shrink_to_fit();
 
 			///////////////////////////
 			//  [V] ELEMENT ACCESS   //
 			///////////////////////////
 
-			/* Prints vector. */
+			/* Imprime vector. */
 			void print( ) const;
 
-			/* Gets element at some position. */
+			/* Recupera elemento na posição pos. */
 			T & at( std::size_t pos) const;
 
-			/* Returns the object at the position pos. */
+			/* Returna o objeto na posição pos. */
 			T & operator[]( std::size_t pos) const;
 
-			/* Returns first element of the array. */
+			/* Returna primeiro elemento da lista. */
 			T front() const;
 
-			/* Returns last element of the array. */
+			/* Returna último elemento da lista. */
 			T back() const;
 
 			///////////////////////////
