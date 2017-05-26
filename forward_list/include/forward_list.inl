@@ -145,7 +145,12 @@ void ls::ForwardList<T>::push_front(const T & value){
 /*! Adiciona valor value depois de pos.*/
 template <typename T>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator pos, const T & value ){
+	Node * nNode = new Node(value, pos->next);
 
+	pos->next = nNode;
+	++pos;
+
+	return pos;
 }
 
 /*! Insere os elementos do intervalo [first; last) antes de pos.*/
@@ -305,10 +310,21 @@ template <typename T>
 
 /*! Avança iterador para a próxima posição na lista. (it++). */
 template <typename T>
- ls::ForwardListIterator<T> ls::ForwardListIterator<T>::operator++( int ){
-	typename ls::ForwardList<T>::iterator temp = *this; 			
-	m_current++; 				
+ls::ForwardListIterator<T> ls::ForwardListIterator<T>::operator++( typename T::value_type ){
+	ls::ForwardListIterator<T> temp = *this; 			
+	++m_current;				
 	return temp;
+}
+
+/*! Avança iterador step vezes. */
+template <typename T>
+ls::ForwardListIterator<T>  ls::ForwardListIterator<T>::operator+=( ls::ForwardListIterator<T>::difference_type step ){
+	while(step > 0){
+		m_current = m_current->next;  
+		step--;
+	}
+
+	return *this;
 }
 
 /*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista. */
@@ -321,4 +337,10 @@ bool ls::ForwardListIterator<T>::operator==( const typename ls::ForwardListItera
 template <typename T>
 bool ls::ForwardListIterator<T>::operator!=( const typename ls::ForwardListIterator<T> & rhs ) const{
 	return (m_current != rhs.m_current);
+}
+
+template <typename T>
+T* ls::ForwardListIterator<T>::operator->( void ) const                 {                     
+	assert( m_current );                     
+	return m_current;                 
 }

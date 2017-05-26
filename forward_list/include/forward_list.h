@@ -10,6 +10,9 @@ namespace ls{
 			T * m_current; //<! Ponteiro para elemento de ForwardList
 
 		public:
+
+            using difference_type = std::ptrdiff_t;
+
 			/*! Construtor padrão para classe iterator. */
 			explicit ForwardListIterator( T * current = nullptr );
 
@@ -33,7 +36,10 @@ namespace ls{
 			/*! Avança iterador para a próxima posição na lista. (it++)
 			 *  \return O iterador requerido.
 			 */
-			ForwardListIterator operator++( int );
+			ForwardListIterator operator++( typename T::value_type );
+
+
+            ForwardListIterator operator+=( difference_type step ) ;
 
 			/*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
 			 *  \return Verdadeiro se os iteradores são iguais, falso caso contrário.
@@ -44,6 +50,8 @@ namespace ls{
 			 *  \return Verdadeiro se os iteradores são diferentes, falso caso contrário.
 			 */
 			bool operator!=( const ForwardListIterator & rhs ) const;
+
+	        T * operator->( void ) const;
 	};
 
 	template<typename T>

@@ -35,11 +35,28 @@ int main(){
     //teste iterator
     ls::ForwardList<int>::iterator it = fl.begin();
 
+    auto i(3);
+    while( it != fl.end() ){
+    	std::cout << *it << " ";
+    	fl.push_front(--i);
+    	++it;
+
+    }
+	std::cout << std::endl;
+	assert(fl.size() == 4);
+
+    //teste insert()
+    it = fl.begin();
+    it+=1;
+    fl.insert(it, 10);
+    assert(fl.size() == 5);
+    it = fl.begin();
     while( it != fl.end() ){
     	std::cout << *it << " ";
     	++it;
+
     }
-    std::cout << std::endl;
+	std::cout << std::endl;
 
     return 0;
 }
