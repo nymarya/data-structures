@@ -69,7 +69,7 @@ int main(){
     it = fl.begin();
     while( it != fl.end() ){
     	std::cout << *it << " ";
-    	++it;
+    	it++;
 
     }
 	std::cout << std::endl;

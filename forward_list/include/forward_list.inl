@@ -323,7 +323,7 @@ template <typename T>
 template <typename T>
 ls::ForwardListIterator<T> ls::ForwardListIterator<T>::operator++( typename T::value_type ){
 	ls::ForwardListIterator<T> temp = *this; 			
-	++m_current;				
+	m_current = m_current->next;				
 	return temp;
 }
 
