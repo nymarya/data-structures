@@ -54,7 +54,7 @@ namespace ls{
 		private:
 
 			//!< Tamanho padrão
-			static constexpr std::size_t DEFAULT_SIZE{100};
+			static constexpr std::size_t DEFAULT_SIZE{0};
 			std::size_t m_size; //!< Tamanho da lista.
 
 			struct Node {

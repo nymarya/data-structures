@@ -84,7 +84,15 @@ typename ls::ForwardList<T>::const_iterator ls::ForwardList<T>::cend( void ) con
 /*! Retorna número de elementos da lista.*/
 template <typename T>
 typename ls::ForwardList<T>::size_type ls::ForwardList<T>::size() const{
+	const Node * work (m_head);
+	std::size_t count(0);
 
+	while( work != nullptr){
+		count++;
+		work = work->next;
+	}
+
+	return count;
 }
 
 /*! Verifica se o vetor não tem elementos.*/
@@ -164,13 +172,41 @@ ls::ForwardListIterator<T> ls::ForwardList<T>::erase( iterator, iterator ){
 /*! Remove o elemento no final da lista.*/
 template <typename T>
 T ls::ForwardList<T>::pop_back(){
+	//<! Gera erro se lista está vazia
+	if( empty())
+		assert(false);
 
+	//<! Cria o "tail" e uma variavel que guarda o anterior
+	auto tail(m_head);
+	auto prev(m_head);
+
+	//<! Percorre a lista
+	while(tail->next != nullptr){
+		prev = tail;
+		tail = tail->next;
+	}
+
+	//Nesse ponto, tail é o utlimo elemento e prev é o penultimo
+	prev->next = nullptr; //<! Prev agora é o ultimo
+	delete tail; //<! Remove o último elemento
+
+	m_size--; //<! Atualiza compimento da lista
 }
 
 /*! Remove o elemento no início do array.*/
 template <typename T>
 void ls::ForwardList<T>::pop_front(){
+	//<! Gera erro se lista está vazia
+	if( empty())
+		assert(false);
 
+	//<! Guarda o segundo
+	Node * aux = m_head->next;
+
+	//<! Head agora guarda o segundo
+	m_head = aux;	
+
+	m_size--; //<! Atualiza tamanho
 }
 
 /*! Substitui o conteúdo da lista por cópias do valor 'value'.*/
@@ -211,10 +247,9 @@ void ls::ForwardList<T>::print( ) const{
 /*! Retorna primeiro elemento da lista.*/
 template <typename T>
 T ls::ForwardList<T>::front() const{
-	//Retorna erro se estiver vazia
+	//<! Retorna erro se estiver vazia
 	if(empty())
 		assert(false);
-
 
 	return (m_head->data);
 }
@@ -222,11 +257,13 @@ T ls::ForwardList<T>::front() const{
 /*! Retorna último elemento da lista.*/
 template <typename T>
 T ls::ForwardList<T>::back() const{
-	//Retorna erro se estiver vazia
-	if(empty())
+	//<! Retorna erro se estiver vazia
+	if( empty() )
 		assert(false);
 
+	//<! Cria um "tail"
 	auto tail(m_head);
+	//<! Percorre a lista
 	while( tail->next != nullptr)
 		tail = tail->next;
 
