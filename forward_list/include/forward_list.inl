@@ -1,4 +1,5 @@
 #include "forward_list.h"
+#include <cassert>
 
 ///////////////////////////
 //  [I] SPECIAL MEMBERS  //
@@ -8,7 +9,7 @@
 template <typename T>
 ls::ForwardList<T>::ForwardList(size_type size)
 : m_size( size)
-, m_head( new Node())
+, m_head( nullptr)
 {/*empty*/}
 
 /*! Constroi a lista com os elementos do intervalo [first, last).*/
@@ -89,7 +90,7 @@ typename ls::ForwardList<T>::size_type ls::ForwardList<T>::size() const{
 /*! Verifica se o vetor não tem elementos.*/
 template <typename T>
 bool ls::ForwardList<T>::empty ()const{
-
+	return (m_head == nullptr);
 }
 
 ///////////////////////////
@@ -105,6 +106,15 @@ void ls::ForwardList<T>::push_back(const T & value){
 /*! Insere elemento no início da lista.*/
 template <typename T>
 void ls::ForwardList<T>::push_front(const T & value){
+
+	//Cria o novo nó
+	Node * aux = new Node(value, nullptr);
+
+	//Novo nó ponta para o primeiro elemento da lista
+	aux->next = m_head;
+
+	//Novo nó agora é primeiro elemento da lista
+	m_head = aux;
 
 }
 
@@ -189,7 +199,12 @@ void ls::ForwardList<T>::print( ) const{
 /*! Retorna primeiro elemento da lista.*/
 template <typename T>
 T ls::ForwardList<T>::front() const{
+	//Retorna erro se estiver vazia
+	if(empty())
+		assert(false);
 
+
+	return (m_head->data);
 }
 
 /*! Retorna último elemento da lista.*/
