@@ -38,12 +38,9 @@ int main(){
 
     auto i(3);
     while( it != fl.end() ){
-    	std::cout << *it << " ";
     	fl.push_front(--i);
     	++it;
-
     }
-	std::cout << std::endl;
 	assert(fl.size() == 4);
 
     //teste insert()
@@ -51,27 +48,27 @@ int main(){
     it+=1;
     fl.insert(it, 10);
     assert(fl.size() == 5);
+
+    std::cout << ">>> Inserindo 10 após {" << *it<< "} = [";
     it = fl.begin();
     while( it != fl.end() ){
-    	std::cout << *it << " ";
-    	++it;
-
+    	std::cout << *it++ << " ";
     }
-	std::cout << std::endl;
+	std::cout << "]"<< std::endl;
 
 	//teste insert() com intervalo [first, last)
-
 	std::vector<int> array = {11, 22, 33};
 	it = fl.begin();
     it+=2;
     fl.insert(it, array.begin(), array.end());
-    //assert(fl.size() == 8);
+    assert(fl.size() == 8);
+    std::cout << ">>> Inserindo {11, 22, 33} após {" << *it<< "} = [";
     it = fl.begin();
     while( it != fl.end() ){
-    	std::cout << *it << " ";
-    	it++;
-
+    	std::cout << *it++ << " ";
     }
-	std::cout << std::endl;
+	std::cout << "]"<< std::endl;
+
+
     return 0;
 }
