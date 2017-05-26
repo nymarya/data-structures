@@ -1,4 +1,5 @@
 #include "forward_list.h"
+#include <vector>
 
 int main(){
 
@@ -58,5 +59,19 @@ int main(){
     }
 	std::cout << std::endl;
 
+	//teste insert() com intervalo [first, last)
+
+	std::vector<int> array = {11, 22, 33};
+	it = fl.begin();
+    it+=2;
+    fl.insert(it, array.begin(), array.end());
+    //assert(fl.size() == 8);
+    it = fl.begin();
+    while( it != fl.end() ){
+    	std::cout << *it << " ";
+    	++it;
+
+    }
+	std::cout << std::endl;
     return 0;
 }

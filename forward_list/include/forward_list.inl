@@ -148,7 +148,7 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardLis
 	Node * nNode = new Node(value, pos->next);
 
 	pos->next = nNode;
-	++pos;
+	pos++;
 
 	return pos;
 }
@@ -156,8 +156,16 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardLis
 /*! Insere os elementos do intervalo [first; last) antes de pos.*/
 template <typename T>
 template<typename InputItr>
-typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator , InputItr , InputItr ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator pos, InputItr first, InputItr last){
 
+	while( first != last){
+		auto temp_node = new Node( *first, pos->next);
+		pos->next = temp_node;
+		++pos;
+		first++;
+	}
+
+	return pos;
 }
 
 /*! Insere elementos de std::initializer_list antes de pos.*/
@@ -197,9 +205,12 @@ T ls::ForwardList<T>::pop_back(){
 
 	//Nesse ponto, tail é o utlimo elemento e prev é o penultimo
 	prev->next = nullptr; //<! Prev agora é o ultimo
+	auto value = tail->data;
 	delete tail; //<! Remove o último elemento
 
 	m_size--; //<! Atualiza compimento da lista
+
+	return value;
 }
 
 /*! Remove o elemento no início do array.*/
