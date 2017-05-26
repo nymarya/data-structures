@@ -145,10 +145,15 @@ void ls::ForwardList<T>::push_front(const T & value){
 /*! Adiciona valor value depois de pos.*/
 template <typename T>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator pos, const T & value ){
+	//<! Cria novo nó
 	Node * nNode = new Node(value, pos->next);
 
-	pos->next = nNode;
-	pos++;
+	//<! Insere novo nó
+	pos->next = nNode; 
+	pos++; //<! Avança
+
+	//<! Atualiza tamanho
+	m_size++;
 
 	return pos;
 }
@@ -159,10 +164,11 @@ template<typename InputItr>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator pos, InputItr first, InputItr last){
 
 	while( first != last){
-		auto temp_node = new Node( *first, pos->next);
-		pos->next = temp_node;
-		++pos;
-		first++;
+		auto temp_node = new Node( *first, pos->next); //<! Cria novo nó
+		pos->next = temp_node; //<! Insere novo nó apos pos
+		++pos;	  //<! Avança na lista
+		first++;  //<! Avança no intervalo
+		m_size++; //<! Atualiza tamanho
 	}
 
 	return pos;
@@ -173,11 +179,12 @@ template <typename T>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator pos, std::initializer_list< T > ilist){
 	
 	for( auto &e: ilist){
-		auto temp_node = new Node( e, pos->next);
-		pos->next = temp_node;
-		++pos;
+		auto temp_node = new Node( e, pos->next); //<! Cria novo nó
+		pos->next = temp_node;  //<! Insere novo nó após pos
+		++pos;       		    //<! Avança na lista
+		m_size++;    		   //<! Atualiza tamanho
 	}
-	
+
 	return pos;
 }
 
