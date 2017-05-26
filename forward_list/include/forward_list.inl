@@ -170,8 +170,15 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardLis
 
 /*! Insere elementos de std::initializer_list antes de pos.*/
 template <typename T>
-typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator, std::initializer_list< T > ){
-
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator pos, std::initializer_list< T > ilist){
+	
+	for( auto &e: ilist){
+		auto temp_node = new Node( e, pos->next);
+		pos->next = temp_node;
+		++pos;
+	}
+	
+	return pos;
 }
 
 /*! Remove o elemento na posição pos.*/

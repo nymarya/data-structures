@@ -60,9 +60,19 @@ int main(){
 	std::vector<int> array = {11, 22, 33};
 	it = fl.begin();
     it+=2;
-    fl.insert(it, array.begin(), array.end());
+    auto n_it = fl.insert(it, array.begin(), array.end());
     assert(fl.size() == 8);
     std::cout << ">>> Inserindo {11, 22, 33} após {" << *it<< "} = [";
+    it = fl.begin();
+    while( it != fl.end() ){
+    	std::cout << *it++ << " ";
+    }
+	std::cout << "]"<< std::endl;
+
+	//Teste insert() com initializer_list
+	fl.insert(n_it, {10,20,30});
+    assert(fl.size() == 11);
+    std::cout << ">>> Inserindo {10, 20, 30} após {" << *n_it<< "} = [";
     it = fl.begin();
     while( it != fl.end() ){
     	std::cout << *it++ << " ";
