@@ -100,22 +100,34 @@ bool ls::ForwardList<T>::empty ()const{
 /*! Insere elemento no final da lista.*/
 template <typename T>
 void ls::ForwardList<T>::push_back(const T & value){
+	//<! Cria um "tail"
+	auto tail( m_head );
 
+	//<! Percorre a lista
+	while( tail != nullptr and tail->next != nullptr )
+		tail = tail->next;
+
+	//<! Insere no final
+	if ( tail != nullptr ){
+		Node * aux = new Node(value, nullptr);
+		tail->next = aux;
+	}
+	else 
+		push_front( value );
+	
 }
 
 /*! Insere elemento no início da lista.*/
 template <typename T>
 void ls::ForwardList<T>::push_front(const T & value){
 
-	//Cria o novo nó
-	Node * aux = new Node(value, nullptr);
+	//<! Cria o novo nó
+	Node * aux = new Node(value, m_head);
 
-	//Novo nó ponta para o primeiro elemento da lista
-	aux->next = m_head;
-
-	//Novo nó agora é primeiro elemento da lista
+	//<! Novo nó agora é primeiro elemento da lista
 	m_head = aux;
 
+	m_size++; //<! Atualiza tamanho
 }
 
 /*! Adiciona valor value antes de pos.*/
@@ -210,7 +222,15 @@ T ls::ForwardList<T>::front() const{
 /*! Retorna último elemento da lista.*/
 template <typename T>
 T ls::ForwardList<T>::back() const{
+	//Retorna erro se estiver vazia
+	if(empty())
+		assert(false);
 
+	auto tail(m_head);
+	while( tail->next != nullptr)
+		tail = tail->next;
+
+	return (tail->data);
 }
 
 ///////////////////////////
