@@ -56,13 +56,17 @@ ls::ForwardList<T>& ls::ForwardList<T>::operator=( std::initializer_list<T> ilis
 /*! Retorna iterador que aponta para o começo do vetor.*/
 template <typename T>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::begin( void ){
-
+	return ls::ForwardList<T>::iterator (m_head);
 }
 
 /*! Retorna iterador que aponta para o final do vetor.*/
 template <typename T>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::end( void ){
+	auto tail(m_head);
+	while (tail != nullptr)
+		tail = tail->next;
 
+	return ls::ForwardList<T>::iterator(tail);
 }
 
 /* Retorna iterador constante que aponta para o começo do vetor.*/
@@ -138,34 +142,34 @@ void ls::ForwardList<T>::push_front(const T & value){
 	m_size++; //<! Atualiza tamanho
 }
 
-/*! Adiciona valor value antes de pos.*/
+/*! Adiciona valor value depois de pos.*/
 template <typename T>
-ls::ForwardListIterator<T> ls::ForwardList<T>::insert( iterator pos, const T & value ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator pos, const T & value ){
 
 }
 
 /*! Insere os elementos do intervalo [first; last) antes de pos.*/
 template <typename T>
 template<typename InputItr>
-ls::ForwardListIterator<T> ls::ForwardList<T>::insert( iterator , InputItr , InputItr ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator , InputItr , InputItr ){
 
 }
 
 /*! Insere elementos de std::initializer_list antes de pos.*/
 template <typename T>
-ls::ForwardListIterator<T> ls::ForwardList<T>::insert( iterator, std::initializer_list< T > ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardList<T>::iterator, std::initializer_list< T > ){
 
 }
 
 /*! Remove o elemento na posição pos.*/
 template <typename T>
-ls::ForwardListIterator<T> ls::ForwardList<T>::erase( iterator ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList<T>::iterator ){
 
 }
 
 /*! Remove os elementos no intervalo [first, last).*/
 template <typename T>
-ls::ForwardListIterator<T> ls::ForwardList<T>::erase( iterator, iterator ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( iterator, iterator ){
 
 }
 
@@ -273,3 +277,48 @@ T ls::ForwardList<T>::back() const{
 ///////////////////////////
 //  [V] OPERATORS        //
 ///////////////////////////
+
+
+///////////////////////////
+//  [VI] ITERATOR CLASS  //
+///////////////////////////
+/*! Construtor padrão.*/
+template <typename T>
+ls::ForwardListIterator<T>::ForwardListIterator(T * current)
+: m_current(current)
+{/*empty*/}
+
+
+/*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador. */
+template <typename T>
+typename T::value_type & ls::ForwardListIterator<T>::operator*( ) const{
+	assert( m_current != nullptr );                     
+	return m_current->data;
+}
+
+/*! Avança iterador para a próxima posição na lista. (++it). */
+template <typename T>
+ ls::ForwardListIterator<T> & ls::ForwardListIterator<T>::operator++( ){
+	m_current = m_current->next;                     
+	return *this;
+}
+
+/*! Avança iterador para a próxima posição na lista. (it++). */
+template <typename T>
+ ls::ForwardListIterator<T> ls::ForwardListIterator<T>::operator++( int ){
+	typename ls::ForwardList<T>::iterator temp = *this; 			
+	m_current++; 				
+	return temp;
+}
+
+/*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista. */
+template <typename T>
+bool ls::ForwardListIterator<T>::operator==( const typename ls::ForwardListIterator<T> & rhs ) const{
+	return (m_current == rhs.m_current);
+}
+
+/*! Retorna verdadeiro se os iteradores fazem referência para pontos diferentes da lista.*/
+template <typename T>
+bool ls::ForwardListIterator<T>::operator!=( const typename ls::ForwardListIterator<T> & rhs ) const{
+	return (m_current != rhs.m_current);
+}

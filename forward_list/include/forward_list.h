@@ -13,10 +13,17 @@ namespace ls{
 			/*! Construtor padrão para classe iterator. */
 			explicit ForwardListIterator( T * current = nullptr );
 
+			/*! Destrutor.*/
+			~ForwardListIterator() = default;
+
+            ForwardListIterator( const ForwardListIterator & ) = default;                 
+
+            ForwardListIterator & operator=( const ForwardListIterator & ) = default;
+
 			/*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
 			 *  \return O valor que o iterador aponta.
 			 * */
-			T & operator*( ) const;
+			typename T::value_type & operator*( ) const;
 
 			/*! Avança iterador para a próxima posição na lista. (++it)
 			 *  \return O iterador requerido.
@@ -27,16 +34,6 @@ namespace ls{
 			 *  \return O iterador requerido.
 			 */
 			ForwardListIterator operator++( int );
-
-			/*! Move iterador para a posição anterior na lista. (--it)
-			 *  \return O iterador requerido.
-			 */
-			ForwardListIterator & operator--( ); 
-
-			/*! Move iterador para a posição anterior na lista. (it--)
-			 *  \return O iterador requerido.
-			 */
-			ForwardListIterator operator--( int );
 
 			/*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
 			 *  \return Verdadeiro se os iteradores são iguais, falso caso contrário.
@@ -58,6 +55,9 @@ namespace ls{
 			std::size_t m_size; //!< Tamanho da lista.
 
 			struct Node {
+
+				using value_type = T;
+
                 T data;      //!< Campo com valor
                 Node *next;  //!< Ponteiro para o próximo nó
                 Node(const T &_d = T(), Node *_nxt = nullptr) : data(_d), next(_nxt) {}
@@ -65,8 +65,8 @@ namespace ls{
             Node *m_head;       //!< Ponteiro para a cabeça do nó
 
 		public:
-			using iterator = ForwardListIterator<T>;
-			using const_iterator = ForwardListIterator<const T>;
+			using iterator = ForwardListIterator<Node>;
+			using const_iterator = ForwardListIterator<const Node>;
 			using size_type = std::size_t;
             using value_type = T;
 

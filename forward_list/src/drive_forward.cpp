@@ -32,6 +32,14 @@ int main(){
     assert(fl.back() == 5);
     assert(fl.size() == 2);
 
+    //teste iterator
+    ls::ForwardList<int>::iterator it = fl.begin();
+
+    while( it != fl.end() ){
+    	std::cout << *it << " ";
+    	++it;
+    }
+    std::cout << std::endl;
 
     return 0;
 }
