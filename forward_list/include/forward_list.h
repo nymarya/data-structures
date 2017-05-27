@@ -38,7 +38,7 @@ namespace ls{
 			 */
 			ForwardListIterator operator++( typename T::value_type );
 
-
+			/*! Avança iterador step vezes. */
             ForwardListIterator operator+=( difference_type step ) ;
 
 			/*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
@@ -51,6 +51,7 @@ namespace ls{
 			 */
 			bool operator!=( const ForwardListIterator & rhs ) const;
 
+			/*! Acessa o elemento para o qual o iterator aponta. */
 	        T * operator->( void ) const;
 	};
 

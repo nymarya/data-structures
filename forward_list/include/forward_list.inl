@@ -72,13 +72,17 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::end( void ){
 /* Retorna iterador constante que aponta para o começo do vetor.*/
 template <typename T>
 typename ls::ForwardList<T>::const_iterator ls::ForwardList<T>::cbegin( void ) const{
-
+    return ls::ForwardList<T>::const_iterator (m_head);
 }
 
 /* Retorna iterador constante que aponta para o final do vetor.*/
 template <typename T>
 typename ls::ForwardList<T>::const_iterator ls::ForwardList<T>::cend( void ) const{
+    auto tail(m_head);
+	while (tail != nullptr)
+		tail = tail->next;
 
+	return ls::ForwardList<T>::const_iterator(tail);
 }
 
 ///////////////////////////
@@ -188,10 +192,18 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::insert( ls::ForwardLis
 	return pos;
 }
 
-/*! Remove o elemento na posição pos.*/
+/*! Remove o elemento após a posição pos.*/
 template <typename T>
-typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList<T>::iterator ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList<T>::iterator pos){
+    //<! Acessa o elemento a ser removido
+    auto target( pos );
+    target++;
 
+    //<! O elemento seguinte a pos será o que segue o removido
+    pos->next = target->next;
+    
+    //<! Retorna o elemento após o removido
+    return ++pos;
 }
 
 /*! Remove os elementos no intervalo [first, last).*/
@@ -364,8 +376,9 @@ bool ls::ForwardListIterator<T>::operator!=( const typename ls::ForwardListItera
 	return (m_current != rhs.m_current);
 }
 
+/*! Acessa o elemento para o qual o iterator aponta. */
 template <typename T>
-T* ls::ForwardListIterator<T>::operator->( void ) const                 {                     
+T* ls::ForwardListIterator<T>::operator->( void ) const {                     
 	assert( m_current );                     
 	return m_current;                 
 }

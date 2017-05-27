@@ -79,6 +79,16 @@ int main(){
     }
 	std::cout << "]"<< std::endl;
 
+    //Teste erase()
+    it = fl.begin();
+    fl.erase( it );
+    //assert(fl.size() == 10);
+    std::cout << ">>> Removendo elemento após {" << *it<< "} = [";
+    it = fl.begin();
+    while( it != fl.end() ){
+    	std::cout << *it++ << " ";
+    }
+	std::cout << "]"<< std::endl;
 
     return 0;
 }
