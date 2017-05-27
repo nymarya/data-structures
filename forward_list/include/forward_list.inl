@@ -212,15 +212,21 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList
 /*! Remove os elementos no intervalo [first, last).*/
 template <typename T>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( iterator first, iterator last){
-    auto current( begin() );
+    auto current( m_head );
+    for(auto it (begin()); ++it != first;)
+        current = current->next;
 
-    while( current->next != first){
-        current++;
-    }
 
+    auto n_next(current);
     while( first != last){
+        auto target( first );
+        
+        n_next = n_next->next;
+
+        //delete target->next;
         first++;
     }
+    current->next = n_next->next;
 }
 
 /*! Remove o elemento no final da lista.*/
