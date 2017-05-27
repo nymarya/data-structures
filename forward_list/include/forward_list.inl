@@ -199,6 +199,9 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList
     auto target( pos );
     target++;
 
+    //<! Remove o elemento
+    delete pos->next;
+
     //<! O elemento seguinte a pos será o que segue o removido
     pos->next = target->next;
     
@@ -208,8 +211,16 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList
 
 /*! Remove os elementos no intervalo [first, last).*/
 template <typename T>
-typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( iterator, iterator ){
+typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( iterator first, iterator last){
+    auto current( begin() );
 
+    while( current->next != first){
+        current++;
+    }
+
+    while( first != last){
+        first++;
+    }
 }
 
 /*! Remove o elemento no final da lista.*/

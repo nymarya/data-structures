@@ -46,10 +46,10 @@ int main(){
     //teste insert()
     it = fl.begin();
     it+=1;
-    fl.insert(it, 10);
+    fl.insert(it, 7);
     assert(fl.size() == 5);
 
-    std::cout << ">>> Inserindo 10 após {" << *it<< "} = [";
+    std::cout << ">>> Inserindo 7 após {" << *it<< "} = [";
     it = fl.begin();
     while( it != fl.end() ){
     	std::cout << *it++ << " ";
@@ -82,7 +82,7 @@ int main(){
     //Teste erase()
     it = fl.begin();
     fl.erase( it );
-    //assert(fl.size() == 10);
+    assert(fl.size() == 10);
     std::cout << ">>> Removendo elemento após {" << *it<< "} = [";
     it = fl.begin();
     while( it != fl.end() ){
