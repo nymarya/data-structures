@@ -218,14 +218,15 @@ namespace ls{
 			 */
 			T pop_back();
 
-			/*! Remove o elemento no início do array.
+			/*! Remove o elemento no início da lista.
 			 */
 			void pop_front();
 
-			/*! Substitui o conteúdo da lista por cópias do valor 'value'.
+			/*! Substitui o conteúdo da lista por n cópias do valor 'value'.
+			 *  \param n Número de cópias
 			 *  \param value Valor que será atribuído à lista.
 			 */
-			void assign( const T & value );
+			void assign( size_type n, const T & value );
 
 			/*! Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).
 			 *  \param first Iterador que aponta para o primeiro valor no intervalo que será copiado.

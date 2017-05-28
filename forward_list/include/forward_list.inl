@@ -274,9 +274,9 @@ void ls::ForwardList<T>::pop_front(){
 	m_size--; //<! Atualiza tamanho
 }
 
-/*! Substitui o conteúdo da lista por cópias do valor 'value'.*/
+/*! Substitui o conteúdo da lista por n cópias do valor 'value'.*/
 template <typename T>
-void ls::ForwardList<T>::assign( const T & value ){
+void ls::ForwardList<T>::assign( size_type n, const T & value ){
 
 }
 
