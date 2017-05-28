@@ -274,23 +274,36 @@ void ls::ForwardList<T>::pop_front(){
 	m_size--; //<! Atualiza tamanho
 }
 
-/*! Substitui o conteúdo da lista por n cópias do valor 'value'.*/
+/*! Substitui o conteúdo da lista cópias do valor 'value'.*/
 template <typename T>
-void ls::ForwardList<T>::assign( size_type n, const T & value ){
-
+void ls::ForwardList<T>::assign( const T & value ){
+	//<! Percorre lista
+	auto it( begin() );
+	while( it != end()) {
+		//<! Insere valor
+		it->data = value;
+	}
 }
 
 /*! Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).*/
 template <typename T>
 template < typename InputItr>
 void ls::ForwardList<T>::assign( InputItr first, InputItr last){
-
+	std::cout << "teste2";
 }
 
 /*! Substitui o conteúdo da lista pelos elementos de ilist.*/
 template <typename T>
 void ls::ForwardList<T>::assign( std::initializer_list<T> ilist ){
+	//<! Remove quaisquer elementos
+	clear();
 
+	//<! Adiciona os valores na lista
+	for(auto &e : ilist )
+		push_back(e);
+	
+	//<! Atualiza tamanho
+	m_size = ilist.size();
 }
 
 /*! Limpa ForwardList. */

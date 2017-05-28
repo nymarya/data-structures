@@ -222,18 +222,17 @@ namespace ls{
 			 */
 			void pop_front();
 
-			/*! Substitui o conteúdo da lista por n cópias do valor 'value'.
-			 *  \param n Número de cópias
-			 *  \param value Valor que será atribuído à lista.
-			 */
-			void assign( size_type n, const T & value );
-
 			/*! Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).
 			 *  \param first Iterador que aponta para o primeiro valor no intervalo que será copiado.
 			 *  \param last Iterador que aponta para a posição posterior ao último elemento do intervalo.
 			 */
 			template < typename InputItr>
 			void assign( InputItr first, InputItr last);
+
+			/*! Substitui o conteúdo da lista por n cópias do valor 'value'.
+			 *  \param value Valor que será atribuído à lista.
+			 */
+			void assign( const T & value );
 
 			/*! Substitui o conteúdo da lista pelos elementos de ilist.
 			 *  \param ilist Initializer list que será copiada para a lista.
