@@ -103,5 +103,10 @@ int main(){
     }
 	std::cout << "]"<< std::endl;
 
+    //Teste clear
+    fl.clear();
+    assert( fl.size() == 0);
+    assert( fl.empty() );
+
     return 0;
 }

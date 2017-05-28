@@ -92,15 +92,7 @@ typename ls::ForwardList<T>::const_iterator ls::ForwardList<T>::cend( void ) con
 /*! Retorna número de elementos da lista.*/
 template <typename T>
 typename ls::ForwardList<T>::size_type ls::ForwardList<T>::size() const{
-	const Node * work (m_head);
-	std::size_t count(0);
-
-	while( work != nullptr){
-		count++;
-		work = work->next;
-	}
-
-	return count;
+	return m_size;
 }
 
 /*! Verifica se o vetor não tem elementos.*/
@@ -127,9 +119,11 @@ void ls::ForwardList<T>::push_back(const T & value){
 	if ( tail != nullptr ){
 		Node * aux = new Node(value, nullptr);
 		tail->next = aux;
+		m_size++; //<! Atualiza tamanho
 	}
 	else 
 		push_front( value );
+	
 	
 }
 
@@ -311,6 +305,8 @@ void ls::ForwardList<T>::clear(){
 		//<! Remove elemento
 		delete target;
 	}
+
+	m_head = current; //<! Atualiza head
 	m_size = 0; //<! Atualiza tamanho
 }
 
