@@ -90,5 +90,18 @@ int main(){
     }
 	std::cout << "]"<< std::endl;
 
+    //Teste erase() com range
+    it = fl.begin();
+    auto it2 = it;
+    it2+=3;
+    std::cout << ">>> Removendo intervalo [" << *it<< ", "<<*it2 <<") = [";
+    fl.erase( it, it2 );
+    assert(fl.size() == 7);
+    it = fl.begin();
+    while( it != fl.end() ){
+    	std::cout << *it++ << " ";
+    }
+	std::cout << "]"<< std::endl;
+
     return 0;
 }

@@ -204,6 +204,7 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList
 
     //<! O elemento seguinte a pos será o que segue o removido
     pos->next = target->next;
+    m_size--; //<! Atualiza tamanho
     
     //<! Retorna o elemento após o removido
     return ++pos;
@@ -212,21 +213,28 @@ typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( ls::ForwardList
 /*! Remove os elementos no intervalo [first, last).*/
 template <typename T>
 typename ls::ForwardList<T>::iterator ls::ForwardList<T>::erase( iterator first, iterator last){
+    //<! Guarda a posição anterior a first
     auto current( m_head );
-    for(auto it (begin()); ++it != first;)
-        current = current->next;
-
-
-    auto n_next(current);
-    while( first != last){
-        auto target( first );
-        
-        n_next = n_next->next;
-
-        //delete target->next;
-        first++;
+    if( first != begin()){
+        for(auto it (begin()); ++it != first;)
+            current = current->next;
+    
     }
-    current->next = n_next->next;
+    auto n_next(current);
+    while( first++ != last){
+        auto target( n_next->next);
+        n_next = n_next->next;
+        if(first != last) delete target;
+        m_size--; //<! Atualiza tamanho
+    } 
+    
+    if (current == m_head)
+        m_head = n_next;
+    else
+        current->next = n_next->next;
+
+
+    return last;
 }
 
 /*! Remove o elemento no final da lista.*/
@@ -294,7 +302,16 @@ void ls::ForwardList<T>::assign( std::initializer_list<T> ilist ){
 /*! Limpa ForwardList. */
 template <typename T>
 void ls::ForwardList<T>::clear(){
-
+	//<! Percorre a lista
+	auto current( m_head);
+	while( current != nullptr){
+		//<! Guarda o que será removido
+		auto target(current);
+		current = current->next; //<! Avança
+		//<! Remove elemento
+		delete target;
+	}
+	m_size = 0; //<! Atualiza tamanho
 }
 
 ///////////////////////////
