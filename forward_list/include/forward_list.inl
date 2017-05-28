@@ -295,8 +295,8 @@ void ls::ForwardList<T>::assign( InputItr first, InputItr last){
 
 	//<! Adiciona os valores na lista
 	auto n(0ul);
-	while( first++ != last){
-		push_back(*first);
+	while( first != last){
+		push_back(*first++);
 		n++;
 	}	
 	

@@ -125,5 +125,15 @@ int main(){
     	assert( *it++ == 4);
     }
 
+    //Teste assign com intervalo
+    ls::ForwardList<int> nv;
+    nv.assign( fl.begin(), fl.end());
+    it = fl.begin();
+    n_it = nv.begin();
+    assert( nv.empty() == false);
+    while( n_it != nv.end() ){
+    	assert( *it++ == *n_it++);
+    }
+
     return 0;
 }
