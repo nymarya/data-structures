@@ -282,6 +282,7 @@ void ls::ForwardList<T>::assign( const T & value ){
 	while( it != end()) {
 		//<! Insere valor
 		it->data = value;
+		it++;
 	}
 }
 
@@ -289,7 +290,18 @@ void ls::ForwardList<T>::assign( const T & value ){
 template <typename T>
 template < typename InputItr>
 void ls::ForwardList<T>::assign( InputItr first, InputItr last){
-	std::cout << "teste2";
+	//<! Remove quaisquer elementos
+	clear();
+
+	//<! Adiciona os valores na lista
+	auto n(0ul);
+	while( first++ != last){
+		push_back(*first);
+		n++;
+	}	
+	
+	//<! Atualiza tamanho
+	m_size = n;
 }
 
 /*! Substitui o conteúdo da lista pelos elementos de ilist.*/

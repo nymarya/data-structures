@@ -108,13 +108,21 @@ int main(){
     assert( fl.size() == 0);
     assert( fl.empty() );
 
-    //Teste assign()
+    //Teste assign() com initilizer list
     fl.assign( {1, 2, 3, 4, 5});
     assert( fl.size() == 5);
     it = fl.begin();
     auto n(1);
     while( it != fl.end() ){
     	assert( *it++ == n++);
+    }
+
+    //Teste assign()
+    fl.assign( 4);
+    assert( fl.size() == 5);
+    it = fl.begin();
+    while( it != fl.end() ){
+    	assert( *it++ == 4);
     }
 
     return 0;
