@@ -4,8 +4,8 @@
 #include <iostream>
 
 namespace ls{
-    template <typename T>
     
+    template <typename T>
     class List {
         private:
             struct Node {
@@ -16,6 +16,10 @@ namespace ls{
                 Node( const T & d = T( ), Node * p = nullptr, Node * n = nullptr )
                 : data( d ), prev(p), next( n ) { /* Empty */ }
             };
+
+            std::size_t m_size;
+            Node *m_head;
+            Node *m_tail;
 
         public:
 
@@ -80,21 +84,24 @@ namespace ls{
             iterator erase( const_iterator first, const_iterator last );
 
             const_iterator find( const T & value ) const;
-
-
-        private:
-
-            int m_size;
-            Node *m_head;
-            Node *m_tail;
     
     };
 
     template <typename T>
     class List<T>::const_iterator {
+        protected:
+            Node *current;
+            const_iterator( Node * p ) : current( p ){}
+            friend class List<T>;
+
         public:
+            /*! Construtor padrão para classe iterator. */
             const_iterator( );
-            const Object & operator*( ) const;
+
+            /*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
+             *  \return O valor que o iterador aponta.
+             * */
+            const T & operator*( ) const;
             const_iterator & operator++( );
             // ++it;
             const_iterator operator++( int ); // it++;
@@ -103,28 +110,24 @@ namespace ls{
             const_iterator operator--( int ); // it--;
             bool operator==( const const_iterator & rhs ) const;
             bool operator!=( const const_iterator & rhs ) const;
-            
-        protected:
-            Node *current;
-            const_iterator( Node * p ) : current( p );
-            friend class List<Object>;
     };
 
     template <typename T>
     class List<T>::iterator : public List<T>::const_iterator {
+        protected:
+            iterator( Node *p ):const_iterator( p ){}
+            friend class List<T>;
+        
         public:
             iterator( ): const_iterator() { /* Empty */ }
-            const Object & operator*( ) const;
-            Object & operator*( );
+            const T & operator*( ) const;
+            T & operator*( );
             const_iterator & operator++( );
             // ++it;
             const_iterator operator++( int ); // it++;
             const_iterator & operator--( );
             // --it;
             const_iterator operator--( int ); // it--;
-        protected:
-            iterator( Node *p ):const_iterator( p );
-            friend class List<Object>;
     };
 } 
 
