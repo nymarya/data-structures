@@ -52,10 +52,22 @@ ls::List<T>::~List( ){
 // [II] ITERADORES       //
 ///////////////////////////
 
+/*! Retorna iterador que aponta para o começo da lista. */
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::begin( ){
+	return ls::List<T>::iterator(m_head->next);
+}
+
 /* Retorna iterador constante que aponta para o começo da lista.*/
 template <typename T>
 typename ls::List<T>::const_iterator ls::List<T>::cbegin( ) const{
 	return ls::List<T>::const_iterator(m_head->next);
+}
+
+/*! Retorna iterador que aponta para o final da lista.*/
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::end( ) {
+	return ls::List<T>::iterator(m_tail);
 }
 
 /* Retorna iterador constante que aponta para o final da lista.*/
@@ -84,18 +96,45 @@ bool ls::List<T>::empty( ) const{
 // [IV] CONSULTA         //
 ///////////////////////////
 
+/*! Retorna uma referência para o primeiro elemento da lista.*/
+template <typename T>
+T & ls::List<T>::front( ){
+	if(empty())
+		throw std::out_of_range("[front()] Cannot recover element from an empty list.");
+
+	return m_head->next->data;
+}
+
+/*! Retorna uma refrência constante para o primeiro elemento da lista.*/
+template <typename T>
+const T & ls::List<T>::front( ) const{
+	if(empty())
+		throw std::out_of_range("[front()] Cannot recover element from an empty list.");
+
+	return m_head->next->data;
+}
+
 ///////////////////////////
 // [V] MODIFICADORES     //
 ///////////////////////////
 /*! Insere elemento no começo da lista.*/
 template <typename T>
-void push_front( const T & value ){
+void ls::List<T>::push_front( const T & value ){
 
+	//<! Cria novo nó 
+	Node * n_node = new Node(value, m_head, m_head->next);
+
+	//<! Insere nó na lista
+	m_head->next->prev = n_node;
+	m_head->next = n_node;
+
+	//<! Atualiza tamanho
+	m_size++;
 }
 
 /*! Insere elemento no final da lista.*/
 template <typename T>
-void push_back( const T & value ){
+void ls::List<T>::push_back( const T & value ){
 
 }
 

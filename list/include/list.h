@@ -57,7 +57,9 @@ namespace ls{
             // [II] ITERADORES       //
             ///////////////////////////
 
-
+            /*! Retorna iterador que aponta para o começo da lista.
+             *  \return Iterador que aponta para o começo da lista.
+             */
             iterator begin( );
 
             /* Retorna iterador constante que aponta para o começo da lista.
@@ -65,6 +67,9 @@ namespace ls{
              */
             const_iterator cbegin( ) const;
 
+            /*! Retorna iterador que aponta para o final da lista.
+             *  \return Iterador que aponta para o final da lista.
+             */
             iterator end( );
 
             /* Retorna iterador constante que aponta para o final da lista.
@@ -90,8 +95,14 @@ namespace ls{
             // [IV] CONSULTA         //
             ///////////////////////////
 
+            /*! Retorna uma referência para o primeiro elemento da lista.
+             *  \return Valor do primeiro elemento da lista.
+             */
             T & front( );
 
+            /*! Retorna uma refrência constante para o primeiro elemento da lista.
+             *  \return Valor do primeiro elemento da lista.
+             */
             const T & front( ) const;
 
             T & back( );
