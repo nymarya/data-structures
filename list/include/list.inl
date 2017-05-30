@@ -103,7 +103,7 @@ void push_back( const T & value ){
 ///////////////////////////
 // CLASSE CONST_ITERATOR //
 ///////////////////////////
-/*! Construtor padrão para classe iterator. */
+/*! Construtor padrão para classe const_iterator. */
 template <typename T>
 ls::List<T>::const_iterator::const_iterator( Node *p)
 :m_ptr(p)
@@ -131,6 +131,21 @@ typename ls::List<T>::const_iterator ls::List<T>::const_iterator::operator++( in
 	return temp;
 }
 
+/*! Move iterador para a posição anterior na lista. (--it). */
+template <typename T>
+typename ls::List<T>::const_iterator & ls::List<T>::const_iterator::operator--( ){
+	m_ptr = m_ptr->prev;
+	return *this;
+}
+
+/*! Move iterador para a posição anterior na lista. (it--). */
+template <typename T>
+typename ls::List<T>::const_iterator ls::List<T>::const_iterator::operator--( int ){
+	auto temp = *this;
+	m_ptr = m_ptr->prev;
+	return temp;
+} 
+
 /*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.*/    
 template <typename T>        
 bool ls::List<T>::const_iterator::operator==( const const_iterator & rhs ) const{
@@ -141,4 +156,55 @@ bool ls::List<T>::const_iterator::operator==( const const_iterator & rhs ) const
 template <typename T>
 bool ls::List<T>::const_iterator::operator!=( const const_iterator & rhs ) const{
 	return (m_ptr != rhs.m_ptr);
+}
+
+///////////////////////////
+// CLASSE ITERATOR       //
+///////////////////////////
+/*! Construtor padrão para classe const_iterator. */
+template <typename T>
+ls::List<T>::iterator::iterator( Node * p )
+: const_iterator(p) 
+{ /* Empty */ }
+
+/*! Retorna uma referência constante para o objeto lozalizado na posição apontada pelo iterador.*/
+template <typename T>
+const T & ls::List<T>::iterator::operator*( ) const{
+	return const_iterator::m_ptr->data;
+}
+
+/*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.*/
+template <typename T>
+T & ls::List<T>::iterator::operator*( ){
+	return const_iterator::m_ptr->data;
+}
+
+/*! Avança iterador para a próxima posição na lista. (++it) */
+template <typename T>
+typename ls::List<T>::iterator & ls::List<T>::iterator::operator++( ){
+	const_iterator::m_ptr = const_iterator::m_ptr->next;
+	return *this;
+}
+
+/*! Move iterador para a posição anterior na lista. (--it) */
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::iterator::operator++( int ){
+	auto temp = *this;
+	const_iterator::m_ptr = const_iterator::m_ptr->next;
+	return temp;
+}
+
+/*! Move iterador para a posição anterior na lista. (--it) */
+template <typename T>
+typename ls::List<T>::iterator & ls::List<T>::iterator::operator--( ){
+	const_iterator::m_ptr = const_iterator::m_ptr->prev;
+	return *this;
+}
+
+/*! Move iterador para a posição anterior na lista. (it--) */
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::iterator::operator--( int ){
+	auto temp = *this;
+	const_iterator::m_ptr = const_iterator::m_ptr->prev;
+	return temp;
 }

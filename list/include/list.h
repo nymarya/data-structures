@@ -144,12 +144,12 @@ namespace ls{
             friend class List<T>;
 
         public:
-            /*! Construtor padrão para classe iterator. */
+            /*! Construtor padrão para classe const_iterator. */
             const_iterator( Node *p);
 
             /*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
              *  \return O valor que o iterador aponta.
-            */
+             */
             const T & operator*( ) const;
 
             /*! Avança iterador para a próxima posição na lista. (++it)
@@ -161,8 +161,15 @@ namespace ls{
              *  \return O iterador requerido.
              */
             const_iterator operator++( int ); 
+
+            /*! Move iterador para a posição anterior na lista. (--it)
+             *  \return O iterador requerido.
+             */
             const_iterator & operator--( );
-            // --it;
+           
+            /*! Move iterador para a posição anterior na lista. (it--)
+             *  \return O iterador requerido.
+             */
             const_iterator operator--( int ); 
 
             /*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
@@ -179,19 +186,41 @@ namespace ls{
     template <typename T>
     class List<T>::iterator : public List<T>::const_iterator {
         protected:
-            iterator( Node *p ):const_iterator( p ){}
             friend class List<T>;
         
         public:
-            iterator( ): const_iterator() { /* Empty */ }
+            /*! Construtor padrão para classe iterator. */
+            iterator( Node * p );
+
+            /*! Retorna uma referência constante para o objeto lozalizado na posição apontada pelo iterador.
+             *  \return O valor que o iterador aponta.
+             */
             const T & operator*( ) const;
+
+            /*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
+             *  \return O valor que o iterador aponta.
+             */
             T & operator*( );
-            const_iterator & operator++( );
-            // ++it;
-            const_iterator operator++( int ); // it++;
-            const_iterator & operator--( );
-            // --it;
-            const_iterator operator--( int ); // it--;
+
+            /*! Avança iterador para a próxima posição na lista. (++it)
+             *  \return O iterador requerido.
+             */
+            iterator & operator++( );
+            
+            /*! Move iterador para a posição anterior na lista. (--it)
+             *  \return O iterador requerido.
+             */
+            iterator operator++( int ); 
+
+            /*! Move iterador para a posição anterior na lista. (--it)
+             *  \return O iterador requerido.
+             */
+            iterator & operator--( );
+            
+            /*! Move iterador para a posição anterior na lista. (it--)
+             *  \return O iterador requerido.
+             */
+            iterator operator--( int );
     };
 } 
 
