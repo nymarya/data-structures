@@ -60,10 +60,16 @@ namespace ls{
 
             iterator begin( );
 
+            /* Retorna iterador constante que aponta para o começo da lista.
+             * \return Iterador que aponta para o começo da lista.
+             */
             const_iterator cbegin( ) const;
 
             iterator end( );
 
+            /* Retorna iterador constante que aponta para o final da lista.
+             * \return Iterador que aponta para o final da lista.
+             */
             const_iterator cend( ) const;
 
             ///////////////////////////
@@ -98,8 +104,14 @@ namespace ls{
 
             void clear( );
 
+            /*! Insere elemento no começo da lista.
+             *  \param value Valor a ser inserido no final da lista.
+             */
             void push_front( const T & value );
 
+            /*! Insere elemento no final da lista.
+             *  \param value Valor a ser inserido no final da lista.
+             */
             void push_back( const T & value );
 
             void pop_front( );
@@ -128,25 +140,39 @@ namespace ls{
     template <typename T>
     class List<T>::const_iterator {
         protected:
-            Node *current;
-            const_iterator( Node * p ) : current( p ){}
+            Node *m_ptr;
             friend class List<T>;
 
         public:
             /*! Construtor padrão para classe iterator. */
-            const_iterator( );
+            const_iterator( Node *p);
 
             /*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
              *  \return O valor que o iterador aponta.
-             * */
+            */
             const T & operator*( ) const;
+
+            /*! Avança iterador para a próxima posição na lista. (++it)
+             *  \return O iterador requerido.
+             */
             const_iterator & operator++( );
-            // ++it;
-            const_iterator operator++( int ); // it++;
+
+            /*! Avança iterador para a próxima posição na lista. (it++)
+             *  \return O iterador requerido.
+             */
+            const_iterator operator++( int ); 
             const_iterator & operator--( );
             // --it;
-            const_iterator operator--( int ); // it--;
+            const_iterator operator--( int ); 
+
+            /*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
+             *  \return Verdadeiro se os iteradores são iguais, falso caso contrário.
+             */            
             bool operator==( const const_iterator & rhs ) const;
+
+            /*! Retorna verdadeiro se os iteradores fazem referência para pontos diferentes da lista.
+             *  \return Verdadeiro se os iteradores são diferentes, falso caso contrário.
+             */
             bool operator!=( const const_iterator & rhs ) const;
     };
 
