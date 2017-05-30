@@ -9,25 +9,35 @@ namespace ls{
     class List {
         private:
             struct Node {
-                T data;
-                Node * prev;
-                Node * next;
+                T data;      //<! Valor armazenado no nó
+                Node * prev; //<! Ponteiro para o nó anterior
+                Node * next; //<! Ponteiro para o pŕóximo nó
 
+                /*! Construtor simples para o nó. */
                 Node( const T & d = T( ), Node * p = nullptr, Node * n = nullptr )
                 : data( d ), prev(p), next( n ) { /* Empty */ }
             };
 
-            std::size_t m_size;
-            Node *m_head;
-            Node *m_tail;
+            std::size_t m_size; //<! Tamanho da lista
+            Node *m_head;       //<! Cabeça da lista
+            Node *m_tail;       //<! Calda da lista
 
         public:
 
+            ///////////////////////////
+            // [I] MEMBROS ESPECIAIS //
+            ///////////////////////////
+
+            /*! Classe aninhada const_iterator.*/
             class const_iterator;
 
+            /*! Classe aninhada iterator. */
             class iterator;
 
+            /*! Construtor padrão. */
             List( );
+
+            /*! Destrutor. */
             ~List( );
 
             List( const List & );
