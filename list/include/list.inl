@@ -1,5 +1,6 @@
 #include "list.h"
 #include <cassert>
+#include <stdexcept>
 
 ///////////////////////////
 // [I] MEMBROS ESPECIAIS //
@@ -135,7 +136,23 @@ void ls::List<T>::push_front( const T & value ){
 /*! Insere elemento no final da lista.*/
 template <typename T>
 void ls::List<T>::push_back( const T & value ){
+	insert(end(), value);
+}
 
+/*! Adiciona valor value antes de pos.*/
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::insert( const_iterator pos, const T & value ){
+	//<! Atualiza tamanho
+	m_size++;
+
+	//<! Cria novo nó
+	Node * n_node = new Node(value, pos.m_ptr, pos.m_ptr->prev);
+
+	//<! Insere novo nó
+	pos.m_ptr->next->prev = n_node;
+	pos.m_ptr->next = n_node;
+
+	return n_node;
 }
 
 

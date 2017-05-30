@@ -136,7 +136,12 @@ namespace ls{
 
             void assign( std::initializer_list<T> ilist );
 
-            iterator insert( const_iterator itr, const T & value );
+            /*! Adiciona valor value antes de pos.
+             *  \param pos Iterador que aponta para a posição posterior aonde o valor será inserido.
+             *  \param value Valor a ser inserido.
+             *  \return Iterador que aponta para a posição do item inserido.
+             */
+            iterator insert( const_iterator pos, const T & value );
 
             iterator insert( const_iterator pos, std::initializer_list<T> ilist );
 
@@ -192,6 +197,11 @@ namespace ls{
              *  \return Verdadeiro se os iteradores são diferentes, falso caso contrário.
              */
             bool operator!=( const const_iterator & rhs ) const;
+
+            /*! Acessa o elemento para o qual o iterator aponta.
+             *  \return Nó para o qual o iterador aponta.
+             */
+            T * operator->( void ) const;
     };
 
     template <typename T>
@@ -232,6 +242,8 @@ namespace ls{
              *  \return O iterador requerido.
              */
             iterator operator--( int );
+
+             T * operator->( void );
     };
 } 
 
