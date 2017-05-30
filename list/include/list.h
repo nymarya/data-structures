@@ -24,6 +24,8 @@ namespace ls{
 
         public:
 
+            using size_type = std::size_t;
+
             ///////////////////////////
             // [I] MEMBROS ESPECIAIS //
             ///////////////////////////
@@ -37,6 +39,9 @@ namespace ls{
             /*! Construtor padrão. */
             List( );
 
+            /*! Constrói a lista com count cópias de T. */
+            explicit List( size_type count );
+
             /*! Destrutor. */
             ~List( );
 
@@ -48,6 +53,11 @@ namespace ls{
 
             List & operator=( List && );
 
+            ///////////////////////////
+            // [II] ITERADORES       //
+            ///////////////////////////
+
+
             iterator begin( );
 
             const_iterator cbegin( ) const;
@@ -56,11 +66,23 @@ namespace ls{
 
             const_iterator cend( ) const;
 
-            std::size_t size( ) const;
+            ///////////////////////////
+            // [III] CAPACIDADE      //
+            ///////////////////////////
 
+            /*! Retorna número de elementos da lista.
+             *  \return Tamanho lógico da lista.
+             */
+            size_type size( ) const;
+
+            /*! Verifica se a lista não tem elementos.
+             *  \return Verdadeiro se a lista está vazia, falso caso contrário.
+             */
             bool empty( ) const;
 
-            void clear( );
+            ///////////////////////////
+            // [IV] CONSULTA         //
+            ///////////////////////////
 
             T & front( );
 
@@ -69,6 +91,12 @@ namespace ls{
             T & back( );
 
             const T & back( ) const;
+
+            ///////////////////////////
+            // [V] MODIFICADORES     //
+            ///////////////////////////
+
+            void clear( );
 
             void push_front( const T & value );
 
