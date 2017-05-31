@@ -131,6 +131,8 @@ namespace ls{
              */
             void push_back( const T & value );
 
+            /*! Remove o elemento no início da lista.
+			 */
             void pop_front( );
 
             void pop_back( );
@@ -151,7 +153,11 @@ namespace ls{
 
             iterator insert( const_iterator pos, std::initializer_list<T> ilist );
 
-            iterator erase( const_iterator itr );
+            /*! Remove o elemento na posição pos.
+			 *  \param pos Iterador que aponta para o elemento a ser removido.
+			 *  \return Iterador para o elemento que segue pos antes de o método ser chamado.
+			 */
+            iterator erase( const_iterator pos );
 
             iterator erase( const_iterator first, const_iterator last );
 

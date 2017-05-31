@@ -157,6 +157,15 @@ void ls::List<T>::push_back( const T & value ){
 	insert(end(), value);
 }
 
+/*! Remove o elemento no início da lista.*/
+template <typename T>
+void ls::List<T>::pop_front( ){
+	if(empty())
+		throw std::out_of_range("[pop_front()] Cannot remove element from an empty list.");
+
+	erase(begin());
+}
+
 /*! Adiciona valor value antes de pos.*/
 template <typename T>
 typename ls::List<T>::iterator ls::List<T>::insert( const_iterator pos, const T & value ){
@@ -173,6 +182,28 @@ typename ls::List<T>::iterator ls::List<T>::insert( const_iterator pos, const T 
 	return ls::List<T>::iterator(n_node);
 }
 
+/*! Remove o elemento na posição pos.*/
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::erase( const_iterator pos ){
+	if(empty())
+		throw std::out_of_range("[erase()] Cannot remove element from an empty list.");
+
+	auto after(pos.m_ptr->next );
+
+	//<! Seguinte aponta para o anterior a pos
+	after->prev = pos.m_ptr->prev;
+
+	//<! Anterior aponta para o que segue pos
+	pos.m_ptr->prev->next = after;
+
+	//<! Remove elemento apontado por pos
+	delete pos.m_ptr;
+
+	//<! Atualiza tamanho
+	m_size--;
+
+	return ls::List<T>::iterator(after);
+}
 
 ///////////////////////////
 // CLASSE CONST_ITERATOR //

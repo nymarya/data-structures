@@ -24,6 +24,15 @@ int main(){
     ll.push_back(2);
     assert( ll.size() == 3);
     assert(ll.back() == 2);
+    ll.push_back(3);
+    ll.push_back(4);
+    ll.push_back(5);
+    assert(ll.size() == 6);
+    assert( ll.back() == 5);
+
+    //Teste pop_front() 
+    ll.pop_front();
+    assert( ll.front() == 1);
 
     //teste construtor com count
     ls::List<int> n_list(8);
