@@ -84,7 +84,8 @@ int main(){
     n_list = ll;
     assert( n_list == ll);
 
-    ls::List<int> fib = {1, 1, 2, 3, 5, 8, 13, 21};
+    ls::List<int> fib;
+    fib = {1, 1, 2, 3, 5, 8, 13, 21};
     ls::List<int>::const_iterator bg = fib.cbegin();
     auto a = bg;
     auto b = bg;
@@ -93,6 +94,40 @@ int main(){
     while( bg != fib.cend() ){
         assert(*a++ + *b++ == *bg++);
     }
+
+    //Teste insert() com intervalo
+    std::cout << "Lista original = [";
+    for( auto it( ll.begin() ); it != ll.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]\n\n";
+
+
+    it = ll.begin();
+    bg = fib.cbegin();
+    bg+=5; 
+    ll.insert( it+=3, bg, fib.cend() );
+    std::cout << "Inserindo {8, 13, 21} antes de "<< *it << " = [";
+    for( auto it( ll.begin() ); it != ll.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]\n";
+
+    //Teste insert() com initializer list
+    ll.insert( it+=3, {22, 33, 44} );
+    std::cout << "Inserindo {22, 33, 44} antes de "<< *it << " = [";
+    for( auto it( ll.begin() ); it != ll.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]\n";
+
+    //Teste remove() com intervalo
+    auto first( ll.begin() );
+    auto last( ll.begin() );
+    ll.erase( first+=1,last+=4);
+    std::cout << "Removendo ["<< *first <<", "<< *last<<") = [";
+    for( auto it( ll.begin() ); it != ll.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]\n";
+
+
 
     std::cout << ">>>Testes realizados com sucesso!\n";
 

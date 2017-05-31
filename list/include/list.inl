@@ -120,6 +120,8 @@ ls::List<T>& ls::List<T>::operator=( std::initializer_list<T> ilist ){
 	//<! Preenche a lista com o conteúdo de ilist
 	for( auto it( ilist.begin() ); it != ilist.end(); ++it)
 		push_back(*it);
+
+	return *this;
 }
 
 ///////////////////////////
@@ -307,6 +309,28 @@ typename ls::List<T>::iterator ls::List<T>::insert( const_iterator pos, const T 
 	return ls::List<T>::iterator(n_node);
 }
 
+/*! Insere os elementos do intervalo [first; last) antes de pos. */
+template < typename T>
+template < typename InItr>
+typename ls::List<T>::iterator ls::List<T>::insert( iterator pos, InItr first, InItr last ){
+	//<! Percorre o intervalo e insere cada elemento na lista
+	while( first != last){
+		insert(pos, *first++);
+	}
+		
+	return pos;
+}
+
+/*! Insere elementos de std::initializer_list antes de pos. */
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::insert( const_iterator pos, std::initializer_list<T> ilist ){
+	//<! Insere cada elemento de ilist antes de pos
+	for(const auto &e : ilist)
+		insert(pos, e);
+
+	return ls::List<T>::iterator(pos.m_ptr);
+}
+
 /*! Remove o elemento na posição pos.*/
 template <typename T>
 typename ls::List<T>::iterator ls::List<T>::erase( const_iterator pos ){
@@ -328,6 +352,21 @@ typename ls::List<T>::iterator ls::List<T>::erase( const_iterator pos ){
 	m_size--;
 
 	return ls::List<T>::iterator(after);
+}
+
+/*! Remove os elementos no intervalo [first, last). */
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::erase( iterator first, iterator last ){
+	if(empty())
+		throw std::out_of_range("[erase()] Cannot remove element from an empty list.");
+
+	//<! Remove elementos do intervalo
+	while( first != last){
+		first++;
+		erase( first.m_ptr->prev);
+	}
+
+	return last;
 }
 
 ///////////////////////////
