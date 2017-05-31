@@ -85,6 +85,20 @@ ls::List<T>::List( const List & other )
 		push_back(*it);
 }
 
+/*! Construtor com conteúdo de initializer list. */
+template <typename T>
+ls::List<T>::List( std::initializer_list<T> ilist )
+: m_size( 0 )
+, m_head( new Node() )
+, m_tail( new Node() )
+{
+	m_head->next = m_tail;
+	m_tail->prev = m_head;
+
+	for( auto it( ilist.begin() ); it != ilist.end(); ++it)
+		push_back(*it);
+}
+
 ///////////////////////////
 // [II] ITERADORES       //
 ///////////////////////////
@@ -232,6 +246,29 @@ void ls::List<T>::assign(const T& value ){
 	//<! Substitui todos os valores da lista por value
 	for( auto it( begin() ); it != end(); it++)
 		*it = value;
+}
+
+/*! Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last). */
+template <typename T>
+template <class InItr >
+void ls::List<T>::assign( InItr first, InItr last ){
+	//<! Limpa a lista
+	clear();
+
+	//<! Substitui pelo conteudo de ilist
+	while(first != last)
+		push_back( *first++);
+}
+
+/*! Substitui o conteúdo da lista pelos elementos de ilist. */
+template <typename T>
+void ls::List<T>::assign( std::initializer_list<T> ilist ){
+	//<! Limpa a lista
+	clear();
+
+	//<! Substitui pelo conteudo de ilist
+	for(const auto &e : ilist)
+		push_back( e);
 }
 
 /*! Adiciona valor value antes de pos.*/

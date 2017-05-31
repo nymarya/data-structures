@@ -1,5 +1,6 @@
 #include "list.h"
 #include <cassert>
+#include <vector>
 
 int main(){
 
@@ -61,7 +62,17 @@ int main(){
     ls::List<int> cpy( n_list );
     assert( cpy == n_list );
 
+    //Teste construtor com initializer list
+    ls::List< std::string > strs {"aa", "ee", "ii", "oo"};
+    assert( strs.size() == 4);
+
     //Teste assign() com intervalo
+    std::vector<std::string> anoes = { "atchim", "dunga", "feliz", "mestre", "zangado", "soneca", "dengoso"};
+    strs.assign( anoes.begin(), anoes.end());
+    auto i(0);
+    for( auto it( strs.cbegin() ); it != strs.cend(); ++it )
+        assert( *it == anoes[i++]);
+
 
     std::cout << ">>>Testes realizados com sucesso!\n";
 

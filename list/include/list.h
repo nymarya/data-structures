@@ -59,6 +59,9 @@ namespace ls{
 			 */
             List( const List & other );
 
+            /*! Construtor com conteúdo de initializer list.
+			 *  \param init Initializer list cujo conteúdo preenche a lista.
+			 */
             List( std::initializer_list<T> ilist );
 
             List & operator= ( const List & );
@@ -157,9 +160,16 @@ namespace ls{
 			 */
             void assign(const T& value );
 
+            /*! Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).
+			 *  \param first Iterador que aponta para o primeiro valor no intervalo que será copiado.
+			 *  \param last Iterador que aponta para a posição posterior ao último elemento do intervalo.
+			 */
             template <class InItr >
             void assign( InItr first, InItr last );
 
+            /*! Substitui o conteúdo da lista pelos elementos de ilist.
+			 *  \param ilist Initializer list que será copiada para a lista.
+			 */
             void assign( std::initializer_list<T> ilist );
 
             /*! \brief Adiciona valor value antes de pos.
