@@ -73,6 +73,26 @@ int main(){
     for( auto it( strs.cbegin() ); it != strs.cend(); ++it )
         assert( *it == anoes[i++]);
 
+    //Teste assign() com initializer lis
+    ll.assign({1, 2, 3, 4, 5, 6, 7});
+    assert( ll.size() == 7 );
+    i = 1;
+    for( auto it( ll.cbegin() ); it != ll.cend(); ++it )
+        assert( *it == i++);
+
+    //Teste operador de atribuição por copia
+    n_list = ll;
+    assert( n_list == ll);
+
+    ls::List<int> fib = {1, 1, 2, 3, 5, 8, 13, 21};
+    ls::List<int>::const_iterator bg = fib.cbegin();
+    auto a = bg;
+    auto b = bg;
+    b+=1;
+    bg+=2;
+    while( bg != fib.cend() ){
+        assert(*a++ + *b++ == *bg++);
+    }
 
     std::cout << ">>>Testes realizados com sucesso!\n";
 

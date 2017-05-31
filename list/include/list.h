@@ -59,13 +59,21 @@ namespace ls{
 			 */
             List( const List & other );
 
-            /*! Construtor com conteúdo de initializer list.
+            /*! \brief Construtor com conteúdo de initializer list.
 			 *  \param init Initializer list cujo conteúdo preenche a lista.
 			 */
             List( std::initializer_list<T> ilist );
 
+            /*! \brief Operador de atribuição por cópia.
+			 *  \param other Lista a ser copiada.
+			 *  \return O novo objeto.
+			 */
             List & operator= ( const List & );
 
+            /*! \brief Substitui o conteúdo da lista pelos elementos de ilist.
+			 *  \param ilist Initializer list cujo conteúdo irá preencher a lista.
+			 *  \return O novo objeto.
+			 */
             List& operator=( std::initializer_list<T> ilist );
 
             ///////////////////////////
@@ -160,14 +168,14 @@ namespace ls{
 			 */
             void assign(const T& value );
 
-            /*! Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).
+            /*! \brief Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).
 			 *  \param first Iterador que aponta para o primeiro valor no intervalo que será copiado.
 			 *  \param last Iterador que aponta para a posição posterior ao último elemento do intervalo.
 			 */
             template <class InItr >
             void assign( InItr first, InItr last );
 
-            /*! Substitui o conteúdo da lista pelos elementos de ilist.
+            /*! \brief Substitui o conteúdo da lista pelos elementos de ilist.
 			 *  \param ilist Initializer list que será copiada para a lista.
 			 */
             void assign( std::initializer_list<T> ilist );
@@ -200,6 +208,8 @@ namespace ls{
             friend class List<T>;
 
         public:
+            using difference_type = std::ptrdiff_t;
+
             /*! \brief Construtor padrão para classe const_iterator. */
             const_iterator( Node *p);
 
@@ -238,10 +248,17 @@ namespace ls{
              */
             bool operator!=( const const_iterator & rhs ) const;
 
-            /*! \brief Acessa o elemento para o qual o iterator aponta.
-             *  \return Nó para o qual o iterador aponta.
+            /*! \brief Avança iterador step vezes.
+             *  \param step Vezes que o iterador irá avançar.
+             *  \return O iterador requerido.
              */
-            T * operator->( void ) const;
+            const_iterator operator+=( difference_type step ) ;
+
+            /*! \brief Move iterador step vezes para trás.
+             *  \param step Vezes que o iterador irá mover-se.
+             *  \return O iterador requerido.
+             */
+            const_iterator operator-=( difference_type step ) ;
     };
 
     template <typename T>
@@ -283,7 +300,17 @@ namespace ls{
              */
             iterator operator--( int );
 
-             T * operator->( void );
+            /*! \brief Avança iterador step vezes.
+             *  \param step Vezes que o iterador irá avançar.
+             *  \return O iterador requerido.
+             */
+            iterator operator+=( typename const_iterator::difference_type step ) ;
+
+            /*! \brief Move iterador step vezes para trás.
+             *  \param step Vezes que o iterador irá mover-se.
+             *  \return O iterador requerido.
+             */
+            iterator operator-=( typename const_iterator::difference_type step ) ;
     };
 } 
 

@@ -51,17 +51,12 @@ ls::List<T>::~List( ){
 /*! Constroi a lista com os elementos do intervalo [first, last). */
 template <typename T>
 template< typename InputIt >
-ls::List<T>::List( InputIt first, InputIt last ){
-	size_type sz = 0;
-	auto it(first);
-	while( it++ != last){
-		sz++;
-	}
-
+ls::List<T>::List( InputIt first, InputIt last )
+: m_size( 0 )
+, m_head( new Node() )
+, m_tail( new Node() )
+{
 	//<! Cria nova lista
-	m_size = 0;
-	m_head = new Node();
-	m_tail = new Node();
 	m_head->next = m_tail;
 	m_tail->prev = m_head;
 
@@ -81,6 +76,7 @@ ls::List<T>::List( const List & other )
 	m_head->next = m_tail;
 	m_tail->prev = m_head;
 
+	//<! Preenche a lista com o conteúdo de other
 	for( auto it( other.cbegin() ); it != other.cend(); ++it)
 		push_back(*it);
 }
@@ -95,6 +91,33 @@ ls::List<T>::List( std::initializer_list<T> ilist )
 	m_head->next = m_tail;
 	m_tail->prev = m_head;
 
+	//<! Preenche a lista com o conteúdo de ilist
+	for( auto it( ilist.begin() ); it != ilist.end(); ++it)
+		push_back(*it);
+}
+
+/*! Operador de atribuição por cópia. */
+template <typename T>
+ls::List<T> & ls::List<T>::operator= ( const List & other ){
+	if (this == &other) return *this;
+
+	//<! Limpa a lista
+	clear();
+
+	//<! Preenche a lista com o conteúdo de other
+	for( auto it( other.cbegin() ); it != other.cend(); ++it)
+		push_back( *it);
+
+	return *this;
+}
+
+/*! Substitui o conteúdo da lista pelos elementos de ilist. */
+template <typename T>
+ls::List<T>& ls::List<T>::operator=( std::initializer_list<T> ilist ){
+	//<! Limpa a lista
+	clear();
+
+	//<! Preenche a lista com o conteúdo de ilist
 	for( auto it( ilist.begin() ); it != ilist.end(); ++it)
 		push_back(*it);
 }
@@ -189,10 +212,7 @@ const T & ls::List<T>::back( ) const{
 
 /*! Limpa lista. */
 template <typename T>
-void ls::List<T>::clear( ){
-	//<! Atualiza tamanho
-	m_size = 0;
-
+void ls::List<T>::clear( ){	
 	//<! Percorre a lista e remove elementos
 	auto it( begin() );
 	while( it++ != end() ){
@@ -403,6 +423,28 @@ bool ls::List<T>::const_iterator::operator!=( const const_iterator & rhs ) const
 	return (m_ptr != rhs.m_ptr);
 }
 
+/*! Avança iterador step vezes.*/
+template <typename T>
+typename ls::List<T>::const_iterator ls::List<T>::const_iterator::operator+=( difference_type step ){
+	//<! Avança o iterador
+	while(step > 0){
+		m_ptr = m_ptr->next;  
+		step--;
+	}
+	return *this;
+}
+
+/*! Move iterador step vezes para trás.*/
+template <typename T>
+typename ls::List<T>::const_iterator ls::List<T>::const_iterator::operator-=( difference_type step ){
+	//<! Volta com o iterador
+	while(step > 0){
+		m_ptr = m_ptr->prev;  
+		step--;
+	}
+	return *this;
+}
+
 ///////////////////////////
 // CLASSE ITERATOR       //
 ///////////////////////////
@@ -452,4 +494,26 @@ typename ls::List<T>::iterator ls::List<T>::iterator::operator--( int ){
 	auto temp = *this;
 	const_iterator::m_ptr = const_iterator::m_ptr->prev;
 	return temp;
+}
+
+/*! Avança iterador step vezes.*/
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::iterator::operator+=( typename const_iterator::difference_type step ){
+	//<! Avança o iterador
+	while(step > 0){
+		const_iterator::m_ptr = const_iterator::m_ptr->next;  
+		step--;
+	}
+	return *this;
+}
+
+/*! Move iterador step vezes para trás.*/
+template <typename T>
+typename ls::List<T>::iterator ls::List<T>::iterator::operator-=( typename const_iterator::difference_type step ){
+	//<! Avança o iterador
+	while(step > 0){
+		const_iterator::m_ptr = const_iterator::m_ptr->prev;  
+		step--;
+	}
+	return *this;
 }
