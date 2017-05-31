@@ -34,6 +34,10 @@ int main(){
     ll.pop_front();
     assert( ll.front() == 1);
 
+    //Teste pop_back()
+    ll.pop_back();
+    assert( ll.back() == 4);
+
     //teste construtor com count
     ls::List<int> n_list(8);
     assert( n_list.size() == 8);

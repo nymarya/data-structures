@@ -13,7 +13,7 @@ namespace ls{
                 Node * prev; //<! Ponteiro para o nó anterior
                 Node * next; //<! Ponteiro para o pŕóximo nó
 
-                /*! Construtor simples para o nó. */
+                /*! \brief Construtor simples para o nó. */
                 Node( const T & d = T( ), Node * p = nullptr, Node * n = nullptr )
                 : data( d ), prev(p), next( n ) { /* Empty */ }
             };
@@ -30,19 +30,19 @@ namespace ls{
             // [I] MEMBROS ESPECIAIS //
             ///////////////////////////
 
-            /*! Classe aninhada const_iterator.*/
+            /*! \brief Classe aninhada const_iterator.*/
             class const_iterator;
 
-            /*! Classe aninhada iterator. */
+            /*! \brief Classe aninhada iterator. */
             class iterator;
 
-            /*! Construtor padrão. */
+            /*! \brief Construtor padrão. */
             List( );
 
-            /*! Constrói a lista com count cópias de T. */
+            /*! \brief Constrói a lista com count cópias de T. */
             explicit List( size_type count );
 
-            /*! Destrutor. */
+            /*! \brief Destrutor. */
             ~List( );
 
             List( const List & );
@@ -57,7 +57,7 @@ namespace ls{
             // [II] ITERADORES       //
             ///////////////////////////
 
-            /*! Retorna iterador que aponta para o começo da lista.
+            /*! \brief Retorna iterador que aponta para o começo da lista.
              *  \return Iterador que aponta para o começo da lista.
              */
             iterator begin( );
@@ -67,7 +67,7 @@ namespace ls{
              */
             const_iterator cbegin( ) const;
 
-            /*! Retorna iterador que aponta para o final da lista.
+            /*! \brief Retorna iterador que aponta para o final da lista.
              *  \return Iterador que aponta para o final da lista.
              */
             iterator end( );
@@ -81,12 +81,12 @@ namespace ls{
             // [III] CAPACIDADE      //
             ///////////////////////////
 
-            /*! Retorna número de elementos da lista.
+            /*! \brief Retorna número de elementos da lista.
              *  \return Tamanho lógico da lista.
              */
             size_type size( ) const;
 
-            /*! Verifica se a lista não tem elementos.
+            /*! \brief Verifica se a lista não tem elementos.
              *  \return Verdadeiro se a lista está vazia, falso caso contrário.
              */
             bool empty( ) const;
@@ -95,22 +95,22 @@ namespace ls{
             // [IV] CONSULTA         //
             ///////////////////////////
 
-            /*! Retorna uma referência para o primeiro elemento da lista.
+            /*! \brief Retorna uma referência para o primeiro elemento da lista.
              *  \return Valor do primeiro elemento da lista.
              */
             T & front( );
 
-            /*! Retorna uma refrência constante para o primeiro elemento da lista.
+            /*! \brief Retorna uma refrência constante para o primeiro elemento da lista.
              *  \return Valor do primeiro elemento da lista.
              */
             const T & front( ) const;
 
-            /*! Retorna uma referência para o último elemento da lista.
+            /*! \brief Retorna uma referência para o último elemento da lista.
 			 *  \return Valor do último elemento da lista.
 			 */
             T & back( );
 
-            /*! Retorna uma referência constante para o último elemento da lista.
+            /*! \brief Retorna uma referência constante para o último elemento da lista.
 			 *  \return Valor do último elemento da lista.
 			 */
             const T & back( ) const;
@@ -121,20 +121,22 @@ namespace ls{
 
             void clear( );
 
-            /*! Insere elemento no começo da lista.
+            /*! \brief Insere elemento no começo da lista.
              *  \param value Valor a ser inserido no final da lista.
              */
             void push_front( const T & value );
 
-            /*! Insere elemento no final da lista.
+            /*! \brief Insere elemento no final da lista.
              *  \param value Valor a ser inserido no final da lista.
              */
             void push_back( const T & value );
 
-            /*! Remove o elemento no início da lista.
+            /*! \brief Remove o elemento no início da lista.
 			 */
             void pop_front( );
 
+            /*! \brief Remove o elemento no final da lista.
+			 */
             void pop_back( );
 
             void assign(const T& value );
@@ -144,7 +146,7 @@ namespace ls{
 
             void assign( std::initializer_list<T> ilist );
 
-            /*! Adiciona valor value antes de pos.
+            /*! \brief Adiciona valor value antes de pos.
              *  \param pos Iterador que aponta para a posição posterior aonde o valor será inserido.
              *  \param value Valor a ser inserido.
              *  \return Iterador que aponta para a posição do item inserido.
@@ -153,7 +155,7 @@ namespace ls{
 
             iterator insert( const_iterator pos, std::initializer_list<T> ilist );
 
-            /*! Remove o elemento na posição pos.
+            /*! \brief Remove o elemento na posição pos.
 			 *  \param pos Iterador que aponta para o elemento a ser removido.
 			 *  \return Iterador para o elemento que segue pos antes de o método ser chamado.
 			 */
@@ -172,45 +174,45 @@ namespace ls{
             friend class List<T>;
 
         public:
-            /*! Construtor padrão para classe const_iterator. */
+            /*! \brief Construtor padrão para classe const_iterator. */
             const_iterator( Node *p);
 
-            /*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
+            /*! \brief Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
              *  \return O valor que o iterador aponta.
              */
             const T & operator*( ) const;
 
-            /*! Avança iterador para a próxima posição na lista. (++it)
+            /*! \brief Avança iterador para a próxima posição na lista. (++it)
              *  \return O iterador requerido.
              */
             const_iterator & operator++( );
 
-            /*! Avança iterador para a próxima posição na lista. (it++)
+            /*! \brief Avança iterador para a próxima posição na lista. (it++)
              *  \return O iterador requerido.
              */
             const_iterator operator++( int ); 
 
-            /*! Move iterador para a posição anterior na lista. (--it)
+            /*! \brief Move iterador para a posição anterior na lista. (--it)
              *  \return O iterador requerido.
              */
             const_iterator & operator--( );
            
-            /*! Move iterador para a posição anterior na lista. (it--)
+            /*! \brief Move iterador para a posição anterior na lista. (it--)
              *  \return O iterador requerido.
              */
             const_iterator operator--( int ); 
 
-            /*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
+            /*! \brief Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
              *  \return Verdadeiro se os iteradores são iguais, falso caso contrário.
              */            
             bool operator==( const const_iterator & rhs ) const;
 
-            /*! Retorna verdadeiro se os iteradores fazem referência para pontos diferentes da lista.
+            /*! \brief Retorna verdadeiro se os iteradores fazem referência para pontos diferentes da lista.
              *  \return Verdadeiro se os iteradores são diferentes, falso caso contrário.
              */
             bool operator!=( const const_iterator & rhs ) const;
 
-            /*! Acessa o elemento para o qual o iterator aponta.
+            /*! \brief Acessa o elemento para o qual o iterator aponta.
              *  \return Nó para o qual o iterador aponta.
              */
             T * operator->( void ) const;
@@ -222,35 +224,35 @@ namespace ls{
             friend class List<T>;
         
         public:
-            /*! Construtor padrão para classe iterator. */
+            /*! \brief Construtor padrão para classe iterator. */
             iterator( Node * p );
 
-            /*! Retorna uma referência constante para o objeto lozalizado na posição apontada pelo iterador.
+            /*! \brief Retorna uma referência constante para o objeto lozalizado na posição apontada pelo iterador.
              *  \return O valor que o iterador aponta.
              */
             const T & operator*( ) const;
 
-            /*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
+            /*! \brief Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
              *  \return O valor que o iterador aponta.
              */
             T & operator*( );
 
-            /*! Avança iterador para a próxima posição na lista. (++it)
+            /*! \brief Avança iterador para a próxima posição na lista. (++it)
              *  \return O iterador requerido.
              */
             iterator & operator++( );
             
-            /*! Move iterador para a posição anterior na lista. (--it)
+            /*! \brief Move iterador para a posição anterior na lista. (--it)
              *  \return O iterador requerido.
              */
             iterator operator++( int ); 
 
-            /*! Move iterador para a posição anterior na lista. (--it)
+            /*! \brief Move iterador para a posição anterior na lista. (--it)
              *  \return O iterador requerido.
              */
             iterator & operator--( );
             
-            /*! Move iterador para a posição anterior na lista. (it--)
+            /*! \brief Move iterador para a posição anterior na lista. (it--)
              *  \return O iterador requerido.
              */
             iterator operator--( int );

@@ -166,6 +166,15 @@ void ls::List<T>::pop_front( ){
 	erase(begin());
 }
 
+/*! Remove o elemento no final da lista.*/
+template <typename T>
+void ls::List<T>::pop_back( ){
+	if(empty())
+		throw std::out_of_range("[pop_back()] Cannot remove element from an empty list.");
+
+	erase(  ls::List<T>::iterator(m_tail->prev)  );
+}
+
 /*! Adiciona valor value antes de pos.*/
 template <typename T>
 typename ls::List<T>::iterator ls::List<T>::insert( const_iterator pos, const T & value ){
