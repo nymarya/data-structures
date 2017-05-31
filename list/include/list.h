@@ -119,6 +119,7 @@ namespace ls{
             // [V] MODIFICADORES     //
             ///////////////////////////
 
+            /*! \brief Limpa lista. */
             void clear( );
 
             /*! \brief Insere elemento no começo da lista.

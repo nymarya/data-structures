@@ -43,7 +43,7 @@ ls::List<T>::List(size_type count)
 /*! Destrutor. */
 template<typename T>
 ls::List<T>::~List( ){
-	//clear()
+	clear();
 	delete m_head; //<! Remove nó cabeça
 	delete m_tail; //<! Remove nó calda
 }
@@ -136,6 +136,20 @@ const T & ls::List<T>::back( ) const{
 ///////////////////////////
 // [V] MODIFICADORES     //
 ///////////////////////////
+
+/*! Limpa lista. */
+template <typename T>
+void ls::List<T>::clear( ){
+	//<! Atualiza tamanho
+	m_size = 0;
+
+	//<! Percorre a lista e remove elementos
+	auto it( begin() );
+	while( it++ != end() ){
+		erase( ls::List<T>::iterator(it.m_ptr->prev) );	
+	}
+}
+
 /*! Insere elemento no começo da lista.*/
 template <typename T>
 void ls::List<T>::push_front( const T & value ){

@@ -38,6 +38,10 @@ int main(){
     ll.pop_back();
     assert( ll.back() == 4);
 
+    //Teste clear()
+    ll.clear();
+    assert( ll.empty());
+
     //teste construtor com count
     ls::List<int> n_list(8);
     assert( n_list.size() == 8);
