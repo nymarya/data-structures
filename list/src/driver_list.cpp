@@ -16,11 +16,9 @@ int main(){
 
     //Teste insert()
     ls::List<int>::iterator it = ll.begin();
-    //ll.insert(it, 10);
-    while( it != ll.end()){
-    	std::cout << *it << " ";
-    	++it;
-    }
+    auto v = ll.insert(it, 10);
+    assert( ll.size() == 2);
+    assert( ll.front() == *v);
 
     //teste construtor com count
     ls::List<int> n_list(8);

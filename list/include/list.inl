@@ -146,13 +146,13 @@ typename ls::List<T>::iterator ls::List<T>::insert( const_iterator pos, const T 
 	m_size++;
 
 	//<! Cria novo nó
-	Node * n_node = new Node(value, pos.m_ptr, pos.m_ptr->prev);
+	Node * n_node = new Node(value, pos.m_ptr->prev, pos.m_ptr);
 
 	//<! Insere novo nó
-	pos.m_ptr->next->prev = n_node;
-	pos.m_ptr->next = n_node;
+	(pos.m_ptr->prev)->next = n_node;
+	pos.m_ptr->prev = n_node;
 
-	return n_node;
+	return ls::List<T>::iterator(n_node);
 }
 
 
