@@ -105,8 +105,14 @@ namespace ls{
              */
             const T & front( ) const;
 
+            /*! Retorna uma referência para o último elemento da lista.
+			 *  \return Valor do último elemento da lista.
+			 */
             T & back( );
 
+            /*! Retorna uma referência constante para o último elemento da lista.
+			 *  \return Valor do último elemento da lista.
+			 */
             const T & back( ) const;
 
             ///////////////////////////

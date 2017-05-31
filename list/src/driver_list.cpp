@@ -20,6 +20,11 @@ int main(){
     assert( ll.size() == 2);
     assert( ll.front() == *v);
 
+    //teste push_back() e back()
+    ll.push_back(2);
+    assert( ll.size() == 3);
+    assert(ll.back() == 2);
+
     //teste construtor com count
     ls::List<int> n_list(8);
     assert( n_list.size() == 8);

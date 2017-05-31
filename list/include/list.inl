@@ -115,6 +115,24 @@ const T & ls::List<T>::front( ) const{
 	return m_head->next->data;
 }
 
+/*! Retorna uma referência para o último elemento da lista. */
+template <typename T>
+T & ls::List<T>::back( ){
+	if(empty())
+		throw std::out_of_range("[back()] Cannot recover element from an empty list.");
+
+	return m_tail->prev->data;
+}
+
+/*! Retorna uma referência constante para o último elemento da lista. */
+template <typename T>
+const T & ls::List<T>::back( ) const{
+	if(empty())
+		throw std::out_of_range("[back()] Cannot recover element from an empty list.");
+
+	return m_tail->prev->data;
+}
+
 ///////////////////////////
 // [V] MODIFICADORES     //
 ///////////////////////////
