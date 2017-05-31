@@ -15,7 +15,7 @@ int main(){
     assert(ll.front() == 1);
 
     //Teste insert()
-    ls::List<int>::iterator it = ll.begin();
+    ls::List<int>::const_iterator it = ll.cbegin();
     auto v = ll.insert(it, 10);
     assert( ll.size() == 2);
     assert( ll.front() == *v);
@@ -46,6 +46,11 @@ int main(){
     ls::List<int> n_list(8);
     assert( n_list.size() == 8);
 
+    //Teste construtor com intervalo
+    ls::List<int> cp_list( n_list.begin(), n_list.end() );
+    assert(cp_list == n_list);
 
-    return 0;
+    std::cout << ">>>Testes realizados com sucesso!\n";
+
+    return EXIT_SUCCESS;
 }

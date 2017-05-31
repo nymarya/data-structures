@@ -48,6 +48,28 @@ ls::List<T>::~List( ){
 	delete m_tail; //<! Remove nó calda
 }
 
+/*! Constroi a lista com os elementos do intervalo [first, last). */
+template <typename T>
+template< typename InputIt >
+ls::List<T>::List( InputIt first, InputIt last ){
+	size_type sz = 0;
+	auto it(first);
+	while( it++ != last){
+		sz++;
+	}
+
+	//<! Cria nova lista
+	m_size = 0;
+	m_head = new Node();
+	m_tail = new Node();
+	m_head->next = m_tail;
+	m_tail->prev = m_head;
+
+	//<! Copia os elementos do intervalo para a nova lista
+	while(first != last){
+		push_back( *first++);
+	}
+}
 
 ///////////////////////////
 // [II] ITERADORES       //
@@ -228,6 +250,41 @@ typename ls::List<T>::iterator ls::List<T>::erase( const_iterator pos ){
 	return ls::List<T>::iterator(after);
 }
 
+///////////////////////////
+//  [VI] OPERADORES      //
+///////////////////////////
+
+/*! Checa se os conteúdos de lhs e rhs são iguais.*/
+template <typename T>
+bool operator==( const ls::List<T>& lhs, const ls::List<T>& rhs ){
+	//<! Checa o número de elementos
+	if( lhs.size() != rhs.size() ) return false;
+	else{
+		//<! Verifica se todos os elementos são iguais
+		auto it(lhs.cbegin() );
+		auto it2(rhs.cbegin() );
+		for (  /*empty*/; it != lhs.cend(); ++it, ++it2)
+			if( *it != *it2 ) return false;
+	}
+
+	return true;
+}
+
+/*! Verifica se os conteúdos de lhs e rhs são iguais.*/
+template <typename T>
+bool operator!=( const ls::List<T>& lhs, const ls::List<T>& rhs ){
+	//<! Checa o número de elementos
+	if( lhs.size() != rhs.size() ) return true;
+	else{
+		//<! Verifica se há algum elemento diferente
+		auto it(lhs.cbegin() );
+		auto it2(rhs.cbegin() );
+		for (  /*empty*/; it != lhs.cend(); ++it, ++it2)
+			if( *it != *it2 ) return true;
+	}
+
+	return false;
+}
 ///////////////////////////
 // CLASSE CONST_ITERATOR //
 ///////////////////////////

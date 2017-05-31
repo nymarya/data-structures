@@ -39,15 +39,22 @@ namespace ls{
             /*! \brief Construtor padrão. */
             List( );
 
-            /*! \brief Constrói a lista com count cópias de T. */
+            /*! \brief Constrói a lista com count cópias de T. 
+             *  \param count Números de instâncias de T.
+             */
             explicit List( size_type count );
 
             /*! \brief Destrutor. */
             ~List( );
 
-            List( const List & );
+            /*! \brief Constroi a lista com os elementos do intervalo [first, last).
+			 *  \param first Iterador que aponta para o início do vetor a ser copiado.
+			 *  \param last Iterador que aponta para o final da lista a ser copiado.
+			 */
+            template< typename InputIt >
+            List( InputIt first, InputIt last );
 
-            List( List && );
+            List( const List & other );
 
             List & operator= ( const List & );
 
