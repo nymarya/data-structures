@@ -48,17 +48,22 @@ namespace ls{
             ~List( );
 
             /*! \brief Constroi a lista com os elementos do intervalo [first, last).
-			 *  \param first Iterador que aponta para o início do vetor a ser copiado.
-			 *  \param last Iterador que aponta para o final da lista a ser copiado.
+			 *  \param first Iterador que aponta para o início da lista a ser copiada.
+			 *  \param last Iterador que aponta para o final da lista a ser copiada.
 			 */
             template< typename InputIt >
             List( InputIt first, InputIt last );
 
+            /*! \brief Construtor cópia
+			 *  \param other Vetor a ser copiado.
+			 */
             List( const List & other );
+
+            List( std::initializer_list<T> ilist );
 
             List & operator= ( const List & );
 
-            List & operator=( List && );
+            List& operator=( std::initializer_list<T> ilist );
 
             ///////////////////////////
             // [II] ITERADORES       //
@@ -69,7 +74,7 @@ namespace ls{
              */
             iterator begin( );
 
-            /* Retorna iterador constante que aponta para o começo da lista.
+            /* \brief Retorna iterador constante que aponta para o começo da lista.
              * \return Iterador que aponta para o começo da lista.
              */
             const_iterator cbegin( ) const;
@@ -79,7 +84,7 @@ namespace ls{
              */
             iterator end( );
 
-            /* Retorna iterador constante que aponta para o final da lista.
+            /* \brief Retorna iterador constante que aponta para o final da lista.
              * \return Iterador que aponta para o final da lista.
              */
             const_iterator cend( ) const;
@@ -147,6 +152,9 @@ namespace ls{
 			 */
             void pop_back( );
 
+            /*! \brief Substitui o conteúdo da lista por cópias do valor 'value'.
+			 *  \param value Valor que será atribuído à lista.
+			 */
             void assign(const T& value );
 
             template <class InItr >

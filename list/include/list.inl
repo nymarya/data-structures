@@ -71,6 +71,20 @@ ls::List<T>::List( InputIt first, InputIt last ){
 	}
 }
 
+/*! Construtor cópia. */
+template <typename T>
+ls::List<T>::List( const List & other )
+: m_size( 0 )
+, m_head( new Node() )
+, m_tail( new Node() )
+{
+	m_head->next = m_tail;
+	m_tail->prev = m_head;
+
+	for( auto it( other.cbegin() ); it != other.cend(); ++it)
+		push_back(*it);
+}
+
 ///////////////////////////
 // [II] ITERADORES       //
 ///////////////////////////
@@ -190,6 +204,7 @@ void ls::List<T>::push_front( const T & value ){
 /*! Insere elemento no final da lista.*/
 template <typename T>
 void ls::List<T>::push_back( const T & value ){
+	//<! Basta inserir valor antes do end()
 	insert(end(), value);
 }
 
@@ -209,6 +224,14 @@ void ls::List<T>::pop_back( ){
 		throw std::out_of_range("[pop_back()] Cannot remove element from an empty list.");
 
 	erase(  ls::List<T>::iterator(m_tail->prev)  );
+}
+
+/*! \brief Substitui o conteúdo da lista por cópias do valor 'value'. */
+template <typename T>
+void ls::List<T>::assign(const T& value ){
+	//<! Substitui todos os valores da lista por value
+	for( auto it( begin() ); it != end(); it++)
+		*it = value;
 }
 
 /*! Adiciona valor value antes de pos.*/

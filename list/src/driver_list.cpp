@@ -15,7 +15,7 @@ int main(){
     assert(ll.front() == 1);
 
     //Teste insert()
-    ls::List<int>::const_iterator it = ll.cbegin();
+    ls::List<int>::iterator it = ll.begin();
     auto v = ll.insert(it, 10);
     assert( ll.size() == 2);
     assert( ll.front() == *v);
@@ -49,6 +49,19 @@ int main(){
     //Teste construtor com intervalo
     ls::List<int> cp_list( n_list.begin(), n_list.end() );
     assert(cp_list == n_list);
+
+    //Teste assign()
+    n_list.assign(4);
+    ls::List<int>::const_iterator itc = n_list.cbegin();
+    while( itc != n_list.cend()){
+        assert(*itc++ == 4);
+    }
+
+    //Teste construtor cópia
+    ls::List<int> cpy( n_list );
+    assert( cpy == n_list );
+
+    //Teste assign() com intervalo
 
     std::cout << ">>>Testes realizados com sucesso!\n";
 
