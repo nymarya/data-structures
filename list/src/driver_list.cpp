@@ -103,6 +103,14 @@ int main(){
 
 
     it = ll.begin();
+    int array[] = {10, 20, 30};
+    ll.insert( it, &array[0], &array[3] );
+    std::cout << "Inserindo {10,20, 30} antes de "<< *it << " = [";
+    for( auto it( ll.begin() ); it != ll.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]\n";
+
+    it = ll.begin();
     bg = fib.cbegin();
     bg+=5; 
     ll.insert( it+=3, bg, fib.cend() );
@@ -112,8 +120,9 @@ int main(){
     std::cout << "]\n";
 
     //Teste insert() com initializer list
-    ll.insert( it+=3, {22, 33, 44} );
-    std::cout << "Inserindo {22, 33, 44} antes de "<< *it << " = [";
+    it = ll.end();
+    std::cout << "Inserindo {22, 33, 44} depois de "<< *(it-=1) << " = [";
+    ll.insert( it+=1, {22, 33, 44} );
     for( auto it( ll.begin() ); it != ll.end(); ++it)
         std::cout << *it << " ";
     std::cout << "]\n";
@@ -121,11 +130,27 @@ int main(){
     //Teste remove() com intervalo
     auto first( ll.begin() );
     auto last( ll.begin() );
-    ll.erase( first+=1,last+=4);
-    std::cout << "Removendo ["<< *first <<", "<< *last<<") = [";
+    std::cout << "Removendo ["<< *(first+=1) <<", "<< *(last+=4) <<") = [";
+    ll.erase( first,last);
     for( auto it( ll.begin() ); it != ll.end(); ++it)
         std::cout << *it << " ";
     std::cout << "]\n";
+
+    first = ll.end();
+    last = ll.end();
+    std::cout << "Removendo ["<< *(first-=4) <<", "<< *(last-=1) <<"] = [";
+    ll.erase( first,last+=1);
+    for( auto it( ll.begin() ); it != ll.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]\n";
+
+    first = ll.begin();
+    last = ll.begin();
+    std::cout << "Removendo ["<< *first <<", "<< *(last+=3) <<") = [";
+    ll.erase( first,last);
+    for( auto it( ll.begin() ); it != ll.end(); ++it)
+        std::cout << *it << " ";
+    std::cout << "]\n\n";
 
 
 

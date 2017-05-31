@@ -55,7 +55,7 @@ namespace ls{
             List( InputIt first, InputIt last );
 
             /*! \brief Construtor cópia
-			 *  \param other Vetor a ser copiado.
+			 *  \param other Lista a ser copiado.
 			 */
             List( const List & other );
 
@@ -187,6 +187,20 @@ namespace ls{
              */
             iterator insert( const_iterator pos, const T & value );
 
+            /*! \brief Insere os elementos do intervalo [first; last) antes de pos.
+			 *  \param pos Iterador que aponta para a posição posterior aonde o intervalo será inserido.
+			 *  \param first Iterador que aponta para a posição do primeiro valor que será inserido.
+			 *  \param last Iterador que aponta para a posição posterior ao ultimo valor que será inserido.
+			 *  \return Iterador que aponta para a posição seguinte ao último item inserido.
+			 */
+            template < typename InItr>
+            iterator insert( iterator pos, InItr first, InItr last );
+
+            /*! \brief Insere elementos de std::initializer_list antes de pos.
+			 *  \param pos Iterador que aponta para a posição posterior aonde a lista será inserido.
+			 *  \param ilist Lista que será inserida na lista.
+			 *  \return Iterador que aponta para a posição seguinte ao último item inserido.
+			 */
             iterator insert( const_iterator pos, std::initializer_list<T> ilist );
 
             /*! \brief Remove o elemento na posição pos.
@@ -195,7 +209,11 @@ namespace ls{
 			 */
             iterator erase( const_iterator pos );
 
-            iterator erase( const_iterator first, const_iterator last );
+            /*! \brief Remove os elementos no intervalo [first, last).
+			 *  \param first Iterador que aponta para o primeiro elemento a ser removido.
+			 *  \param last Iterador que aponta para o elemento posterior ao último a ser removido.
+			 */
+            iterator erase( iterator first, iterator last );
 
             const_iterator find( const T & value ) const;
     
