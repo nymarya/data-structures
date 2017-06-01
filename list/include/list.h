@@ -288,11 +288,6 @@ namespace ls{
             /*! \brief Construtor padrão para classe iterator. */
             iterator( Node * p );
 
-            /*! \brief Retorna uma referência constante para o objeto lozalizado na posição apontada pelo iterador.
-             *  \return O valor que o iterador aponta.
-             */
-            const T & operator*( ) const;
-
             /*! \brief Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
              *  \return O valor que o iterador aponta.
              */

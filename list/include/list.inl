@@ -493,12 +493,6 @@ ls::List<T>::iterator::iterator( Node * p )
 : const_iterator(p) 
 { /* Empty */ }
 
-/*! Retorna uma referência constante para o objeto lozalizado na posição apontada pelo iterador.*/
-template <typename T>
-const T & ls::List<T>::iterator::operator*( ) const{
-	return const_iterator::m_ptr->data;
-}
-
 /*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.*/
 template <typename T>
 T & ls::List<T>::iterator::operator*( ){
