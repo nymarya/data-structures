@@ -1,6 +1,12 @@
 #ifndef _hash_tbl_h_
 #define _hash_tbl_h_
 
+
+#include <iostream>
+#include <functional>
+#include "forward_list.h"
+#include <forward_list>
+
 template < class KeyType , class DataType >
 class HashEntry {
 
@@ -11,8 +17,16 @@ class HashEntry {
 
         DataType m_data ; // ! < Stores the data for an entry .
 };
+using AcctKey = std::pair < std::string , int >;
 
-class HashTblv1{
+template < typename KeyType ,
+    typename DataType ,
+    typename KeyHash = std::hash< KeyType > ,
+    typename KeyEqual = std::equal_to< KeyType > >
+class HashTbl{
+    public:
+        using Entry = HashEntry < KeyType, DataType>; // ! < Alias
+
     private:
         unsigned int m_size ; // !< Tamanho físico da tabela.
         unsigned int m_count ; // !< Tamanho lógico da tabela.
@@ -25,8 +39,10 @@ class HashTblv1{
         void rehash ();
         
     public:
-        using Entry = HashEntry < KeyType , DataType >; // ! < Alias
-        HashTbl ( i n t tbl_size_ = DEFAULT_SIZE );
+        /*! Construtor padrão.
+         * 
+         */
+        HashTbl ( int tbl_size_ = DEFAULT_SIZE );
         virtual ~ HashTbl ();
         bool insert ( const KeyType & k_ , const DataType & d_ );
         bool remove( const KeyType & k_ );
