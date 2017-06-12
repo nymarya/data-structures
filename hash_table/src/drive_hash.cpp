@@ -1,5 +1,6 @@
 #include "hash_tbl.h"
-
+#include <vector>
+#include <cassert>
 int main(){
 
     struct Account{
@@ -38,5 +39,23 @@ int main(){
         }
     };
 
+    std::vector<Account> accounts = {
+        Account( 1, 51, 98765, 2000.50, "John Lennon"),
+        Account( 2, 10, 56789, 1500.25, "Ringo Starr"),
+        Account( 3, 40, 54321, 10000.0, "Paul McCartney"),
+        Account( 4, 91, 12345, 1111.75, "George Harrison"),
+    };
+
+    KeyHash hashF;
+    std::cout << hashF( accounts[0].get_key() ) % 11 << "\n";
+    std::cout << hashF( accounts[1].get_key() ) % 11<< "\n";
+    std::cout << hashF( accounts[2].get_key() ) % 11<< "\n";
+    std::cout << hashF( accounts[3].get_key() ) % 11<< "\n";
+
     HashTbl< AcctKey, Account, KeyHash, KeyEqual> hash_table;
+    //Teste insert
+    assert( hash_table.insert( accounts[2].get_key(), accounts[2]) );
+
+
+    return 0;
 }

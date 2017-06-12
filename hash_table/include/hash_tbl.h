@@ -28,8 +28,8 @@ class HashTbl{
         using Entry = HashEntry < KeyType, DataType>; // ! < Alias
 
     private:
-        unsigned int m_size ; // !< Tamanho físico da tabela.
-        unsigned int m_count ; // !< Tamanho lógico da tabela.
+        unsigned int m_size; // !< Tamanho físico da tabela.
+        unsigned int m_len; // !< Tamanho lógico da tabela.
         std::forward_list < Entry > * m_data_table ;
         // std :: unique_ptr < std :: forward_list < Entry > [] > m_data_table ;
         static const short DEFAULT_SIZE = 11;
@@ -44,7 +44,8 @@ class HashTbl{
          */
         HashTbl ( int tbl_size_ = DEFAULT_SIZE );
         virtual ~ HashTbl ();
-        bool insert ( const KeyType & k_ , const DataType & d_ );
+
+        bool insert ( const KeyType & key , const DataType & data_item );
         bool remove( const KeyType & k_ );
         bool retrieve ( const KeyType & k_ , DataType & d_ ) const;
         void clear( void );
