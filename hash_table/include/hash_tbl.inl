@@ -63,11 +63,12 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key 
         if( equalFunc(it->m_key, key)){
             //!< Anterior aponta para a entrada após it
 
-            m_data_table[ end ].erase_after(it);
+            m_data_table[ end ].erase_after(target);
+            m_len--;
             return true;
         }
     }
-    m_len--;
+    
     return false;
 }
 

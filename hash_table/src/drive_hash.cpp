@@ -62,6 +62,7 @@ int main(){
 
     //Teste remove
     assert( hash_table.remove( accounts[0].get_key() ));
+    assert( hash_table.count() == 2);
 
     return 0;
 }
