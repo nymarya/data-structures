@@ -106,5 +106,18 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::clear( void ){
 }
 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
+void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::print( ) const
+{
+    //!< Percorre a tabela de dispersão
+    for( auto i(0ul); i< m_size; ++i){
+        //<! Percorre a lista de colisões
+        for( auto it(m_data_table[i].cbegin() ); it != m_data_table[i].cend();++it ){
+            std::cout << it->m_data << "\n";
+        }
+    }
+
+}
+
+template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 unsigned long int HashTbl<KeyType, DataType, KeyHash, KeyEqual>::count( ) const
 {  return m_len; }

@@ -81,6 +81,8 @@ int main(){
     KeyEqual cmp;
     assert( cmp(ac.get_key(), accounts[3].get_key()) );
     
+    hash_table.print();
+    
     std::cout << "\n>>>Passou em todos os testes!\n";
 
     return 0;
