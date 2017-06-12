@@ -67,6 +67,11 @@ int main(){
     //Teste retrieve()
     Account ac;
     assert( hash_table.retrieve( accounts[0].get_key(), ac ) == false);
+    assert( hash_table.insert( accounts[3].get_key(), accounts[3]) );
+    assert( hash_table.retrieve( accounts[3].get_key(), ac ));
+
+    KeyEqual cmp;
+    assert( cmp(ac.get_key(), accounts[3].get_key()) );
 
     return 0;
 }
