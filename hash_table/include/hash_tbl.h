@@ -57,14 +57,35 @@ class HashTbl{
          *         e associada a uma chave 'key'. 
          *  \param key Chave à qual o dado será associado.
          *  \param data_item Dado que será inserido na tabela.
-         *  \return Verdadeiro se a inserção for bem sucedida, falso caso contário.
+         *  \return Verdadeiro se for a primeira inserção, falso caso contário.
          */ 
         bool insert ( const KeyType & key , const DataType & data_item );
+        
+        /*! \brief Remove da tabela a informaç̃ao associada a uma chave 'key'. 
+         *  \param key Chave do elemento que será removido.
+         *  \return Verdadeiro se a remoção for bem sucedida, falso caso contário.
+         */ 
         bool remove( const KeyType & key );
+        /*! \brief Recupera da tabela a informaç̃ao associada a uma chave 'key' 
+         *         e guarda o elemento recuperado em 'data. 
+         *  \param key Chave de elemento que será recuperado.
+         *  \param data Objeto que guarda o elemento que foi encontrado.
+         *  \return Verdadeiro se o elemento for encontrado, falso caso contário.
+         */ 
         bool retrieve ( const KeyType & key , DataType & data ) const;
+        /*! \brief Libera toda a memória associada às listas de colisão da tabela,
+         *         removendo todos os seus elementos. 
+         */ 
         void clear( void );
+        /*! \brief Verifica se a tabela de dispersão está vazia.
+         *  \return Verdadeiro se não houver elementos na tabela, falso caso contrário.
+         */ 
         bool empty( void ) const;
+        /*! \brief Consulta o número de elementos na tabela.
+         *  \return O número de itens na tabela de dispersão.
+         */
         unsigned long int count ( void ) const;
+        /*! \brief Método que imprime os itens da tabela de dispersão .*/
         void print() const;
 };
 
