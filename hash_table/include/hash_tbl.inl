@@ -106,6 +106,21 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::clear( void ){
 }
 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
+bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::empty( ) const
+{
+    //!< Percorre a tabela de dispersão
+    for( auto i(0ul); i< m_size; ++i){
+        //<! Verifica se todas as listas estão vazias
+        if( not m_data_table[i].empty() )return false;     
+    }
+   return true;
+}
+
+template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
+unsigned long int HashTbl<KeyType, DataType, KeyHash, KeyEqual>::count( ) const
+{  return m_len; }
+
+template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::print( ) const
 {
     //!< Percorre a tabela de dispersão
@@ -117,7 +132,3 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::print( ) const
     }
 
 }
-
-template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
-unsigned long int HashTbl<KeyType, DataType, KeyHash, KeyEqual>::count( ) const
-{  return m_len; }
