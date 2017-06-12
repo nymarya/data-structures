@@ -37,9 +37,16 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
     }
     //!< Se o item não estiver na lista, ele será inserido
     auto before_end = m_data_table[end].before_begin();
-    for (auto& _ : m_data_table[end])
-        ++before_end;
+    auto begin = m_data_table[end].begin();
+    while( begin != m_data_table[end].end() ){
+        ++before_end;++begin;
+    }
+    
     m_data_table[end].insert_after(before_end, new_entry);
-    m_len++;
+    m_len++; //!< Atualiza tamanho
     return true;
 }
+
+template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
+unsigned long int HashTbl<KeyType, DataType, KeyHash, KeyEqual>::count( ) const
+{  return m_len; }

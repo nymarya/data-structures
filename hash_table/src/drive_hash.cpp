@@ -55,7 +55,7 @@ int main(){
     HashTbl< AcctKey, Account, KeyHash, KeyEqual> hash_table;
     //Teste insert
     assert( hash_table.insert( accounts[2].get_key(), accounts[2]) );
-
+    assert( hash_table.count() == 1);
 
     return 0;
 }
