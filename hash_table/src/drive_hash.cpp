@@ -1,6 +1,7 @@
 #include "hash_tbl.h"
 #include <vector>
 #include <cassert>
+#include <iomanip>
 
  struct Account{
     int bank_code;
@@ -26,11 +27,11 @@
 };
 
  std::ostream &operator<<( std::ostream & _os, const Account & acct ){
-        _os << "[ Cliente: <" << acct.name <<
-            "> Banco: <"   << acct.bank_code <<
-            "> Agência: <" << acct.branch_code <<
-            "> Conta: <" << acct.account_code <<
-            "> Saldo: <R$" << acct.balance << "> ]";
+        _os << "[ Cliente: <" << std::setw(18) << acct.name <<
+            "> | Banco: <" << std::setw(5)  << acct.bank_code <<
+            "> | Agência: <" << std::setw(5) << acct.branch_code <<
+            "> | Conta: <" << std::setw(6) << acct.account_code <<
+            "> | Saldo: <R$" << std::setw(10) << acct.balance << "> ]";
         return _os;
     }
 
