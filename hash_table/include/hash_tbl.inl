@@ -13,8 +13,8 @@ m_data_table( new std::forward_list<Entry>[tbl_size] )
 template < typename KeyType, typename DataType, typename KeyHash, typename KeyEqual >
 HashTbl<KeyType, DataType, KeyHash, KeyEqual>::~HashTbl()
 { 
-    clear();
-    delete [] m_data_table; 
+    clear(); //!< Limpa elementos da tabela
+    delete [] m_data_table; //!< Libera a memória
 }
 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
@@ -33,19 +33,14 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
     for( auto it( m_data_table[end].begin() ); it != m_data_table[ end ].end(); it++){
         //!< Compara com as chaves na lista de colisões
         if( equalFunc(it->m_key, new_entry.m_key)){
-            //!< Atualiza valores
+            //!< Atualiza valores se a chave já estiver na lista
             it->m_data = data_item;
             return false;
         }
     }
-    //!< Se o item não estiver na lista, ele será inserido
-    auto before_end = m_data_table[end].before_begin();
-    auto begin = m_data_table[end].begin();
-    while( begin != m_data_table[end].end() ){
-        ++before_end;++begin;
-    }
     
-    m_data_table[end].insert_after(before_end, new_entry);
+    //!< Insere elemento
+    m_data_table[end].push_front(new_entry);
     m_len++; //!< Atualiza tamanho
     return true;
 }
@@ -59,15 +54,15 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key 
     auto end( hashFunc(key) % m_size );
 
     //!< Percorre a lista de colisões
-    for( auto it( m_data_table[end].before_begin() ); it != m_data_table[ end ].end();){
-        auto target(it);
-        ++it;
+    for( auto it( m_data_table[end].before_begin() ); it != m_data_table[ end ].end(); /*empty*/){
+        auto prev_target(it); //!< Guarda o anterior
+        ++it; //!< Avança o ponteiro
+        
         //!< Compara com as chaves na lista de colisões
         if( equalFunc(it->m_key, key)){
-            //!< Anterior aponta para a entrada após it
-
-            m_data_table[ end ].erase_after(target);
-            m_len--;
+            //!< Apaga o posterior a perv_target(it)
+            m_data_table[ end ].erase_after(prev_target);
+            m_len--; //!< Atualiza tamanho
             return true;
         }
     }
@@ -93,6 +88,7 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::retrieve ( const KeyType & k
         }
     }
     
+    //!< Não encontrou a chave, então retorna falso
     return false;
 }
 
@@ -103,6 +99,7 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::clear( void ){
         //!< Limpa cada lista encadeada
         m_data_table[i].clear();
     }
+    m_len = 0; //!< Atualiza tamanho
 }
 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
