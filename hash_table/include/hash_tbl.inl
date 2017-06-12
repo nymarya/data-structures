@@ -48,5 +48,29 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
 }
 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
+bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key ){
+    KeyHash hashFunc; //!< Instancia função hash
+    KeyEqual equalFunc; //!< Instancia função de comparação
+
+    //!< Calcula posição do elemento
+    auto end( hashFunc(key) % m_size );
+
+    //!< Percorre a lista de colisões
+    for( auto it( m_data_table[end].before_begin() ); it != m_data_table[ end ].end();){
+        auto target(it);
+        ++it;
+        //!< Compara com as chaves na lista de colisões
+        if( equalFunc(it->m_key, key)){
+            //!< Anterior aponta para a entrada após it
+
+            m_data_table[ end ].erase_after(it);
+            return true;
+        }
+    }
+    m_len--;
+    return false;
+}
+
+template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 unsigned long int HashTbl<KeyType, DataType, KeyHash, KeyEqual>::count( ) const
 {  return m_len; }

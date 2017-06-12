@@ -16,6 +16,7 @@ class HashEntry {
         KeyType m_key;// ! < Stores the key for an entry .
 
         DataType m_data ; // ! < Stores the data for an entry .
+
 };
 using AcctKey = std::pair < std::string , int >;
 

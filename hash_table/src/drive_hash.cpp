@@ -54,8 +54,14 @@ int main(){
 
     HashTbl< AcctKey, Account, KeyHash, KeyEqual> hash_table;
     //Teste insert
-    assert( hash_table.insert( accounts[2].get_key(), accounts[2]) );
+    assert( hash_table.insert( accounts[0].get_key(), accounts[0]) );
     assert( hash_table.count() == 1);
+
+    assert( hash_table.insert( accounts[1].get_key(), accounts[1]) );
+    assert( hash_table.insert( accounts[2].get_key(), accounts[2]) );
+
+    //Teste remove
+    assert( hash_table.remove( accounts[0].get_key() ));
 
     return 0;
 }
