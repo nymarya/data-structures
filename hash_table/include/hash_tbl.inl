@@ -1,5 +1,6 @@
 #include "hash_tbl.h"
 
+/// Construtor padrão
 template < typename KeyType ,
     typename DataType ,
     typename KeyHash ,
@@ -10,6 +11,7 @@ HashTbl<KeyType, DataType, KeyHash, KeyEqual>::HashTbl(int tbl_size)
 m_data_table( new std::forward_list<Entry>[tbl_size] )
 {/* empty*/ }
 
+/// Destrutor
 template < typename KeyType, typename DataType, typename KeyHash, typename KeyEqual >
 HashTbl<KeyType, DataType, KeyHash, KeyEqual>::~HashTbl()
 { 
@@ -17,6 +19,7 @@ HashTbl<KeyType, DataType, KeyHash, KeyEqual>::~HashTbl()
     delete [] m_data_table; //!< Libera a memória
 }
 
+/// Insere na tabela a informaç̃ao contida em 'data_item' e associada a uma chave 'key'
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
                                                        const DataType & data_item)
@@ -45,8 +48,10 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
     return true;
 }
 
+/// Remove da tabela a informaç̃ao associada a uma chave 'key'
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
-bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key ){
+bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key )
+{
     KeyHash hashFunc; //!< Instancia função hash
     KeyEqual equalFunc; //!< Instancia função de comparação
 
@@ -67,11 +72,14 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key 
         }
     }
     
+    //!< Não encontrou a chave, então retorna falso
     return false;
 }
 
+/// Recupera da tabela a informaç̃ao associada a uma chave 'key' e guarda o elemento recuperado em 'data'. 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
-bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::retrieve ( const KeyType & key , DataType & data ) const{
+bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::retrieve ( const KeyType & key , DataType & data ) const
+{
     KeyHash hashFunc; //!< Instancia função hash
     KeyEqual equalFunc; //!< Instancia função de comparação
 
@@ -92,6 +100,7 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::retrieve ( const KeyType & k
     return false;
 }
 
+/// Libera toda a memória associada às listas de colisão da tabela, removendo todos os seus elementos.
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::clear( void ){
     //!< Percore tabela
@@ -102,6 +111,7 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::clear( void ){
     m_len = 0; //!< Atualiza tamanho
 }
 
+/// Verifica se a tabela de dispersão está vazia.
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::empty( ) const
 {
@@ -113,10 +123,12 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::empty( ) const
    return true;
 }
 
+/// Consulta o número de elementos na tabela.
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 unsigned long int HashTbl<KeyType, DataType, KeyHash, KeyEqual>::count( ) const
 {  return m_len; }
 
+/// Método que imprime os itens da tabela de dispersão
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::print( ) const
 {
