@@ -59,7 +59,6 @@ int main(){
         Account( 4, 91, 12345, 1111.75, "George Harrison"),
     };
 
-
     HashTbl< AcctKey, Account, KeyHash, KeyEqual> hash_table;
     
     //Teste empty()

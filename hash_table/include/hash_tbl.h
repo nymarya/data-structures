@@ -7,45 +7,58 @@
 #include "forward_list.h"
 #include <forward_list>
 
+//=== Classe que define as entradas
 template < class KeyType , class DataType >
 class HashEntry {
 
-    public:
+    //=== Membros públicos
+    public:   
+        KeyType m_key;// !< Guarda a chave da entrada.
+        DataType m_data ; // !< Guarda o valor da entrada.
+    
+        //=== Membros especiais
         HashEntry ( KeyType k_ , DataType d_ ) : m_key ( k_ ) , m_data ( d_ )
         { /* Empty */ };
-        KeyType m_key;// ! < Stores the key for an entry .
-
-        DataType m_data ; // ! < Stores the data for an entry .
 
 };
 using AcctKey = std::pair < std::string , int >;
 
+//=== Classe que define a tabela de dispersão
 template < typename KeyType ,
     typename DataType ,
     typename KeyHash = std::hash< KeyType > ,
     typename KeyEqual = std::equal_to< KeyType > >
 class HashTbl{
     public:
-        using Entry = HashEntry < KeyType, DataType>; // ! < Alias
+        //=== Aliases
+        using Entry = HashEntry < KeyType, DataType>;
+        using size_type = usigned int;
 
+    //=== Membros privados
     private:
-        unsigned int m_size; // !< Tamanho físico da tabela.
-        unsigned int m_len; // !< Tamanho lógico da tabela.
+        size_type m_size; // !< Tamanho físico da tabela.
+        size_type unsigned int m_len; // !< Tamanho lógico da tabela.
         std::forward_list < Entry > * m_data_table ;
         // std :: unique_ptr < std :: forward_list < Entry > [] > m_data_table ;
-        static const short DEFAULT_SIZE = 11;
+        static const short DEFAULT_SIZE = 11; //!< Tamanho padrão da tabela
 
-        /*! Aumenta a capacidade de armazenamento da tabela hash se  λ > 1.0
-         */
+        /*! \brief Aumenta a capacidade de armazenamento da tabela hash se  λ > 1.0. */
         void rehash ();
         
     public:
-        /*! Construtor padrão.
-         * 
-         */
+        //=== Membros especiais
+        /*! \brief Construtor padrão. */
         HashTbl ( int tbl_size_ = DEFAULT_SIZE );
+        /*! \brief Destrutor. */
         virtual ~ HashTbl ();
 
+        //=== Interface pública
+        /*! \brief Insere na tabela a informaç̃ao contida em 'data_item' 
+         *         e associada a uma chave 'key'. 
+         *  \param key Chave à qual o dado será associado.
+         *  \param data_item Dado que será inserido na tabela.
+         *  \return Verdadeiro se a inserção for bem sucedida, falso caso contário.
+         */ 
         bool insert ( const KeyType & key , const DataType & data_item );
         bool remove( const KeyType & key );
         bool retrieve ( const KeyType & key , DataType & data ) const;
