@@ -12,7 +12,10 @@ m_data_table( new std::forward_list<Entry>[tbl_size] )
 
 template < typename KeyType, typename DataType, typename KeyHash, typename KeyEqual >
 HashTbl<KeyType, DataType, KeyHash, KeyEqual>::~HashTbl()
-{ delete [] m_data_table; }
+{ 
+    clear();
+    delete [] m_data_table; 
+}
 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
@@ -91,6 +94,15 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::retrieve ( const KeyType & k
     }
     
     return false;
+}
+
+template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
+void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::clear( void ){
+    //!< Percore tabela
+    for( auto i(  0ul ); i < m_size; ++i){
+        //!< Limpa cada lista encadeada
+        m_data_table[i].clear();
+    }
 }
 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
