@@ -84,7 +84,7 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::retrieve ( const KeyType & k
     auto end( hashFunc(key) % m_size );
 
     //!< Percorre a lista de colisões
-    for( auto it( m_data_table[end].before_begin() ); it != m_data_table[ end ].end(); ++it){
+    for( auto it( m_data_table[end].begin() ); it != m_data_table[ end ].end(); ++it){
         //!< Compara com as chaves na lista de colisões
         if( equalFunc(it->m_key, key)){
             //!< Se encontrar a chave, guarda o valor
