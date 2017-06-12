@@ -47,8 +47,8 @@ class HashTbl{
         virtual ~ HashTbl ();
 
         bool insert ( const KeyType & key , const DataType & data_item );
-        bool remove( const KeyType & k_ );
-        bool retrieve ( const KeyType & k_ , DataType & d_ ) const;
+        bool remove( const KeyType & key );
+        bool retrieve ( const KeyType & key , DataType & data ) const;
         void clear( void );
         bool empty( void ) const;
         unsigned long int count ( void ) const;

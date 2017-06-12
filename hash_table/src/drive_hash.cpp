@@ -53,16 +53,20 @@ int main(){
     std::cout << hashF( accounts[3].get_key() ) % 11<< "\n";
 
     HashTbl< AcctKey, Account, KeyHash, KeyEqual> hash_table;
-    //Teste insert
+    //Teste insert()
     assert( hash_table.insert( accounts[0].get_key(), accounts[0]) );
     assert( hash_table.count() == 1);
 
     assert( hash_table.insert( accounts[1].get_key(), accounts[1]) );
     assert( hash_table.insert( accounts[2].get_key(), accounts[2]) );
 
-    //Teste remove
+    //Teste remove()
     assert( hash_table.remove( accounts[0].get_key() ));
     assert( hash_table.count() == 2);
+
+    //Teste retrieve()
+    Account ac;
+    assert( hash_table.retrieve( accounts[0].get_key(), ac ) == false);
 
     return 0;
 }
