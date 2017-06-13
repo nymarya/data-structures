@@ -13,7 +13,7 @@
     using AcctKey = std::pair < std::string , int >;
 
     Account( int b=1, int ag=11, int ac=11111, float c=0.0, 
-    std::string n="")
+    std::string n="Anonimo")
     :bank_code(b), branch_code(ag), account_code(ac), balance(c), name(n)
     {/*empty*/}
 
@@ -31,7 +31,7 @@
             "> | Banco: <" << std::setw(5)  << acct.bank_code <<
             "> | Agência: <" << std::setw(5) << acct.branch_code <<
             "> | Conta: <" << std::setw(6) << acct.account_code <<
-            "> | Saldo: <R$" << std::setw(10) << acct.balance << "> ]";
+            "> | Saldo: <R$" << std::setw(10) << std::fixed << std::setprecision(2) << acct.balance << "> ]";
         return _os;
     }
 
@@ -85,6 +85,10 @@ int main(){
     assert( hash_table.remove( accounts[0].get_key() ));
     assert( hash_table.count() == 4);
 
+    std::cout << "Removendo \"" << accounts[0].name << " \": \n";
+    hash_table.print();
+    std::cout << std::endl;
+
     //Teste retrieve()
     Account ac;
     assert( hash_table.retrieve( accounts[0].get_key(), ac ) == false);
@@ -94,16 +98,16 @@ int main(){
     KeyEqual cmp;
     assert( cmp(ac.get_key(), accounts[3].get_key()) );
 
-    hash_table.print();
-
     //Teste rehash()
     assert( hash_table.insert( accounts[5].get_key(), accounts[5]) );
 
     Account acc(1, 77, 89898, 9000.80, "David Bowie"); //!< Rehash chamado aqui
     assert( hash_table.insert( acc.get_key(), acc) );
 
-    Account a(1, 77, 89898, 9000.80, "David");
+    Account a;
     assert( hash_table.insert( a.get_key(), a) );
+
+    hash_table.print();
     std::cout << "\n>>>Passou em todos os testes!\n";
 
     return 0;
