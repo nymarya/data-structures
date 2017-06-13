@@ -27,11 +27,11 @@
 };
 
  std::ostream &operator<<( std::ostream & _os, const Account & acct ){
-        _os << "[ Cliente: <" << std::setw(18) << acct.name <<
-            "> | Banco: <" << std::setw(5)  << acct.bank_code <<
-            "> | Agência: <" << std::setw(5) << acct.branch_code <<
-            "> | Conta: <" << std::setw(6) << acct.account_code <<
-            "> | Saldo: <R$" << std::setw(10) << std::fixed << std::setprecision(2) << acct.balance << "> ]";
+        _os << "[ Cliente: " << std::setw(18) << acct.name <<
+            " | Banco: " << std::setw(3)  << acct.bank_code <<
+            " | Agência: " << std::setw(3) << acct.branch_code <<
+            " | Conta: " << std::setw(6) << acct.account_code <<
+            " | Saldo: R$" << std::setw(10) << std::fixed << std::setprecision(2) << acct.balance << "> ]";
         return _os;
     }
 
