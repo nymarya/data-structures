@@ -6,6 +6,7 @@
 #include <functional>
 #include "forward_list.h"
 #include <forward_list>
+#include <cmath>
 
 //=== Classe que define as entradas
 template < class KeyType , class DataType >
@@ -53,7 +54,7 @@ class HashTbl{
         virtual ~ HashTbl ();
 
         //=== Interface pública
-        /*! \brief Insere na tabela a informaç̃ao contida em 'data_item' 
+        /*! \brief Insere na tabela a informação contida em 'data_item' 
          *         e associada a uma chave 'key'. 
          *  \param key Chave à qual o dado será associado.
          *  \param data_item Dado que será inserido na tabela.
@@ -61,13 +62,13 @@ class HashTbl{
          */ 
         bool insert ( const KeyType & key , const DataType & data_item );
         
-        /*! \brief Remove da tabela a informaç̃ao associada a uma chave 'key'. 
+        /*! \brief Remove da tabela a informação associada a uma chave 'key'. 
          *  \param key Chave do elemento que será removido.
          *  \return Verdadeiro se a remoção for bem sucedida, falso caso contário.
          */ 
         bool remove( const KeyType & key );
         
-        /*! \brief Recupera da tabela a informaç̃ao associada a uma chave 'key' 
+        /*!  \brief Recupera da tabela a informação associada a uma chave 'key' 
          *         e guarda o elemento recuperado em 'data'. 
          *  \param key Chave de elemento que será recuperado.
          *  \param data Objeto que guarda o elemento que foi encontrado.

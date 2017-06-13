@@ -57,9 +57,12 @@ int main(){
         Account( 2, 10, 56789, 1500.25, "Ringo Starr"),
         Account( 3, 40, 54321, 10000.0, "Paul McCartney"),
         Account( 4, 91, 12345, 1111.75, "George Harrison"),
+        Account( 5, 67, 13579, 2100.00, "Pete Best"),
+        Account( 6, 76, 24680, 2010.00, "Stuart Sutcliffe"),
     };
 
-    HashTbl< AcctKey, Account, KeyHash, KeyEqual> hash_table;
+    //Cria tabela hash de tamanho 5
+    HashTbl< AcctKey, Account, KeyHash, KeyEqual> hash_table(5);
     
     //Teste empty()
     assert( hash_table.empty());
@@ -72,6 +75,7 @@ int main(){
     assert( hash_table.insert( accounts[1].get_key(), accounts[1]) );
     assert( hash_table.insert( accounts[2].get_key(), accounts[2]) );
     assert( hash_table.insert( accounts[3].get_key(), accounts[3]) );
+    assert( hash_table.insert( accounts[4].get_key(), accounts[4]) );
     
     //Teste print()
     hash_table.print();
@@ -79,7 +83,7 @@ int main(){
 
     //Teste remove()
     assert( hash_table.remove( accounts[0].get_key() ));
-    assert( hash_table.count() == 3);
+    assert( hash_table.count() == 4);
 
     //Teste retrieve()
     Account ac;
@@ -91,7 +95,15 @@ int main(){
     assert( cmp(ac.get_key(), accounts[3].get_key()) );
 
     hash_table.print();
-    
+
+    //Teste rehash()
+    assert( hash_table.insert( accounts[5].get_key(), accounts[5]) );
+
+    Account acc(1, 77, 89898, 9000.80, "David Bowie"); //!< Rehash chamado aqui
+    assert( hash_table.insert( acc.get_key(), acc) );
+
+    Account a(1, 77, 89898, 9000.80, "David");
+    assert( hash_table.insert( a.get_key(), a) );
     std::cout << "\n>>>Passou em todos os testes!\n";
 
     return 0;

@@ -24,6 +24,9 @@ template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEq
 bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
                                                        const DataType & data_item)
 { 
+    //!< Se fator de carga for maior ou igual a 1, chama método rehash()
+    if( m_len / m_size >= 1 ) rehash();
+
     KeyHash hashFunc; //!< Instancia função hash
     KeyEqual equalFunc; //!< Instancia função de comparação
 
@@ -140,4 +143,44 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::print( ) const
         }
     }
 
+}
+
+/// Aumenta a capacidade de armazenamento da tabela hash se  λ > 1.0.
+template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
+void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::rehash( )
+{
+    //!< Calcula menor número primo maior que o dobro do tamanho da tabela
+    auto new_size( 2 * m_size); //!< Novo tamanho
+    auto is_prime = false;
+    while( not is_prime ){
+        new_size++; //!< Checa próximo número
+        is_prime = true; //!< Liga a flag
+
+        //!< Verifica de 2 até raiz do número
+        for( auto i(2ul); i <= sqrt(new_size); ++i)
+            if( new_size % i == 0) is_prime = false;       
+    }
+
+    //!< Aloca nova memória
+    auto temp = new std::forward_list<Entry>[ new_size ];
+
+    KeyHash hashFunc; //!< Instancia função de dispersão
+
+    //!< Percorre a tabela de dispersão
+    for( auto i(0ul); i< m_size; ++i){
+        //<! Percorre a lista de colisões
+        for( auto it(m_data_table[i].cbegin() ); it != m_data_table[i].cend();++it ){
+            //!< Calcula posição na qual o dado será inserido
+            auto end( hashFunc(it->m_key) % m_size );
+            
+            //!< Insere elemento na nova lista;
+            temp[end].push_front(  Entry(it->m_key, it->m_data));
+        }
+    }
+
+    //!< Libera espaço de armazenamento existente
+    delete [] m_data_table;
+
+    m_data_table = temp; //!< Transfere o ponteiro para o novo endereço
+    m_size = new_size;   //!< Atualiza tamanho
 }
