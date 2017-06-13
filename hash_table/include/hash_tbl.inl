@@ -170,8 +170,8 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::rehash( )
     for( auto i(0ul); i< m_size; ++i){
         //<! Percorre a lista de colisões
         for( auto it(m_data_table[i].cbegin() ); it != m_data_table[i].cend();++it ){
-            //!< Calcula posição na qual o dado será inserido
-            auto end( hashFunc(it->m_key) % m_size );
+            //!< Calcula a nova posição na qual o dado será inserido
+            auto end( hashFunc(it->m_key) % new_size );
             
             //!< Insere elemento na nova lista;
             temp[end].push_front(  Entry(it->m_key, it->m_data));
