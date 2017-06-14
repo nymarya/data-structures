@@ -79,11 +79,11 @@ int main(){
     hash_table.insert( accounts[2].get_key(), accounts[2]);
     hash_table.insert( accounts[3].get_key(), accounts[3]);
     
-    std::cout <<  hash_table.count() << std::endl; //Imprime 4
+    std::cout << "Temos " << hash_table.count() << " clientes ativos\n";
     
     //Remove "John Lennon"
     hash_table.remove( accounts[0].get_key() );
-    std::cout <<  hash_table.count() << std::endl; //Imprime 5
+    std::cout << "Temos " << hash_table.count() << " clientes ativos\n";
     
     //Atualiza saldo de "Ringo Starr" 
     Account acc(2, 10, 56789, 2500.25, "Ringo Starr");
@@ -92,11 +92,19 @@ int main(){
     //Recupera o novo saldo de "Ringo Starr"
     Account rec;
     hash_table.retrieve( accounts[1].get_key(), rec);
-    std::cout << rec.balance << std::endl; //Imprime "2500.25"
+    std::cout << "O cliente " << rec.name << "possui R$" << rec.balance << std::endl;
 
     return 0;
 }
 ```
+
+A saída do programa seria:
+```
+Temos 5 clientes ativos
+Temos 4 clientes ativos
+O cliente Ringo Starr possui R$2500.25
+```
+
 
 ## Autoria
 
