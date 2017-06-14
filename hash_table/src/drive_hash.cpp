@@ -107,6 +107,10 @@ int main(){
     Account a;
     assert( hash_table.insert( a.get_key(), a) );
 
+    //Atualiza saldo de "Ringo Starr" 
+    Account acc(2, 10, 56789, 2500.25, "Ringo Starr");
+    hash_table.insert( acc.get_key(), acc);
+
     hash_table.print();
     std::cout << "\n>>>Passou em todos os testes!\n";
 
