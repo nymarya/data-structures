@@ -2,7 +2,7 @@
 
 ## Sobre a classe
 
-A classe ```HashTbl``` implementa uma tabela de dispersão, estrutura de dados cujo maior diferencial é possuir inserção, remoção e busca com custo constante.
+A classe ```HashTbl``` implementa uma tabela de dispersão, estrutura de dados cujo maior diferencial é possuir inserção, remoção e busca com custo, em média, constante. Por ser uma estrutura baseada em chave-valor, para realizar as operações básicas citadas acima, é preciso definir as chaves.
 
 ## Como executar
 
