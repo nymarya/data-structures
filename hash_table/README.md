@@ -17,7 +17,7 @@ A classe ```HashTbl``` implementa uma tabela de dispersão, estrutura de dados c
 2º Inclua o arquivo .h no seu programa.<br/>
 3º Instancie a classe com o namespace ```ls```  o tipo dos elementos entre ```<>```
 
-### Exemplo de utilização
+### Exemplo de uso
 ```cpp
 #include <iostream>
 #include "hash_tbl.h"
@@ -78,6 +78,21 @@ int main(){
     hash_table.insert( accounts[1].get_key(), accounts[1]);
     hash_table.insert( accounts[2].get_key(), accounts[2]);
     hash_table.insert( accounts[3].get_key(), accounts[3]);
+    
+    std::cout <<  hash_table.count() << std::endl; //Imprime 4
+    
+    //Remove "John Lennon"
+    hash_table.remove( accounts[0].get_key() );
+    std::cout <<  hash_table.count() << std::endl; //Imprime 5
+    
+    //Atualiza saldo de "Ringo Starr" 
+    Account acc(2, 10, 56789, 2500.25, "Ringo Starr");
+    hash_table.insert( acc.get_key(), acc);
+    
+    //Recupera o novo saldo de "Ringo Starr"
+    Account rec;
+    hash_table.retrieve( accounts[1].get_key(), rec);
+    std::cout << rec.balance << std::endl; //Imprime "2500.25"
 
     return 0;
 }
