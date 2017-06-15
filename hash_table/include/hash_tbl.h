@@ -7,6 +7,7 @@
 #include "forward_list.h"
 #include <forward_list>
 #include <cmath>
+#include <memory>
 
 //=== Classe que define as entradas
 template < class KeyType , class DataType >
@@ -39,8 +40,8 @@ class HashTbl{
     private:
         size_type m_size; // !< Tamanho físico da tabela.
         size_type m_len; // !< Tamanho lógico da tabela.
-        std::forward_list < Entry > * m_data_table ;
-        // std :: unique_ptr < std :: forward_list < Entry > [] > m_data_table ;
+        //std::forward_list < Entry > * m_data_table ;
+        std::unique_ptr < std :: forward_list < Entry > [] > m_data_table ;
         static const short DEFAULT_SIZE = 11; //!< Tamanho padrão da tabela
 
         /*! \brief Aumenta a capacidade de armazenamento da tabela hash se  λ > 1.0. */

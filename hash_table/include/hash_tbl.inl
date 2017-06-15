@@ -14,12 +14,9 @@ m_data_table( new std::forward_list<Entry>[tbl_size] )
 /// Destrutor
 template < typename KeyType, typename DataType, typename KeyHash, typename KeyEqual >
 HashTbl<KeyType, DataType, KeyHash, KeyEqual>::~HashTbl()
-{ 
-    clear(); //!< Limpa elementos da tabela
-    delete [] m_data_table; //!< Libera a memória
-}
+{ }
 
-/// Insere na tabela a informaç̃ao contida em 'data_item' e associada a uma chave 'key'
+/// Insere na tabela a informacao contida em 'data_item' e associada a uma chave 'key'
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
                                                        const DataType & data_item)
@@ -51,7 +48,7 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::insert( const KeyType & key,
     return true;
 }
 
-/// Remove da tabela a informaç̃ao associada a uma chave 'key'
+/// Remove da tabela a informacao associada a uma chave 'key'
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key )
 {
@@ -79,7 +76,7 @@ bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::remove( const KeyType & key 
     return false;
 }
 
-/// Recupera da tabela a informaç̃ao associada a uma chave 'key' e guarda o elemento recuperado em 'data'. 
+/// Recupera da tabela a informacao associada a uma chave 'key' e guarda o elemento recuperado em 'data'. 
 template < typename KeyType, typename DataType, typename KeyHash ,typename KeyEqual >
 bool HashTbl<KeyType, DataType, KeyHash, KeyEqual>::retrieve ( const KeyType & key , DataType & data ) const
 {
@@ -178,9 +175,7 @@ void HashTbl<KeyType, DataType, KeyHash, KeyEqual>::rehash( )
         }
     }
 
-    //!< Libera espaço de armazenamento existente
-    delete [] m_data_table;
-
-    m_data_table = temp; //!< Transfere o ponteiro para o novo endereço
+    //!< Substitui o objeto gerenciado pelo novo ponteiro
+    m_data_table.reset( temp );
     m_size = new_size;   //!< Atualiza tamanho
 }
