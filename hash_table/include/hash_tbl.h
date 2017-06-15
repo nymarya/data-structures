@@ -4,7 +4,6 @@
 
 #include <iostream>
 #include <functional>
-#include "forward_list.h"
 #include <forward_list>
 #include <cmath>
 #include <memory>
@@ -40,7 +39,7 @@ class HashTbl{
     private:
         size_type m_size; // !< Tamanho físico da tabela.
         size_type m_len; // !< Tamanho lógico da tabela.
-        //std::forward_list < Entry > * m_data_table ;
+        //!< Area de armazenamento
         std::unique_ptr < std :: forward_list < Entry > [] > m_data_table ;
         static const short DEFAULT_SIZE = 11; //!< Tamanho padrão da tabela
 

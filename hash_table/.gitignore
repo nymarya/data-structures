@@ -1,0 +1,5 @@
+#Ignores build directory
+build/
+
+*.out
+*.exe
