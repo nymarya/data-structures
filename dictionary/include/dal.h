@@ -23,7 +23,23 @@ class DAL{
     public:
         //=== Membros especiais
         DAL();
+        virtual ~ DAL();
+
         //=== Interface pública
+        bool remove ( const Key & _x , DataType & _s ); 
+        
+        bool search ( const Key & _x , DataType & _s ) const ; 
+        
+        bool insert ( const Key & _newKey , const DataType & _newInfo ); 
+        
+        Key min ( ) const; 
+        
+        Key max ( ) const;
+        
+        bool sucessor ( const Key & _x , Key & _y ) const;
+
+        bool predecessor ( const Key & _x , Key & _y ) const;
+
 
 };
 
