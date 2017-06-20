@@ -58,5 +58,14 @@ int main(){
 
 	assert( myList.sucessor( myList.max(), id) == false );
 
+	//Teste sucessor()
+	id = 2014065192;
+	std::cout << " >>> Predecessor("<< id << "): ";
+	assert( myList.predecessor( id, id) );
+	std::cout << id << std::endl;
+
+
+	assert( myList.predecessor( myList.min(), id) == false );
+
 	return EXIT_SUCCESS;
 }

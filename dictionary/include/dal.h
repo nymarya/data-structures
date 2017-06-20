@@ -68,11 +68,17 @@ class DAL{
         /*! \brief Recupera informação cuja chave é imediatamente posterior
          *         a chave 'k' 
          *  \param k Chave do elemento anterior.
-         *  \param k_ Chev estritamente maior que 'k'.
+         *  \param k_ Chave estritamente maior que 'k'.
          *  \return Verdadeiro se a busca for bem sucedida, falso caso contário.
          */
         bool sucessor ( const Key & k , Key & k_ ) const;
 
+        /*! \brief Recupera informação cuja chave é imediatamente anterior
+         *         a chave 'k' 
+         *  \param k Chave do elemento posterior.
+         *  \param k_ Chave estritamente menor que 'k'.
+         *  \return Verdadeiro se a busca for bem sucedida, falso caso contário.
+         */
         bool predecessor ( const Key & k , Key & k_ ) const;
 
 

@@ -101,7 +101,7 @@ Key DAL<Key, DataType, KeyComparator>::max() const
     Key max = m_data[0].id;
     for( auto i(1); i< m_len; ++i)
     {
-        if( !cmp( m_data[i].id, max) )
+        if( cmp( max, m_data[i].id) )
             max = m_data[i].id;
     }
 
@@ -128,4 +128,26 @@ bool DAL<Key, DataType, KeyComparator>::sucessor ( const Key & k , Key & k_ ) co
     }
     k_ = suc;
     return has_sucessor;
+}
+
+/// Recupera informação cuja chave é imediatamente anterior a chave 'k'
+template < typename Key , typename DataType , typename KeyComparator >
+bool DAL<Key, DataType, KeyComparator>::predecessor ( const Key & k , Key & k_ ) const{
+    KeyComparator cmp; //!< Instancia functor para comparar
+
+    Key pred = min();
+    auto has_predecessor(false);
+    for( auto i(1); i< m_len; ++i)
+    {
+        if( cmp( m_data[i].id, k) ){
+            if( cmp(pred, m_data[i].id)){
+                pred = m_data[i].id;
+                has_predecessor =  true;
+            }
+
+        }
+
+    }
+    k_ = pred;
+    return has_predecessor;
 }
