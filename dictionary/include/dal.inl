@@ -15,7 +15,7 @@ DAL<Key, DataType, KeyComparator>::~DAL()
 template < typename Key , typename DataType , typename KeyComparator >
 int DAL<Key, DataType, KeyComparator>:: _search ( const Key & k ) const{
 
-	for( auto i(0ul); i < m_len; ++i){
+	for( auto i(0); i < m_len; ++i){
 		//!< Busca linear por elemento com chave k
         if( m_data[i].id == k)
             return i; //!< Se encontrar, retorna seu índice
@@ -47,10 +47,9 @@ bool DAL<Key, DataType, KeyComparator>::insert( const Key & new_key , const Data
     	m_data[index].data = new_info;
     	return false;
     }
-    m_len++;//!<Atualiza tamanho
     //!<Insere elemento
     m_data[ m_len ].id = new_key;
-    m_data[ m_len ].data = new_info;
+    m_data[ m_len++ ].data = new_info;
 
     return true;
 }

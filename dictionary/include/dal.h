@@ -15,8 +15,8 @@ class DAL{
         };
 
         static const int DEFAULT_SIZE=50;
-        std::size_t m_capacity; //!< Tamanho máximo de armazenamento
-        std::size_t m_len;      //!< Tamanho lógico
+        int m_capacity; //!< Tamanho máximo de armazenamento
+        int m_len;      //!< Tamanho lógico
         Node * m_data;          //!< Área de armazenamento
 
         /*! \brief Método auxiliar de busca que recupera
