@@ -61,10 +61,16 @@ class DAL{
         Key min ( ) const; 
         
         /*! \brief Método que retorna a maior chave. 
-         *  \return Menor chave seguindo a ordem estrita definida.
+         *  \return Maior chave seguindo a ordem estrita definida.
          */
         Key max ( ) const;
         
+        /*! \brief Recupera informação cuja chave é imediatamente posterior
+         *         a chave 'k' 
+         *  \param k Chave do elemento anterior.
+         *  \param k_ Chev estritamente maior que 'k'.
+         *  \return Verdadeiro se a busca for bem sucedida, falso caso contário.
+         */
         bool sucessor ( const Key & k , Key & k_ ) const;
 
         bool predecessor ( const Key & k , Key & k_ ) const;

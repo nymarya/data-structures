@@ -42,7 +42,21 @@ int main(){
 	//Teste min()
 	auto min = myList.min();
 	assert( myList.search( min, name) );
-	std::cout << " >>> Min() : " << name <<std::endl;
+	std::cout << " >>> Min(): {" << min << ", " << name << " }" <<std::endl;
+
+	//Teste max()
+	auto max = myList.max();
+	assert( myList.search( max, name) );
+	std::cout << " >>> Max(): {" << max << ", " << name << " }" <<std::endl;
+
+	//Teste sucessor()
+	int id = 2014065192;
+	std::cout << " >>> Sucessor("<< id << "): ";
+	assert( myList.sucessor( id, id) );
+	std::cout << id << std::endl;
+
+
+	assert( myList.sucessor( myList.max(), id) == false );
 
 	return EXIT_SUCCESS;
 }

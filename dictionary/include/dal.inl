@@ -76,6 +76,7 @@ bool DAL<Key, DataType, KeyComparator>::insert( const Key & new_key , const Data
     return true;
 }
 
+/// Método que retorna menor chave
 template < typename Key , typename DataType , typename KeyComparator >
 Key DAL<Key, DataType, KeyComparator>::min() const
 {
@@ -89,4 +90,42 @@ Key DAL<Key, DataType, KeyComparator>::min() const
 	}
 
 	return min;
+}
+
+/// Método que retorna maior chave
+template < typename Key , typename DataType , typename KeyComparator >
+Key DAL<Key, DataType, KeyComparator>::max() const
+{
+    KeyComparator cmp; //!< Instancia functor para comparar
+
+    Key max = m_data[0].id;
+    for( auto i(1); i< m_len; ++i)
+    {
+        if( !cmp( m_data[i].id, max) )
+            max = m_data[i].id;
+    }
+
+    return max;
+}
+
+/// Recupera informação cuja chave é imediatamente posterior a chave 'k'
+template < typename Key , typename DataType , typename KeyComparator >
+bool DAL<Key, DataType, KeyComparator>::sucessor ( const Key & k , Key & k_ ) const{
+    KeyComparator cmp; //!< Instancia functor para comparar
+
+    Key suc = max();
+    auto has_sucessor(false);
+    for( auto i(1); i< m_len; ++i)
+    {
+        if( cmp( k, m_data[i].id) ){
+            if( cmp(m_data[i].id, suc)){
+                suc = m_data[i].id;
+                has_sucessor =  true;
+            }
+
+        }
+
+    }
+    k_ = suc;
+    return has_sucessor;
 }
