@@ -17,7 +17,7 @@ class DAL{
         static const int DEFAULT_SIZE=50;
         int m_capacity; //!< Tamanho máximo de armazenamento
         int m_len;      //!< Tamanho lógico
-        Node * m_data;          //!< Área de armazenamento
+        Node * m_data;  //!< Área de armazenamento
 
         /*! \brief Método auxiliar de busca que recupera
          *         o elemento com chave 'k' e retorna seu índice. 
@@ -32,6 +32,12 @@ class DAL{
         virtual ~ DAL();
 
         //=== Interface pública
+
+        /*! \brief Método que remove elemento com chave 'k' do dicionário. 
+          * \param k Chave do elemento a ser removido.
+          * \param info Informação associada a 'k'.
+          * \return Verdadeiro se a remoção for bem sucedida, falso caso contário.
+          */
         bool remove ( const Key & k , DataType & info ); 
         
         /*! \brief Método de busca que recupera o elemento
@@ -43,10 +49,10 @@ class DAL{
         bool search ( const Key & d , DataType & info ) const ; 
         
          /*! \brief Método que insere novo elemento no dicionário. 
-         *  \param new_key Chave do novo elemento.
-         *  \param new_info Valor do novo elemento.
-         *  \return Verdadeiro se a inserção for bem sucedida, falso caso contário.
-         */
+          *  \param new_key Chave do novo elemento.
+          *  \param new_info Valor do novo elemento.
+          *  \return Verdadeiro se a inserção for bem sucedida, falso caso contário.
+          */
         bool insert ( const Key & new_key , const DataType & new_info ); 
         
         Key min ( ) const; 

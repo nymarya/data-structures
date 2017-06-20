@@ -1,5 +1,6 @@
 #include "dal.h"
 
+///Construtor padrão
 template < typename Key , typename DataType , typename KeyComparator >
 DAL<Key, DataType, KeyComparator>::DAL( std::size_t size)
 :m_capacity( size )
@@ -7,13 +8,15 @@ DAL<Key, DataType, KeyComparator>::DAL( std::size_t size)
 ,m_data( new Node[size])
 { /* empty*/ }
 
+/// Destrutor
 template < typename Key , typename DataType , typename KeyComparator >
 DAL<Key, DataType, KeyComparator>::~DAL()
 { delete [] m_data; }
 
 /// Método de busca auxiliar
 template < typename Key , typename DataType , typename KeyComparator >
-int DAL<Key, DataType, KeyComparator>:: _search ( const Key & k ) const{
+int DAL<Key, DataType, KeyComparator>::_search ( const Key & k ) const
+{
 
 	for( auto i(0); i < m_len; ++i){
 		//!< Busca linear por elemento com chave k
@@ -25,6 +28,24 @@ int DAL<Key, DataType, KeyComparator>:: _search ( const Key & k ) const{
     return -1;
 }
 
+/// Método que remove elemento com chave 'k'
+template < typename Key , typename DataType , typename KeyComparator >
+bool DAL<Key, DataType, KeyComparator>::remove( const Key & k , DataType & info )
+{
+	//!< Verifica se elemento existe
+    auto index = _search(k);
+    if( index != -1){
+    	info = m_data[index].data;
+
+    	m_data[index ] = m_data[--m_len];
+    	return true;
+    }
+
+    return false;
+}
+
+
+/// Método de busca que recupera o elemento com chave 'k'
 template < typename Key , typename DataType , typename KeyComparator >
 bool DAL<Key, DataType, KeyComparator>::search ( const Key & k , DataType & info ) const 
 {
@@ -38,6 +59,7 @@ bool DAL<Key, DataType, KeyComparator>::search ( const Key & k , DataType & info
     return false;
 }
 
+/// Método que insere novo elemento no dicionário.
 template < typename Key , typename DataType , typename KeyComparator >
 bool DAL<Key, DataType, KeyComparator>::insert( const Key & new_key , const DataType & new_info )
 {
@@ -52,4 +74,10 @@ bool DAL<Key, DataType, KeyComparator>::insert( const Key & new_key , const Data
     m_data[ m_len++ ].data = new_info;
 
     return true;
+}
+
+template < typename Key , typename DataType , typename KeyComparator >
+Key DAL<Key, DataType, KeyComparator>::min() const
+{
+	KeyComparator cmp;
 }
