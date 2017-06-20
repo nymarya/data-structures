@@ -79,5 +79,14 @@ bool DAL<Key, DataType, KeyComparator>::insert( const Key & new_key , const Data
 template < typename Key , typename DataType , typename KeyComparator >
 Key DAL<Key, DataType, KeyComparator>::min() const
 {
-	KeyComparator cmp;
+	KeyComparator cmp; //!< Instancia functor para comparar
+
+	Key min = m_data[0].id;
+	for( auto i(1); i< m_len; ++i)
+	{
+		if( cmp( m_data[i].id, min) )
+			min = m_data.id
+	}
+
+	return min;
 }
