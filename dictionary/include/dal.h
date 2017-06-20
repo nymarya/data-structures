@@ -14,6 +14,7 @@ class DAL{
             DataType data ; //!< A informação é uma cadeia de caracteres .
         };
 
+        static const int DEFAULT_SIZE=50;
         std::size_t m_capacity; //!< Tamanho máximo de armazenamento
         std::size_t m_len;      //!< Tamanho lógico
         Node * m_data;          //!< Área de armazenamento
@@ -22,15 +23,15 @@ class DAL{
 
     public:
         //=== Membros especiais
-        DAL();
+        DAL(std::size_t size = DEFAULT_SIZE);
         virtual ~ DAL();
 
         //=== Interface pública
-        bool remove ( const Key & _x , DataType & _s ); 
+        bool remove ( const Key & k , DataType & info ); 
         
-        bool search ( const Key & _x , DataType & _s ) const ; 
+        bool search ( const Key & d , DataType & info ) const ; 
         
-        bool insert ( const Key & _newKey , const DataType & _newInfo ); 
+        bool insert ( const Key & new_key , const DataType & _newInfo ); 
         
         Key min ( ) const; 
         
@@ -42,5 +43,7 @@ class DAL{
 
 
 };
+
+#include "dal.inl"
 
 #endif
