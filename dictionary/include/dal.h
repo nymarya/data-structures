@@ -19,7 +19,12 @@ class DAL{
         std::size_t m_len;      //!< Tamanho lógico
         Node * m_data;          //!< Área de armazenamento
 
-        int _search ( const Key & _x ) const;
+        /*! \brief Método auxiliar de busca que recupera
+         *         o elemento com chave 'k' e retorna seu índice. 
+         *  \param k Chave do elemento que se deseja procurar.
+         *  \return Índice do elemento se o mesmo for encontrad, -1 caso contário.
+         */ 
+        int _search ( const Key & k ) const;
 
     public:
         //=== Membros especiais
@@ -29,6 +34,12 @@ class DAL{
         //=== Interface pública
         bool remove ( const Key & k , DataType & info ); 
         
+        /*! \brief Método de busca que recupera o elemento
+         *         com chave 'k' e guarda seu valor em 'info'. 
+         *  \param k Chave do elemento que se deseja procurar.
+         *  \param info Variável que guarda o elemento recuperado.
+         *  \return Verdadeiro se o elemento for encontrads, falso caso contário.
+         */
         bool search ( const Key & d , DataType & info ) const ; 
         
         bool insert ( const Key & new_key , const DataType & _newInfo ); 
