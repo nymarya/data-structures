@@ -55,8 +55,14 @@ class DAL{
           */
         bool insert ( const Key & new_key , const DataType & new_info ); 
         
+        /*! \brief Método que retorna a menor chave. 
+         *  \return Menor chave seguindo a ordem estrita definida.
+         */
         Key min ( ) const; 
         
+        /*! \brief Método que retorna a maior chave. 
+         *  \return Menor chave seguindo a ordem estrita definida.
+         */
         Key max ( ) const;
         
         bool sucessor ( const Key & k , Key & k_ ) const;

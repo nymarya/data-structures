@@ -85,7 +85,7 @@ Key DAL<Key, DataType, KeyComparator>::min() const
 	for( auto i(1); i< m_len; ++i)
 	{
 		if( cmp( m_data[i].id, min) )
-			min = m_data.id
+			min = m_data[i].id;
 	}
 
 	return min;

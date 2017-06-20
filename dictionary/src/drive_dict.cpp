@@ -39,5 +39,10 @@ int main(){
 	assert( myList.insert( 2017065191 , "Bumblebee" ) );
 	assert( myList.insert( 2017065192 , "Katana" ) );
 
+	//Teste min()
+	auto min = myList.min();
+	assert( myList.search( min, name) );
+	std::cout << " >>> Min() : " << name <<std::endl;
+
 	return EXIT_SUCCESS;
 }
