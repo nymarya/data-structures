@@ -41,6 +41,12 @@ struct FruitCompare{
     }
 };
 
+struct KeyEqual {
+	bool operator()( const Fruit::FrKey &lhs, const Fruit::FrKey &rhs) const{
+        return (lhs.first == rhs.first) and (lhs.second == rhs.second);
+    }
+};
+
 int main(){
 	DAL < int , std::string , MyKeyComparator > myList ( 50 );
 	assert( myList.insert ( 2015003129 , " Jack " ) ) ;
@@ -60,21 +66,31 @@ int main(){
 	assert( myList.search( 2015003129, name) == false );
 	assert( name == " Jack ");
 
-	assert( myList.insert( 2014065190 , "Batgirl" ) );
+	/// Testes min e max
 	assert( myList.insert( 2015065190 , "Poison Ivy" ) );
 	assert( myList.insert( 2014065191 , "Supergirl" ) );
 	assert( myList.insert( 2014065192 , "Harley Quinn" ) );
 	assert( myList.insert( 2017065190 , "Wonder Woman" ) );
 	assert( myList.insert( 2017065191 , "Bumblebee" ) );
-	assert( myList.insert( 2017065192 , "Katana" ) );
 
 	//Teste min()
 	auto min = myList.min();
 	assert( myList.search( min, name) );
-	assert( min == 2014065190);
+	assert( min == 2014065191);
 
 	//Teste max()
 	auto max = myList.max();
+	assert( myList.search( max, name) );
+	assert( max == 2017065191);
+
+	assert( myList.insert( 2014065190 , "Batgirl" ) );
+	assert( myList.insert( 2017065192 , "Katana" ) );
+
+	min = myList.min();
+	assert( myList.search( min, name) );
+	assert( min == 2014065190);
+
+	max = myList.max();
 	assert( myList.search( max, name) );
 	assert( max == 2017065192);
 
@@ -105,7 +121,8 @@ int main(){
         Fruit( 20, 2.50, "Apple"),
         Fruit( 85, 15.25, "Kiwi"),
         Fruit( 75, 10.0, "Blueberry"),
-        Fruit( 50, 11.75, "Tomate")
+        Fruit( 50, 11.75, "Tomato"),
+        Fruit( 10, 2.00, "Banana")
 	};
 
 
@@ -148,6 +165,45 @@ int main(){
 	assert( removed == fruits[3].get_weight() );
 
 	assert( myDict.remove( fruits[3].get_key(), removed ) == false );
+
+
+	//Teste min() e max()
+	assert( myDict.insert( fruits[0].get_key(), fruits[0].get_weight() ));
+	assert( myDict.insert( fruits[2].get_key(), fruits[2].get_weight() ));
+	assert( myDict.insert( fruits[3].get_key(), fruits[3].get_weight() ));
+	
+	auto min_dsal = myDict.min();
+	assert( myDict.search( min_dsal, weight ) );
+	assert( weight == fruits[0].get_weight() );
+
+	auto max_dsal = myDict.max();
+	assert( myDict.search( max_dsal, weight ) );
+	assert( weight == fruits[2].get_weight() );
+
+	/// Insere nas extremidades e recupera novos min e max
+	assert( myDict.insert( fruits[1].get_key(), fruits[1].get_weight() ));
+	assert( myDict.insert( fruits[4].get_key(), fruits[4].get_weight() ));
+
+	min_dsal = myDict.min();
+	assert( myDict.search( min_dsal, weight ) );
+	assert( weight == fruits[4].get_weight() );
+
+	max_dsal = myDict.max();
+	assert( myDict.search( max_dsal, weight ) );
+	assert( weight == fruits[1].get_weight() );
+
+
+	//Teste sucessor()
+	KeyEqual eq;
+
+	std::pair<std::string, int> p;
+	assert( myDict.sucessor(fruits[0].get_key(), p) );
+	assert( eq(p, fruits[3].get_key() ) ); //!< Sucessor de Apple deve ser Tomato
+
+	assert( myDict.sucessor(fruits[3].get_key(), p) );
+	assert( eq(p, fruits[2].get_key() ) ); //!< Sucessor de Tomato deve ser Blueberry
+
+	assert( myDict.sucessor(max_dsal, p) == false );
 
 	std::cout << " >>> Normal exiting...\n";
 

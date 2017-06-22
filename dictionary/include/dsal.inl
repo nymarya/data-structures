@@ -102,3 +102,63 @@ bool DSAL<Key, DataType, KeyComparator>::insert ( const Key & new_key , const Da
 	DAL<Key, DataType, KeyComparator>::m_len++; //!< Atualiza
 	return true;
 }
+
+/// Método que retorna a menor chave. 
+template < typename Key , typename DataType , typename KeyComparator >
+Key DSAL<Key, DataType, KeyComparator>::min ( ) const
+{
+	auto data = DAL<Key, DataType, KeyComparator>::m_data;
+
+	return data[0].id;
+} 
+        
+/// Método que retorna a maior chave.
+template < typename Key , typename DataType , typename KeyComparator >
+Key DSAL<Key, DataType, KeyComparator>::max ( ) const
+{
+	auto data = DAL<Key, DataType, KeyComparator>::m_data;
+	auto len = DAL<Key, DataType, KeyComparator>::m_len;
+
+	return data[len-1].id;
+}
+        
+/// Recupera informação cuja chave é imediatamente posterior*/
+template < typename Key , typename DataType , typename KeyComparator >
+bool DSAL<Key, DataType, KeyComparator>::sucessor ( const Key & k , Key & k_ ) const
+{
+	auto data = DAL<Key, DataType, KeyComparator>::m_data;
+	auto len = DAL<Key, DataType, KeyComparator>::m_len;
+
+	KeyComparator cmp;
+
+	//!< Busca posição da chave
+	int pos = _search( k);
+
+	//!< Verifica se índice realmente corresponde ao elemento e se não é o maximo
+	if( cmp( k, data[pos].id) or cmp(data[pos].id, k) or pos == len-1 ) 
+        return false;
+
+    //!< Recupera chave
+	k_  = data[pos+1].id;
+	return true;
+}
+
+/// Recupera informação cuja chave é imediatamente anterior
+template < typename Key , typename DataType , typename KeyComparator >
+bool DSAL<Key, DataType, KeyComparator>:: predecessor ( const Key & k , Key & k_ ) const
+{
+	auto data = DAL<Key, DataType, KeyComparator>::m_data;
+
+	KeyComparator cmp;
+
+	//!< Busca posição da chave
+	int pos = _search( k);
+
+	//!< Verifica se índice realmente corresponde ao elemento e se não é o menor
+	if( pos == 0) 
+        return false;
+
+    //!< Recupera chave
+	k_  = data[pos-1].id;
+	return true;
+}

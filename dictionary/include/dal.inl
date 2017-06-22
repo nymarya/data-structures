@@ -119,7 +119,7 @@ bool DAL<Key, DataType, KeyComparator>::sucessor ( const Key & k , Key & k_ ) co
 
     Key suc = max();
     auto has_sucessor(false);
-    for( auto i(1); i< m_len; ++i)
+    for( auto i(0); i< m_len; ++i)
     {
         if( cmp( k, m_data[i].id) ){
             if( cmp(m_data[i].id, suc)){
@@ -141,7 +141,7 @@ bool DAL<Key, DataType, KeyComparator>::predecessor ( const Key & k , Key & k_ )
 
     Key pred = min();
     auto has_predecessor(false);
-    for( auto i(1); i< m_len; ++i)
+    for( auto i(0); i< m_len; ++i)
     {
         if( cmp( m_data[i].id, k) ){
             if( cmp(pred, m_data[i].id)){
