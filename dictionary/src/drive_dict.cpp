@@ -48,6 +48,11 @@ struct KeyEqual {
 };
 
 int main(){
+
+	////////////////////
+	///      DAL     ///
+	////////////////////
+
 	DAL < int , std::string , MyKeyComparator > myList ( 50 );
 	assert( myList.insert ( 2015003129 , " Jack " ) ) ;
 	assert( myList.insert ( 2014065190 , " John " ) );
@@ -204,6 +209,15 @@ int main(){
 	assert( eq(p, fruits[2].get_key() ) ); //!< Sucessor de Tomato deve ser Blueberry
 
 	assert( myDict.sucessor(max_dsal, p) == false );
+
+	//Teste predecessor()
+	assert( myDict.predecessor(fruits[0].get_key(), p) );
+	assert( eq(p, fruits[4].get_key() ) ); //!< Predecessor de Apple deve ser Banana
+
+	assert( myDict.predecessor(fruits[1].get_key(), p) );
+	assert( eq(p, fruits[2].get_key() ) ); //!< Sucessor de Kiwi deve ser Blueberry
+
+	assert( myDict.predecessor(min_dsal, p) == false );
 
 	std::cout << " >>> Normal exiting...\n";
 

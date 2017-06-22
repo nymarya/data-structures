@@ -149,8 +149,6 @@ bool DSAL<Key, DataType, KeyComparator>:: predecessor ( const Key & k , Key & k_
 {
 	auto data = DAL<Key, DataType, KeyComparator>::m_data;
 
-	KeyComparator cmp;
-
 	//!< Busca posição da chave
 	int pos = _search( k);
 
