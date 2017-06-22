@@ -4,7 +4,8 @@
 #include <iostream>
 #include "dal.h"
 #include <algorithm>
-//=== Classe que representa um dicionário com vetor nao-ordenado
+
+//=== Classe que representa um dicionário com vetor ordenado
 template < typename Key , typename DataType , typename KeyComparator >
 class DSAL : public DAL<Key, DataType, KeyComparator >
 {
@@ -64,16 +65,6 @@ class DSAL : public DAL<Key, DataType, KeyComparator >
          *  \return Verdadeiro se a busca for bem sucedida, falso caso contário.
          */
         bool predecessor ( const Key & k , Key & k_ ) const;
-
-        void print(){
-            auto data = DAL<Key, DataType, KeyComparator>::m_data;
-            auto len = DAL<Key, DataType, KeyComparator>::m_len;
-            std::cout << "Len " << len << std::endl;
-            std::cout << "dict = [";
-            for( auto i(0); i < len; ++i)
-                std::cout <<"(" <<data[i].id.first <<" " << data[i].id.second <<") at "<< i << ", ";
-            std::cout << "]\n";
-        }
 
 
 };
