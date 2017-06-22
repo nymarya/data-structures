@@ -6,7 +6,7 @@ A classe ```DAL``` (Dictionary with Array List ) implementa o tipo abstrato de d
 
 A classe ```DSAL``` (Dictionary with Sorted-Array List ) é semelhanta à classe anterior, com a diferença de fazer uso de uma lista sequencial ordenada,.
 
-#### Perfomance
+#### Performance
 
 | Operações  | DAL           | DSAL  |
 | :------------- |:-------------| :-----|
