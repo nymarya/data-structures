@@ -17,10 +17,11 @@ DAL<Key, DataType, KeyComparator>::~DAL()
 template < typename Key , typename DataType , typename KeyComparator >
 int DAL<Key, DataType, KeyComparator>::_search ( const Key & k ) const
 {
+    KeyComparator cmp;
 
 	for( auto i(0); i < m_len; ++i){
 		//!< Busca linear por elemento com chave k
-        if( m_data[i].id == k)
+        if( !cmp( k, m_data[i].id) and !cmp(m_data[i].id, k) )
             return i; //!< Se encontrar, retorna seu índice
     }
 
@@ -34,14 +35,15 @@ bool DAL<Key, DataType, KeyComparator>::remove( const Key & k , DataType & info 
 {
 	//!< Verifica se elemento existe
     if( m_len == 0 )return false;
-
     KeyComparator cmp;
     auto index = _search(k);
     if( cmp( k, m_data[index].id) or cmp(m_data[index].id, k) ) 
         return false;
 	
     info = m_data[index].data;
-	m_data[index ] = m_data[--m_len];
+	m_data[index ].id = m_data[--m_len].id;
+    m_data[index ].data = m_data[m_len].data;
+
 	return true;
     
 }
@@ -51,12 +53,14 @@ bool DAL<Key, DataType, KeyComparator>::remove( const Key & k , DataType & info 
 template < typename Key , typename DataType , typename KeyComparator >
 bool DAL<Key, DataType, KeyComparator>::search ( const Key & k , DataType & info ) const 
 {
+    if( m_len == 0 )return false;
+
     KeyComparator cmp;
   	//!< Busca índice da chave
     auto index = _search(k);
-    std::cout << "index da busca" << index <<std::endl;
-    if(  cmp( k, m_data[index].id) or cmp(m_data[index].id, k) )
+    if(  cmp( k, m_data[index].id) or cmp(m_data[index].id, k) ){
         return false;
+    }
 
 	info = m_data[index].data;
 	return true;

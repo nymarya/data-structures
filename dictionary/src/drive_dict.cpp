@@ -43,9 +43,7 @@ struct FruitCompare{
 
 int main(){
 	DAL < int , std::string , MyKeyComparator > myList ( 50 );
-	std::cout << " >>> Inserindo {2015003129 , \" Jack \"} " << std::endl ;
 	assert( myList.insert ( 2015003129 , " Jack " ) ) ;
-	std::cout << " >>> Inserindo {2014065190 , \" John \"} " << std::endl ;
 	assert( myList.insert ( 2014065190 , " John " ) );
 
 	//Teste retrieve
@@ -74,30 +72,24 @@ int main(){
 	auto min = myList.min();
 	assert( myList.search( min, name) );
 	assert( min == 2014065190);
-	std::cout << " >>> Min(): {" << min << ", " << name << " }" <<std::endl;
 
 	//Teste max()
 	auto max = myList.max();
 	assert( myList.search( max, name) );
 	assert( max == 2017065192);
-	std::cout << " >>> Max(): {" << max << ", " << name << " }" <<std::endl;
 
 	//Teste sucessor()
 	int id = 2014065192;
-	std::cout << " >>> Sucessor("<< id << "): ";
 	assert( myList.sucessor( id, id) );
 	assert( id == 2015065190);
-	std::cout << id << std::endl;
 
 
 	assert( myList.sucessor( myList.max(), id) == false );
 
-	//Teste sucessor()
+	//Teste predecessor()
 	id = 2014065192;
-	std::cout << " >>> Predecessor("<< id << "): ";
 	assert( myList.predecessor( id, id) );
 	assert( id == 2014065191);
-	std::cout << id << std::endl;
 
 
 	assert( myList.predecessor( myList.min(), id) == false );
@@ -109,7 +101,7 @@ int main(){
 	////////////////////
 
 
-	 std::vector<Fruit> fruits = {
+	std::vector<Fruit> fruits = {
         Fruit( 20, 2.50, "Apple"),
         Fruit( 85, 15.25, "Kiwi"),
         Fruit( 75, 10.0, "Blueberry"),
@@ -117,14 +109,45 @@ int main(){
 	};
 
 
-	 DSAL < Fruit::FrKey , float , FruitCompare > myDict ( 50 );
+	DSAL < Fruit::FrKey , float , FruitCompare > myDict ( 50 );
 
-	 assert( myDict.insert( fruits[0].get_key(), fruits[0].get_weight() ));
+	//Teste insert()
+	assert( myDict.insert( fruits[0].get_key(), fruits[0].get_weight() ));
 	
-	 assert( myDict.insert( fruits[1].get_key(), fruits[1].get_weight() ));
-	 assert( myDict.insert( fruits[2].get_key(), fruits[2].get_weight() ));
-	 assert( myDict.insert( fruits[3].get_key(), fruits[3].get_weight() ));
-	 myDict.print();
+	//Teste search()
+	assert( myDict.insert( fruits[1].get_key(), fruits[1].get_weight() ));
+
+	float weight = 0.0;
+	assert( myDict.search( fruits[0].get_key(), weight ) );
+	assert( weight == fruits[0].get_weight()  );
+
+	assert( myDict.search( fruits[1].get_key(), weight ) );
+	assert( weight == fruits[1].get_weight()  );
+
+	assert( myDict.insert( fruits[2].get_key(), fruits[2].get_weight() ));
+	assert( myDict.search( fruits[2].get_key(), weight ) );
+	assert( weight == fruits[2].get_weight() );
+
+	assert( myDict.insert( fruits[3].get_key(), fruits[3].get_weight() ));
+	assert( myDict.search( fruits[3].get_key(), weight ) );
+	assert( weight == fruits[3].get_weight() );
+
+	//Teste remove()
+	float removed = 0.0;
+	assert( myDict.remove( fruits[0].get_key(), removed ) );
+	assert( removed == fruits[0].get_weight() );
+
+	assert( myDict.remove( fruits[1].get_key(), removed ) );
+	assert( removed == fruits[1].get_weight() );
+
+	assert( myDict.remove( fruits[2].get_key(), removed ) );
+	assert( removed == fruits[2].get_weight() );
+
+	assert( myDict.remove( fruits[3].get_key(), removed ) );
+	assert( removed == fruits[3].get_weight() );
+
+
+	std::cout << " >>> Normal exiting...\n";
 
 	return EXIT_SUCCESS;
 }
