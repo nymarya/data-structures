@@ -41,6 +41,42 @@ int DSAL<Key, DataType, KeyComparator>::_search ( const Key & k ) const
 }
 
 
+//Método que remove elemento com chave 'k' do dicionário. 
+template < typename Key , typename DataType , typename KeyComparator >
+bool DSAL<Key, DataType, KeyComparator>::remove ( const Key & k , DataType & info )
+{
+	auto data = DAL<Key, DataType, KeyComparator>::m_data;
+	auto len = DAL<Key, DataType, KeyComparator>::m_len;
+
+	KeyComparator cmp;
+
+	//!< Não remove se dicionário estiver vazio
+	if( len == 0 ) return false;
+
+	//!< Busca posição da chave
+	int pos = _search( k);
+
+	//!< Verifica se índice realmente corresponde ao elemento
+	if( cmp( k, data[pos].id) or cmp(data[pos].id, k) ) 
+        return false;
+
+    //!< Guarda informação a ser retornada
+	info = data[pos].data;
+
+	//!< Realiza deslocamento
+	for( auto i(pos); i < len; ++i)
+	{
+		data[i].id = data[i+1].id;
+		data[i].data = data[i+1].data;
+	}
+
+	//!< Atualiza tamanho
+	DAL<Key, DataType, KeyComparator>::m_len--;
+	return true;
+
+}
+
+
 /// Método que insere novo elemento no dicionário
 template < typename Key , typename DataType , typename KeyComparator >
 bool DSAL<Key, DataType, KeyComparator>::insert ( const Key & new_key , const DataType & new_info )
@@ -60,8 +96,9 @@ bool DSAL<Key, DataType, KeyComparator>::insert ( const Key & new_key , const Da
 		data[i].data = data[i-1].data;
 	}
 
+	//!< Insere
 	data[pos].id = new_key;
 	data[pos].data = new_info;
-	DAL<Key, DataType, KeyComparator>::m_len++;
+	DAL<Key, DataType, KeyComparator>::m_len++; //!< Atualiza
 	return true;
 }
