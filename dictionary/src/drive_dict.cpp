@@ -116,19 +116,15 @@ int main(){
         Fruit( 50, 11.75, "Tomate")
 	};
 
-	DSAL < Fruit::FrKey , float , FruitCompare > myDict ( 50 );
 
-	assert( myDict.insert( fruits[0].get_key(), fruits[0].get_weight() ));
-	myDict.print();
+	 DSAL < Fruit::FrKey , float , FruitCompare > myDict ( 50 );
+
+	 assert( myDict.insert( fruits[0].get_key(), fruits[0].get_weight() ));
 	
-	assert( myDict.insert( fruits[1].get_key(), fruits[1].get_weight() ));
-
-
-	myDict.print();
-	assert( myDict.insert( fruits[2].get_key(), fruits[2].get_weight() ));
-	myDict.print();
-	assert( myDict.insert( fruits[3].get_key(), fruits[3].get_weight() ));
-	myDict.print();
+	 assert( myDict.insert( fruits[1].get_key(), fruits[1].get_weight() ));
+	 assert( myDict.insert( fruits[2].get_key(), fruits[2].get_weight() ));
+	 assert( myDict.insert( fruits[3].get_key(), fruits[3].get_weight() ));
+	 myDict.print();
 
 	return EXIT_SUCCESS;
 }

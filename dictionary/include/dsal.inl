@@ -1,6 +1,7 @@
 #include "dsal.h"
 #include <cstring>
 
+
 ///Construtor padrão
 template < typename Key , typename DataType , typename KeyComparator >
 DSAL<Key, DataType, KeyComparator>::DSAL( std::size_t size)
@@ -16,17 +17,27 @@ DSAL<Key, DataType, KeyComparator>::~DSAL()
 template < typename Key , typename DataType , typename KeyComparator >
 int DSAL<Key, DataType, KeyComparator>::_search ( const Key & k ) const
 {
-	//!< Retorna indice se achar
-	for( auto i(0); i < m_len; ++i){
-		//!< Busca linear por elemento com chave k
-        if( m_data[i].id == k)
-            return i; //!< Se encontrar, retorna seu índice
-    }
+	auto data( DAL<Key, DataType, KeyComparator>::m_data );
+	auto first(0);
+	auto last(DAL<Key, DataType, KeyComparator>::m_len);
 
-    //!< faz upper/lower bound se n estiver
+	KeyComparator cmp;
 
-    //!< Se não encontrar elemento
-    return -1;
+	//!< busca do limite inferior
+	auto n = last-first; //!< número de candidatos a limite inferior
+	while( n > 0)
+	{
+		auto mid = n/2;
+
+		if(  cmp(data[first + mid].id, k ) ){
+			first = first + mid + 1; //!< Guarda candidato
+			n -= mid + 1; //!< diminui o número de candidatos
+		}else{
+			n = mid; //!< Diminui número de candidatos
+		}
+	}
+
+    return first;
 }
 
 
@@ -39,31 +50,18 @@ bool DSAL<Key, DataType, KeyComparator>::insert ( const Key & new_key , const Da
 
 	if( len == DAL<Key, DataType, KeyComparator>::m_capacity) 
 		return false;
-	// if( len == 0 ){
-	// 	data[len].id = new_key;
-	// 	data[len].data = new_info;
-	// 	DAL<Key, DataType, KeyComparator>::m_len++;
-	// 	return true;
-	// }
-	KeyComparator cmp;
-	std::cout << "inserindo " << new_key.first << " \n";
-	for( auto i(0); i < len; ++i){
-		if( cmp(new_key, data[i].id)){
-			//!< desloca
-			DAL<Key, DataType, KeyComparator>::m_len++;
-			std::cout << "vai mudar ";
-			for( auto j(i); j < len; ++j)
-				std::cout << data[j].id.first << " ";
-			std::cout << std::endl;
-			std::copy(&data[i], &data[len+1], &data[i+1]);
-			data[i].id = new_key;
-			data[i].data = new_info;
-			return true;
-		}
+
+	//!< Busca posição de onde pode inserir
+	auto pos = _search( new_key);
+	//!< Realiza deslocamento
+	for( auto i(len); i > pos; --i)
+	{
+		data[i].id = data[i-1].id;
+		data[i].data = data[i-1].data;
 	}
 
-	data[len].id = new_key;
-	data[len].data = new_info;
+	data[pos].id = new_key;
+	data[pos].data = new_info;
 	DAL<Key, DataType, KeyComparator>::m_len++;
 	return true;
 }
