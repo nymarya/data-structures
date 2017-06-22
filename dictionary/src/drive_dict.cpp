@@ -142,10 +142,12 @@ int main(){
 
 	assert( myDict.remove( fruits[2].get_key(), removed ) );
 	assert( removed == fruits[2].get_weight() );
+	assert( myDict.remove( fruits[2].get_key(), removed ) == false );
 
 	assert( myDict.remove( fruits[3].get_key(), removed ) );
 	assert( removed == fruits[3].get_weight() );
 
+	assert( myDict.remove( fruits[3].get_key(), removed ) == false );
 
 	std::cout << " >>> Normal exiting...\n";
 
