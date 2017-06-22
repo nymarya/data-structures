@@ -1,5 +1,7 @@
 #include "dal.h"
+#include "dsal.h"
 #include <cassert>
+#include <vector>
 
 class MyKeyComparator {
 	public :
@@ -9,6 +11,35 @@ class MyKeyComparator {
 		}
 };
 
+struct Fruit{
+    int calories;
+    float weight;
+    std::string name;
+
+    using FrKey = std::pair < std::string , int >;
+
+    Fruit( int c=50, float w=10.0, std::string n="None")
+    :calories(c), weight(w), name(n)
+    {/*empty*/}
+
+    FrKey get_key()
+    {
+        std::pair<std::string, int> p(name, calories);
+        return p; 
+    }
+
+    float get_weight()
+    {
+    	return weight;
+    }
+
+};
+
+struct FruitCompare{
+    bool operator()( const Fruit::FrKey &lhs, const Fruit::FrKey &rhs) const{
+        return (lhs.second < rhs.second);
+    }
+};
 
 int main(){
 	DAL < int , std::string , MyKeyComparator > myList ( 50 );
@@ -42,17 +73,20 @@ int main(){
 	//Teste min()
 	auto min = myList.min();
 	assert( myList.search( min, name) );
+	assert( min == 2014065190);
 	std::cout << " >>> Min(): {" << min << ", " << name << " }" <<std::endl;
 
 	//Teste max()
 	auto max = myList.max();
 	assert( myList.search( max, name) );
+	assert( max == 2017065192);
 	std::cout << " >>> Max(): {" << max << ", " << name << " }" <<std::endl;
 
 	//Teste sucessor()
 	int id = 2014065192;
 	std::cout << " >>> Sucessor("<< id << "): ";
 	assert( myList.sucessor( id, id) );
+	assert( id == 2015065190);
 	std::cout << id << std::endl;
 
 
@@ -62,10 +96,39 @@ int main(){
 	id = 2014065192;
 	std::cout << " >>> Predecessor("<< id << "): ";
 	assert( myList.predecessor( id, id) );
+	assert( id == 2014065191);
 	std::cout << id << std::endl;
 
 
 	assert( myList.predecessor( myList.min(), id) == false );
+
+
+
+	////////////////////
+	///     DSAL     ///
+	////////////////////
+
+
+	 std::vector<Fruit> fruits = {
+        Fruit( 20, 2.50, "Apple"),
+        Fruit( 85, 15.25, "Kiwi"),
+        Fruit( 75, 10.0, "Blueberry"),
+        Fruit( 50, 11.75, "Tomate")
+	};
+
+	DSAL < Fruit::FrKey , float , FruitCompare > myDict ( 50 );
+
+	assert( myDict.insert( fruits[0].get_key(), fruits[0].get_weight() ));
+	myDict.print();
+	
+	assert( myDict.insert( fruits[1].get_key(), fruits[1].get_weight() ));
+
+
+	myDict.print();
+	assert( myDict.insert( fruits[2].get_key(), fruits[2].get_weight() ));
+	myDict.print();
+	assert( myDict.insert( fruits[3].get_key(), fruits[3].get_weight() ));
+	myDict.print();
 
 	return EXIT_SUCCESS;
 }

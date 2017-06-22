@@ -2,9 +2,12 @@
 #define _DSAL_H_
 
 #include <iostream>
+#include "dal.h"
+#include <algorithm>
 //=== Classe que representa um dicionário com vetor nao-ordenado
 template < typename Key , typename DataType , typename KeyComparator >
-class DSAL : public DAL{
+class DSAL : public DAL<Key, DataType, KeyComparator >
+{
 
     private:
 
@@ -17,7 +20,7 @@ class DSAL : public DAL{
 
     public:
         //=== Membros especiais
-        DSAL(std::size_t size = DEFAULT_SIZE);
+        DSAL(std::size_t size = DAL<Key, DataType, KeyComparator>::DEFAULT_SIZE);
         virtual ~ DSAL();
 
         //=== Interface pública
@@ -61,6 +64,16 @@ class DSAL : public DAL{
          *  \return Verdadeiro se a busca for bem sucedida, falso caso contário.
          */
         bool predecessor ( const Key & k , Key & k_ ) const;
+
+        void print(){
+            auto data = DAL<Key, DataType, KeyComparator>::m_data;
+            auto len = DAL<Key, DataType, KeyComparator>::m_len;
+            std::cout << "Len " << len << std::endl;
+            std::cout << "dict = [";
+            for( auto i(0); i < len; ++i)
+                std::cout <<"(" <<data[i].id.first <<" " << data[i].id.second <<") at "<< i << ", ";
+            std::cout << "]\n";
+        }
 
 
 };
