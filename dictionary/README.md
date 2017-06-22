@@ -1,10 +1,10 @@
 # Dictionary
 
-## Sobre a classe
+## Sobre o projeto
 
 A classe ```DAL``` (Dictionary with Array List ) implementa o tipo abstrato de dado (TAD) dicionário utilizando um vetor não-ordenado, isto é, os elementos armazenados não seguem uma sequência linear, então as operações são baseadas no valor de suas chaves e não nas posições do conteúdo.
 
-A classe ```DSAL``` (Dictionary with Sorted-Array List ) é semelhanta à classe anterior, com a diferença de fazer uso de uma lista sequencial ordenada,.
+A classe ```DSAL``` (Dictionary with Sorted-Array List ) é semelhanta à classe anterior, com a diferença de fazer uso de uma lista sequencial ordenada.
 
 #### Performance
 
