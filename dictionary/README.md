@@ -24,7 +24,7 @@ A classe ```DSAL``` (Dictionary with Sorted-Array List ) é semelhanta à classe
 | #       | Descrição           | Comando  |
 | :------------- |:-------------| :-----|
 | 1      | Compilar | ```$ make``` |
-| 2      | Executar   | ```$ .dict.out``` |
+| 2      | Executar   | ```$ ./dict.out``` |
 
 ## Como utilizar em outros programas
 
