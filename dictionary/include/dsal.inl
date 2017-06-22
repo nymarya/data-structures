@@ -60,8 +60,9 @@ bool DSAL<Key, DataType, KeyComparator>::insert ( const Key & new_key , const Da
 		data[i].data = data[i-1].data;
 	}
 
+	//!< Insere
 	data[pos].id = new_key;
 	data[pos].data = new_info;
-	DAL<Key, DataType, KeyComparator>::m_len++;
+	DAL<Key, DataType, KeyComparator>::m_len++; //!< Atualiza
 	return true;
 }

@@ -25,7 +25,7 @@ int DAL<Key, DataType, KeyComparator>::_search ( const Key & k ) const
     }
 
     //!< Se não encontrar elemento
-    return -1;
+    return 0;
 }
 
 /// Método que remove elemento com chave 'k'
@@ -33,15 +33,17 @@ template < typename Key , typename DataType , typename KeyComparator >
 bool DAL<Key, DataType, KeyComparator>::remove( const Key & k , DataType & info )
 {
 	//!< Verifica se elemento existe
+    if( m_len == 0 )return false;
+
+    KeyComparator cmp;
     auto index = _search(k);
-    if( index != -1){
-    	info = m_data[index].data;
-
-    	m_data[index ] = m_data[--m_len];
-    	return true;
-    }
-
-    return false;
+    if( cmp( k, m_data[index].id) or cmp(m_data[index].id, k) ) 
+        return false;
+	
+    info = m_data[index].data;
+	m_data[index ] = m_data[--m_len];
+	return true;
+    
 }
 
 
@@ -49,14 +51,15 @@ bool DAL<Key, DataType, KeyComparator>::remove( const Key & k , DataType & info 
 template < typename Key , typename DataType , typename KeyComparator >
 bool DAL<Key, DataType, KeyComparator>::search ( const Key & k , DataType & info ) const 
 {
+    KeyComparator cmp;
   	//!< Busca índice da chave
     auto index = _search(k);
-    if( index != -1){
-    	info = m_data[index].data;
-    	return true;
-    }
+    std::cout << "index da busca" << index <<std::endl;
+    if(  cmp( k, m_data[index].id) or cmp(m_data[index].id, k) )
+        return false;
 
-    return false;
+	info = m_data[index].data;
+	return true;
 }
 
 /// Método que insere novo elemento no dicionário.
@@ -64,11 +67,8 @@ template < typename Key , typename DataType , typename KeyComparator >
 bool DAL<Key, DataType, KeyComparator>::insert( const Key & new_key , const DataType & new_info )
 {
 	//!< Verifica se elemento já existe
-    auto index = _search(new_key);
-    if( index != -1){
-    	m_data[index].data = new_info;
-    	return false;
-    }
+    if( m_len == m_capacity )return false;
+
     //!<Insere elemento
     m_data[ m_len ].id = new_key;
     m_data[ m_len++ ].data = new_info;
