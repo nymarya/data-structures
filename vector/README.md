@@ -1,23 +1,23 @@
 # Vector
 
-## Sobre a classe
+## Class Vector
 
-A classe Vector consiste na implementação do tipo abstrato de dado (TAD) lista, com as propriedades estruturais e operações referentes à TAD.
+The class Vector consists of implementing the abstract data type (ADT) list, using structural properties and operations. 
 
-## Como executar
+## How to run
 
-| #       | Descrição           | Comando  |
+| #       | Description           | Command  |
 | :------------- |:-------------| :-----|
-| 1      | Compilar | ```$ make``` |
-| 2      | Executar   | ```$ ./build/drive_vector``` |
+| 1      | Compile | ```$ make``` |
+| 2      | Run   | ```$ ./build/drive_vector``` |
 
-## Como utilizar em outros programas
+## How to use
 
-1º Copie os arquivos .hpp e .inl da pasta ```include/```<br/>
-2º Inclua o arquivo .hpp no seu programa.<br/>
-3º Instancie a classe com o namespace ```ls```  o tipo dos elementos entre ```<>```
+1º Copy files .hpp e .inl from directory ```include/```<br/>
+2º Include file .hpp in your code.<br/>
+3º Instance the class with the namespace ```ls``` and the type of the elements between ```<>```
 
-### Exemplo de utilização
+### Example
 ```cpp
 #include <iostream>
 #include "../include/vector.hpp"
@@ -35,13 +35,11 @@ int main(){
 }
 ```
 
-**Importante!** Lembrar de incluir os arquivos ```.hpp``` e ```.inl``` ao compilar.
+## Exceptions
+The exception ```std::out_of_range``` is thrown if the methods ```pop_back()```, ```pop_front()```, ```back()``` e ```front()``` are called in a empty container. The function ```at()``` throws ```std::out_of_range``` if n is out of bounds.
 
-## Possíveis erros
-A exceção ```std::out_of_range``` pode ser lançada ao chamar os métodos ```pop_back()```, ```pop_front()```, ```back()``` e ```front()```numa lista vazia. A mesma exceção pode ser acionada ao usar o método ```at()``` utilizando uma posição inválida.
+## Authorship
 
-## Autoria
-
-Desenvolvido por Mayra Dantas de Azevedo (<mayradazevedo@gmail.com >), 2017.1
+Developed by Mayra Dantas de Azevedo (<mayradazevedo@ufrn.edu.br >), 2017.1
 
 &copy; IMD/UFRN 2017.
