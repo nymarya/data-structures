@@ -1,6 +1,6 @@
 # Vector
 
-## Class Vector
+## About
 
 The class Vector consists of implementing the abstract data type (ADT) list, using structural properties and operations. 
 
@@ -36,7 +36,7 @@ int main(){
 ```
 
 ## Exceptions
-The exception ```std::out_of_range``` is thrown if the methods ```pop_back()```, ```pop_front()```, ```back()``` e ```front()``` are called in a empty container. The function ```at()``` throws ```std::out_of_range``` if n is out of bounds.
+The exception ```std::out_of_range``` is thrown if the methods ```pop_back()```, ```pop_front()```, ```back()``` or ```front()``` are called in a empty container. The function ```at()``` throws ```std::out_of_range``` if n is out of bounds.
 
 ## Authorship
 
