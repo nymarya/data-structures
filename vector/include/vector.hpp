@@ -12,44 +12,44 @@ namespace ls{
 	template<typename T>
 	class VectorIterator {
 		private:
-			T * m_current; //<! Ponteiro para elemento de vector
+			T * m_current; //<! Pointer
 
 		public:
-			/*! Construtor padrão para classe iterator. */
+			/*! Iterator's default constructor. */
 			explicit VectorIterator( T * current = nullptr );
 
-			/*! Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador.
-			 *  \return O valor que o iterador aponta.
+			/*! Return a reference to the object located at the position pointed by the iterator.
+			 *  \return The object located at the position pointed by the iterator.
 			 * */
 			T & operator*( ) const;
 
-			/*! Avança iterador para a próxima posição na lista. (++it)
-			 *  \return O iterador requerido.
+			/*! Advances iterator to the next location within the list (++it)
+			 *  \return The required pointer.
 			 */
 			VectorIterator & operator++( );
 
-			/*! Avança iterador para a próxima posição na lista. (it++)
-			 *  \return O iterador requerido.
+			/*! Advances iterator to the next location within the list. (it++)
+			 *  \return The required iterator.
 			 */
 			VectorIterator operator++( int );
 
-			/*! Move iterador para a posição anterior na lista. (--it)
-			 *  \return O iterador requerido.
+			/*! Advances iterator to the previous location within the list. (--it)
+			 *  \return The required iterator.
 			 */
 			VectorIterator & operator--( ); 
 
-			/*! Move iterador para a posição anterior na lista. (it--)
-			 *  \return O iterador requerido.
+			/*! Advances iterator to the previous location within the list . (it--)
+			 *  \return The required iterator.
 			 */
 			VectorIterator operator--( int );
 
-			/*! Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista.
-			 *  \return Verdadeiro se os iteradores são iguais, falso caso contrário.
+			/*! Returns true if both iterators refer to the same location within the list.
+			 *  \return True if both iterators refer to the same location, false otherwise.
 			 */
 			bool operator==( const VectorIterator & rhs ) const;
 
-			/*! Retorna verdadeiro se os iteradores fazem referência para pontos diferentes da lista.
-			 *  \return Verdadeiro se os iteradores são diferentes, falso caso contrário.
+			/*! Returns true if both iterators refer to a different location within the list.
+			 *  \return True if both iterators refer to a different location, false otherwise.
 			 */
 			bool operator!=( const VectorIterator & rhs ) const;
 	};
@@ -58,12 +58,12 @@ namespace ls{
 	class Vector{
 		private:
 
-			//!< Tamanho padrão
+			//!< Default size of the list
 			static constexpr std::size_t DEFAULT_SIZE{100};
 			
-			T *m_data;         //!< Área de armmazenamento dinâmica
-			std::size_t m_len; //!< Tamanho lógico.
-			std::size_t m_size;//!< Tamanho da lista.
+			T *m_data;         //!< Dynamic storage area.
+			std::size_t m_len; //!< Logic size of the list.
+			std::size_t m_size;//!< Actual size of the list.
 
 		public:
 			using iterator = VectorIterator<T>;
@@ -74,40 +74,40 @@ namespace ls{
 			//  [I] SPECIAL MEMBERS  //
 			///////////////////////////
 
-			/*! Construtor padrão
-			 *  \param size Tamanho do vetor.
+			/*! Default constructor.
+			 *  \param size Vector size.
 			 */
 			explicit Vector(size_t size = DEFAULT_SIZE);
 
-			/*! Constroi a lista com os elementos do intervalo [first, last).
-			 *  \param first Iterador que aponta para o início do vetor a ser copiado.
-			 *  \param last Iterador que aponta para o final da lista a ser copiado.
+			/*! Constructs the list with the contents of the range [first, last).
+			 *  \param first Iterator pointing to the beginning of the range.
+			 *  \param last Iterator pointing to the end of the range.
 			 */
 			template< typename InputIt >
 			Vector( InputIt first, InputIt last );
 
-			/*! Construtor cópia
-			 *  \param other Vetor a ser copiado.
+			/*! Copy constructor.
+			 *  \param other Vector to initialize the elements of the list with..
 			 */
 			Vector( const Vector& other );
 
-			/*! Construtor com conteúdo de initializer list.
-			 *  \param init Initializer list cujo conteúdo preenche a lista.
+			/*! Constructs the list with the contents of the initializer list.
+			 *  \param init Initializer list to initialize the elements of the list with.
 			 */
 			Vector( std::initializer_list<T> init );
 
 			/*! Destructor. */
 			~Vector( );
 
-			/*! Operador de atribuição por cópia.
-			 *  \param other Vetor a ser copiado.
-			 *  \return O novo objeto.
+			/*! Copy assignment operator.
+			 *  \param other Vector to fill the list with..
+			 *  \return The new object.
 			 */
 			Vector& operator=( const Vector& other );
 
 			/*! Substitui o conteúdo da lista pelos elementos de ilist.
-			 *  \param ilist Initializer list cujo conteúdo irá preencher a lista.
-			 *  \return O novo objeto.
+			 *  \param ilist Initializer list to initialize the elements of the list with..
+			 *  \return The new object.
 			 */
 			Vector& operator=( std::initializer_list<T> ilist );
 
@@ -115,23 +115,23 @@ namespace ls{
 			//  [II] ITERATORS       //
 			///////////////////////////
 
-			/*! Retorna iterador que aponta para o começo do vetor.
-			 *  \return Iterador que aponta para o começo do vetor.
+			/*! Returns an iterator pointing to the first item in the list.
+			 *  \return Iterator pointing to the first item in the list.
 			 */
 			iterator begin( void );
 
-			/*! Retorna iterador que aponta para o final do vetor.
-			 *  \return Iterador que aponta para o final do vetor.
+			/*! Returns an iterator pointing to the end mark of the list.
+			 *  \return Iterator pointing to the end mark of the list
 			 */
 			iterator end( void );
 
-			/* Retorna iterador constante que aponta para o começo do vetor.
-			 * \return Iterador que aponta para o começo do vetor.
+			/* Returns a constant iterator pointing to the first item in the list
+			 * \return Iterator pointing to the first item in the list.
 			 */
 			const_iterator cbegin( void ) const;
 
-			/* Retorna iterador constante que aponta para o final do vetor.
-			 * \return Iterador que aponta para o final do vetor.
+			/* Returns a constant iterator pointing to the end mark of the list.
+			 * \return Iterator pointing to the the end mark of the list.
 			 */
 			const_iterator cend( void ) const;
 
@@ -139,23 +139,23 @@ namespace ls{
 			//  [III] CAPACITY       //
 			///////////////////////////
 
-			/*! Retorna número de elementos da lista.
-			 *  \return Tamanho lógico da lista.
+			/*! Returns the number of elements in the container.
+			 *  \return Number of elements of the list.
 			 */
 			size_type size() const;
 
-			/*! Retorna o tamanho físico da lista.
-			 *  \return Capacidade da lista.
+			/*! Return the capacity of the container.
+			 *  \return Capacity of the list.
 			 */
 			size_type capacity() const ;
 
-			/*! Verifica se o vetor não tem elementos.
-			 *  \return Verdadeiro se a lista está vazia, falso caso contrário.
+			/*! Checks if the container contains no elements.
+			 *  \return True if list is empty, false otherwise.
 			 */
 			bool empty ()const;
 
-			/*! Verifica se vetor está cheio.
-			 *  \return Verdadeiro se a lista está cheia, falso caso contrário.
+			/*! Checks if the container is full.
+			 *  \return True if the list is full, false otherwise.
 			 */
 			bool full ()const;
 
@@ -163,13 +163,13 @@ namespace ls{
 			//  [IV] MODIFIERS       //
 			///////////////////////////
 
-			/*! Insere elemento no final da lista.
-			 *  \param value Valor a ser inserido no final da lista.
+			/*! Inserts element at the end of the list.
+			 *  \param value Value to be inserted at the end of the list.
 			 */
 			void push_back(const T & value);
 
-			/*! Insere elemento no início da lista.
-			 *  \param value Valor a ser inserido no final da lista. 
+			/*! Inserts element at the beginning of the container.
+			 *  \param value Value to be inserted at the beginning of the list. 
 			 */
 			void push_front(const T & value);
 
