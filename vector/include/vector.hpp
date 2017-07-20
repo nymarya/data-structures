@@ -173,14 +173,14 @@ namespace ls{
 			 */
 			void push_front(const T & value);
 
-			/*! Adiciona valor value antes de pos.
+			/*! Adds value before 'pos'.
 			 *  \param pos Iterador que aponta para a posição posterior aonde o valor será inserido.
-			 *  \param value Valor a ser inserido.
-			 *  \return Iterador que aponta para a posição do item inserido.
+			 *  \param value Value to be inserted.
+			 *  \return Iterator pointing to the inserted element.
 			 */
 			iterator insert( iterator pos, const T & value );
 
-			/*! Insere os elementos do intervalo [first; last) antes de pos.
+			/*! Inserts elements of the range [first; last) before 'pos'.
 			 *  \param pos Iterador que aponta para a posição posterior aonde o intervalo será inserido.
 			 *  \param first Iterador que aponta para a posição do primeiro valor que será inserido.
 			 *  \param last Iterador que aponta para a posição posterior ao ultimo valor que será inserido.
@@ -189,88 +189,88 @@ namespace ls{
 			template<typename InputItr>
 			iterator insert( iterator , InputItr , InputItr );
 
-			/*! Insere elementos de std::initializer_list antes de pos.
+			/*! Inserts elements from std::initializer_list before pos.
 			 *  \param pos Iterador que aponta para a posição posterior aonde a lista será inserido.
 			 *  \param ilist Lista que será inserida no vetor.
 			 *  \return Iterador que aponta para a posição do item inserido.
 			 */
 			iterator insert( iterator, std::initializer_list< T > );
 
-			/*! Remove o elemento na posição pos.
+			/*! Removes the elements at 'pos'.
 			 *  \param pos Iterador que aponta para o elemento a ser removido.
 			 *  \return Iterador para o elemento que segue pos antes de o método ser chamado.
 			 */
 			iterator erase( iterator );
 
-			/*! Remove os elementos no intervalo [first, last).
-			 *  \param first Iterador que aponta para o primeiro elemento a ser removido.
-			 *  \param last Iterador que aponta para o elemento posterior ao último a ser removido.
+			/*! Removes elements of the range [first, last).
+			 *  \param first Iterator pointing to the first element of the range.
+			 *  \param last Iterator pointing to the position after the last element of the range.
 			 */
 			iterator erase( iterator, iterator );
 
-			/*! Remove o elemento no final da lista.
-			 *  \return Novo último elemento do vetor.
+			/*! Removes the element at the end of the list.
+			 *  \return New last element.
 			 */
 			T pop_back();
 
-			/*! Remove o elemento no início do array.
+			/*! Removes the element at the beginning of the container.
 			 */
 			void pop_front();
 
-			/*! Substitui o conteúdo da lista por cópias do valor 'value'.
-			 *  \param value Valor que será atribuído à lista.
+			/*! Replaces the content of the list with copies of 'value'.
+			 *  \param value The value to initialize the list with.
 			 */
 			void assign( const T & value );
 
-			/*! Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).
-			 *  \param first Iterador que aponta para o primeiro valor no intervalo que será copiado.
-			 *  \param last Iterador que aponta para a posição posterior ao último elemento do intervalo.
+			/*! Replaces the content of the list with copies of the elements of the range [first,last).
+			 *  \param first Iterator pointing to the first element of the range.
+			 *  \param last Iterator pointing to the position after the last element of the range.
 			 */
 			template < typename InputItr>
 			void assign( InputItr first, InputItr last);
 
-			/*! Substitui o conteúdo da lista pelos elementos de ilist.
-			 *  \param ilist Initializer list que será copiada para a lista.
+			/*! Replaces the content of the list with copies of the elements of 'ilist'.
+			 *  \param ilist Initializer list to repelace the content of the list with.
 			 */
 			void assign( std::initializer_list<T> ilist );
 
-			/*! Limpa vector. */
+			/*! Removes all elements from container. */
 			void clear();
 
-			/*! Aumenta a capacidade de armazenamento da lista para um valor que é maior ou igual a new_cap.
-			 *  \param new_cap Novo tamanho da lista.
+			/*! Increase the storage capacity of the array to a value that’s is greater or equal to 'new_cap'.
+			 *  \param new_cap New container size.
 			 */
 			void reserve( size_type new_cap );
 
-			/*! Remove capacidade que não é utilizada. */
+			/*! Requests the removal of unused capacity. */
 			void shrink_to_fit();
 
 			///////////////////////////
 			//  [V] ELEMENT ACCESS   //
 			///////////////////////////
 
-			/*! Imprime vector. */
+			/*! Prints vector. */
 			void print( ) const;
 
-			/*! Recupera elemento na posição pos.
-			 *  \param pos Posição do elemento a ser retornado.
-			 *  \return Refêrência para o elemento.
+			/*! Gets element at position 'pos' with bounds-checking.
+			 *  \param pos Index of element at the array.
+			 *  \return Reference to the object at the index pos in the array.
 			 */
 			T & at( size_type pos) const;
 
-			/*! Retorna o objeto na posição pos.
-			 *  \param pos Posição do elemento a ser retornado.
-			 *  \return Refêrência para o elemento.
+			/*! Gets the object at position 'pos'.
+			 *  \param pos Index of element at the array.
+			 *  \return Reference to the object at the index pos in the array..
 			 */
 			T & operator[]( size_type pos) const;
 
-			/*! Retorna primeiro elemento da lista.
-			 *  \return Valor do primeiro elemento da lista.
+			/*! Returns the object at the beginning of the array.
+			 *  \return First object of the array.
 			 */
 			T front() const;
 
-			/*! Retorna último elemento da lista.
-			 *  \return Valor do último elemento da lista.
+			/*! Returns the object at the end of the array.
+			 *  \return Last object of the array.
 			 */
 			T back() const;
 
