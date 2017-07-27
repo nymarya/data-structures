@@ -174,39 +174,39 @@ namespace ls{
 			void push_front(const T & value);
 
 			/*! Adds value before 'pos'.
-			 *  \param pos Iterador que aponta para a posição posterior aonde o valor será inserido.
+			 *  \param pos Iterator pointing to the position after the one in which the value will be inserted.
 			 *  \param value Value to be inserted.
 			 *  \return Iterator pointing to the inserted element.
 			 */
 			iterator insert( iterator pos, const T & value );
 
 			/*! Inserts elements of the range [first; last) before 'pos'.
-			 *  \param pos Iterador que aponta para a posição posterior aonde o intervalo será inserido.
-			 *  \param first Iterador que aponta para a posição do primeiro valor que será inserido.
-			 *  \param last Iterador que aponta para a posição posterior ao ultimo valor que será inserido.
-			 *  \return Iterador que aponta para a posição do item inserido.
+			 *  \param pos Iterator pointing to the position after the one in which the range will be inserted.
+			 *  \param first Iterator pointing to the first value of the range of elements to insert.
+			 *  \param last Iterator pointing to the position after the last value of the range of elements to insert.
+			 *  \return Iterator pointing to the first inserted value.
 			 */
 			template<typename InputItr>
-			iterator insert( iterator , InputItr , InputItr );
+			iterator insert( iterator pos, InputItr first, InputItr last);
 
 			/*! Inserts elements from std::initializer_list before pos.
-			 *  \param pos Iterador que aponta para a posição posterior aonde a lista será inserido.
-			 *  \param ilist Lista que será inserida no vetor.
-			 *  \return Iterador que aponta para a posição do item inserido.
+			 *  \param pos Iterator pointing to the position after the one in which the list will be inserted.
+			 *  \param ilist List to be inserted.
+			 *  \return Iterator pointing to the first inserted value.
 			 */
-			iterator insert( iterator, std::initializer_list< T > );
+			iterator insert( iterator pos, std::initializer_list< T > ilist);
 
-			/*! Removes the elements at 'pos'.
-			 *  \param pos Iterador que aponta para o elemento a ser removido.
-			 *  \return Iterador para o elemento que segue pos antes de o método ser chamado.
+			/*! Removes the element at 'pos'.
+			 *  \param pos Iterator pointing to the element to be removed.
+			 *  \return Iterator following the removed element.
 			 */
-			iterator erase( iterator );
+			iterator erase( iterator pos);
 
-			/*! Removes elements of the range [first, last).
+			/*! Removes elements of the range [first, last) form the container.
 			 *  \param first Iterator pointing to the first element of the range.
-			 *  \param last Iterator pointing to the position after the last element of the range.
+			 *  \param last Iterator following the last removed element.
 			 */
-			iterator erase( iterator, iterator );
+			iterator erase( iterator first, iterator last);
 
 			/*! Removes the element at the end of the list.
 			 *  \return New last element.
