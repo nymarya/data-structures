@@ -33,12 +33,12 @@ namespace ls{
 			 */
 			VectorIterator operator++( int );
 
-			/*! Advances iterator to the previous location within the list. (--it)
+			/*! Moves iterator to the previous location within the list. (--it)
 			 *  \return The required iterator.
 			 */
 			VectorIterator & operator--( ); 
 
-			/*! Advances iterator to the previous location within the list . (it--)
+			/*! Moves iterator to the previous location within the list . (it--)
 			 *  \return The required iterator.
 			 */
 			VectorIterator operator--( int );
@@ -105,8 +105,8 @@ namespace ls{
 			 */
 			Vector& operator=( const Vector& other );
 
-			/*! Substitui o conteúdo da lista pelos elementos de ilist.
-			 *  \param ilist Initializer list to initialize the elements of the list with..
+			/*! Replace the content of the list with the contents of the initializer list.
+			 *  \param ilist Initializer list to initialize the elements of the list with.
 			 *  \return The new object.
 			 */
 			Vector& operator=( std::initializer_list<T> ilist );
@@ -125,7 +125,7 @@ namespace ls{
 			 */
 			iterator end( void );
 
-			/* Returns a constant iterator pointing to the first item in the list
+			/* Returns a constant iterator pointing to the first item in the list.
 			 * \return Iterator pointing to the first item in the list.
 			 */
 			const_iterator cbegin( void ) const;
@@ -213,8 +213,7 @@ namespace ls{
 			 */
 			T pop_back();
 
-			/*! Removes the element at the beginning of the container.
-			 */
+			/*! Removes the element at the beginning of the container. */
 			void pop_front();
 
 			/*! Replaces the content of the list with copies of 'value'.

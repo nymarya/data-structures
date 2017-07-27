@@ -5,7 +5,7 @@
 //  [I] SPECIAL MEMBERS  //
 ///////////////////////////
 
-/* Construtor padrão */
+/* Default constructor */
 template <typename T>
 ls::Vector<T>::Vector(std::size_t size)
 : m_data(new T[size])
@@ -13,36 +13,36 @@ ls::Vector<T>::Vector(std::size_t size)
 , m_size(size)
 {/*empty*/}
 
-/* Constroi a lista com os elementos do intervalo [first, last). */
+/* Constructs the list with the contents of the range [first, last). */
 template<typename T>
 template<typename InputIt >
 ls::Vector<T>::Vector( InputIt first, InputIt last ){
 	auto temp(first);
-	//<! Guarda número de elementos no intervalo
+	//<! Get number of element  of the range
 	std::size_t distance(0ul);
 	while( temp != last ){
 		distance++; temp++;
 	}
 
-	//<! Aloca novo espaço na memória
+	//<! Aloccate new storage area
 	m_size = distance;
 	m_len = m_size;
 	m_data = new T[distance];
 
-	//<! Copia os elementos do range para o novo vetor
+	//<! Copy elements from range
 	for ( auto i(0ul); i < distance; ++first, ++i)
 		m_data[i] = *first;
 	
 }
 
-/* Construtor cópia */
+/* Copy constructor. */
 template <typename T>
 ls::Vector<T>::Vector(const Vector& other )
 	:m_data(new T[other.m_size])
 	,m_len( other.m_len)
 	,m_size(other.m_size)
 {
-	//<! Copia os elementos de um vetor para o outro
+	//<! Copy content
 	for(auto i(0ul); i< m_size; ++i)
 		m_data[i] =  other.m_data[i];
 }
@@ -53,10 +53,10 @@ ls::Vector<T>::Vector( std::initializer_list<T> init )
 : m_len( init.size() )
 , m_size( init.size() )
 {
-	//<! Aloca novo espaço na memória
+	//<! Aloccate new storage area
 	m_data = new T[m_size];
 
-	//<! Copia os elementos para a nova lista
+	//<! Copy ocntent to new container
 	int count = 0;
 	for (auto &e : init)
 		m_data[count++] = e;
@@ -66,39 +66,40 @@ ls::Vector<T>::Vector( std::initializer_list<T> init )
 /* Destructor. */
 template <typename T>
 ls::Vector<T>::~Vector( ){
+	//!!< Deallocate storage area
 	delete [] m_data;
 }
 
-/* Operador de atribuição por cópia. */
+/* Copy assignment operator. */
 template <typename T>
 ls::Vector<T>& ls::Vector<T>::Vector::operator=( const Vector& other ){
 	if (this == &other) return *this;
 
-	delete [] m_data; //<! Remove a área de armazenamento antiga.
+	delete [] m_data; //<! Deallocate old storage area.
 
-	//<! Aloca novo espaço na memória
+	//<! Allocate new storage area
 	m_data = new T[other.m_size ];
 	m_size = other.m_size;
 	m_len  = other.m_len; 
 
-	//<! Copia os elementos para a nova lista
+	//<! Copy content to new container
 	for(auto i(0ul); i < m_size; ++i)
 		m_data[i] = other.m_data[i];
 
 	return *this;
 }
 
-/* Substitui o conteúdo da lista pelos elementos de ilist.*/
+/* Replace the content of the list with the contents of the initializer list.*/
 template<typename T>
 ls::Vector<T>& ls::Vector<T>::operator=( std::initializer_list<T> ilist ){
-	delete [] m_data; //<! Remove área de armazenamento existente
+	delete [] m_data; //<! Deallocate old storage area
 
-	//<! Aloca nova area de armazenamento, atualiza tamanho e capacidade
+	//<! Allocate new storage area, update size and capacity attributes
 	m_data = new T[ilist.size()];
 	m_len = ilist.size();
 	m_size = ilist.size();
 
-	//<! Copia os elementos para a lista
+	//<! Copy content to new container
 	auto i(0);
 	for (auto &e : ilist)
 		m_data[i++] = e;	
@@ -110,22 +111,22 @@ ls::Vector<T>& ls::Vector<T>::operator=( std::initializer_list<T> ilist ){
 //  [II] ITERATORS       //
 ///////////////////////////
 
-/* Retorna terador que aponta para o começo do vetor. */
+/* Returns an iterator pointing to the first item in the list. */
 template <typename T>
 typename ls::Vector<T>::iterator ls::Vector<T>::begin( void )
 { return ls::Vector<T>::iterator(&m_data[0]); }
 
-/* Retorna iterador que aponta para o final do vetor. */
+/* Returns an iterator pointing to the end mark of the list. */
 template <typename T>
 ls::VectorIterator<T> ls::Vector<T>::end( void )
 { return ls::Vector<T>::iterator(&m_data[m_len]); }
 
-/* Retorna iterador constante que aponta para o começo do vetor. */
+/* Returns a constant iterator pointing to the first item in the list. */
 template <typename T>
 typename ls::Vector<T>::const_iterator ls::Vector<T>::cbegin( void ) const
 { return ls::Vector<T>::const_iterator(&m_data[0]); }
 
-/* Retorna iterador constante que aponta para o final do vetor. */
+/* Returns a constant iterator pointing to the end mark of the list. */
 template <typename T>
 typename ls::Vector<T>::const_iterator ls::Vector<T>::cend( void ) const
 { return ls::Vector<T>::const_iterator(&m_data[m_len]); }
@@ -134,22 +135,22 @@ typename ls::Vector<T>::const_iterator ls::Vector<T>::cend( void ) const
 //  [III] CAPACITY       //
 ///////////////////////////
 
-/* Retorna número de elementos da lista. */
+/* Returns the number of elements in the container.*/
 template <typename T>
 std::size_t ls::Vector<T>::size() const
 { return m_len; }
 
-/* Retorna o tamanho físico da lista. */
+/* Return the capacity of the container. */
 template <typename T>
 std::size_t ls::Vector<T>::capacity() const 
 { return m_size; }
 
-/* Verifica se o vetor não tem elementos. */
+/* Checks if the container contains no elements. */
 template <typename T>
 bool ls::Vector<T>::empty ()const
 { return (m_len == 0); }
 
-/* Verifica se vetor está cheio. */
+/* Checks if the container is full. */
 template <typename T>
 bool ls::Vector<T>::full ()const
 { return (m_len == m_size); }
@@ -158,258 +159,273 @@ bool ls::Vector<T>::full ()const
 //  [IV] MODIFIERS       //
 ///////////////////////////
 
-/* Insere elemento no final da lista. */
+/* Inserts element at the end of the list. */
 template <typename T>
 void ls::Vector<T>::push_back(const T & value){
-	//<! Realoca se a lista está cheia
+	//<! Reallocate if container is full
 	if( full() ) reserve( m_size * 2);
 
-	//<! Insere elemento
+	//<! Inserts value
 	m_data[m_len++] = value;
 }
 
-/* Insere elemento no início da lista. */
+/* Inserts element at the beginning of the container. */
 template <typename T>
 void ls::Vector<T>::push_front(const T & value){
-	//<! Realoca se a lista está cheia
+	//<! Reallocate if container is full
 	if ( full() ) reserve( m_size * 2 );
 
-	//<! Abre espaço para o novo elemento que será inserido
+	//<! Moves content so the new value can be inserted
 	std::copy(&m_data[0], &m_data[m_len], &m_data[1]);
 
-	m_data[0] = value; //<! Insere valor
-	m_len++;           //<! Atualiza tamanho
+	m_data[0] = value; //<! Inserts value
+	m_len++;           //<! Updates size
 }
 
-/* Adiciona valor value antes de pos. */
+/* Adds value before 'pos'. */
 template <typename T>
 typename ls::Vector<T>::iterator 
 ls::Vector<T>::insert( iterator pos, const T & value ){
-	//<! Guarda a posição do iterador
+	//<! Get iterator's position
 	auto position(0);
 	for (auto i( begin() ); i != pos; ++i)
 		position++;
 
-	//<! Realoca se a lista está cheia
+	//<! Reallocate if container is full
 	if( full() ) reserve(m_size * 2 );
 
-	//<! Abre espaço para o novo elemento que será inserido
+	//<! Moves content so the new value can be inserted
 	std::copy(&m_data[position], &m_data[m_len], &m_data[position+1]);
 	
-	m_data[position] = value; //<! Insere valor
-	m_len++;      //<! Atualiza tamanho
+	m_data[position] = value; //<! Inserts value
+	m_len++;      //<! Updates size
 	return pos;
 }
 
-/* Insere os elementos do intervalo [first; last) antes de pos. */
+/* Inserts elements of the range [first; last) before 'pos'. */
 template<typename T>
 template<typename InputItr>
 ls::VectorIterator<T> ls::Vector<T>::insert( iterator pos, InputItr first, InputItr last){
-	//!< Guarda o número de elementos entre first e last 
+	//!< Get the number of elements between first and last 
 	auto sz(0ul);
 	auto i(first);
 	while(i != last){
 		sz++; i++;
 	}
 
-	//<! Guarda a posição do iterador
+	//<! Get iterator's position
 	auto position(0ul);
 	i = begin();
 	while(i != pos){
 		position++; i++;
 	}
 
-	//<! Realoca se o novo tamanho é maior que a capacidade
+	//<! Reallocate if new size is greater than capacity
 	if( m_len + sz > m_size ) reserve(m_len + sz);
 
-	//<! Abre espaço para os novos elementos que serão inseridos
+	//<! Moves content so the new values can be inserted
 	std::copy(&m_data[position], &m_data[m_len], &m_data[sz]);
 
-	//<! Insere os elementos do intervalo
+	//<! Inserts content of the range
 	for( auto i(position); i < sz; ++i)
 		m_data[i] = *first++;
 
-	//<! Atualiza tamanho
+	//<! Updates size
 	m_len += sz;
 	return pos;
 }
 
-/* Insere elementos de std::initializer_list antes de pos. */
+/* Inserts elements from std::initializer_list before pos. */
 template<typename T>
 ls::VectorIterator<T> ls::Vector<T>::insert( iterator pos, std::initializer_list<T> ilist ){
-	//!< Guarda o número de elementos 
+	//!< Gets number of elements of the initializer list
 	auto sz = ilist.size();
 
-	//<! Guarda a posição do iterador
+	//<! Gets iterator's position
 	auto position(0ul);
 	auto i(begin());
 	while(i != pos){
 		position++; i++;
 	}
 
-	//<! Realoca se o novo tamanho é maior que a capacidade
+	//<! Reallocates if new size is greater than capacity
 	if( m_len + sz > m_size ) reserve(m_len + sz);
 
-	//<! Abre espaço para os novos elementos que serão inseridos
+	//<! Moves content so the new values can be inserted
 	std::copy(&m_data[position], &m_data[m_len], &m_data[position+sz]);
 
-	//<! Insere os elemento de ilist
+	//<! Inserts content of the initializer list
 	for( auto &e: ilist)
 		m_data[position++] = e;
 
-	//<! Atualiza tamanho
+	//<! Updates size
 	m_len += sz;
 	return pos;
 }
 
-/* Remove o elemento na posição pos. */
+/* Removes the element at 'pos'. */
 template<typename T>
 ls::VectorIterator<T> ls::Vector<T>::erase( iterator pos ){
-	//<! Guarda a posição do item a ser removido
+	//<! Gets position of the element to be removed
     auto position(0ul);
 	for( auto i(begin()); i!= pos; ++i)
 		position++;
-	
-	//<! Avança para o elemento posterior ao pos
+
 	pos++;	
 
-	//<! Sobrescreve o elemento
+	//<! Overrides target
 	std::copy(&m_data[position+1], &m_data[m_len], &m_data[position]);
 
-	//<! Atualiza tamanho
+	//<! Updates size
 	m_len--;
 	return pos;
 }
 
-/* Remove os elementos no intervalo [first, last). */
+/* Removes elements of the range [first, last) form the container. */
 template<typename T>
 ls::VectorIterator<T> ls::Vector<T>::erase( iterator first, iterator last ){
-	//<! Guarda a posição do primeiro item
+	//<! Gets position of the first element
     auto position(0ul);
 	for( auto i(begin()); i!= first; ++i)
 		position++;
 
-	//<! Guarda o número de elementos entre first e last
+	//<! Gets the number of elements between first and last
     auto distance(0ul);
 	for( auto i(first); i!= last; ++i)
 		distance++;
 
-	//<! Guarda a posição do elemento posterior ao que será removido
+	//<! Gets position folowing the last element
 	auto pos = ++last;
 
-	//<! Sobrescreve os elementos
+	//<! Overrides elements
 	std::copy(&m_data[position+distance], &m_data[m_len], &m_data[position]);
 
-	//<! Atualiza tamanho
+	//<!  Updates size
 	m_len -= distance;
 	return pos;
 }
 
-/* Remove o elemento no final da lista. */
+/* Removes the element at the end of the list. */
 template <typename T>
 T ls::Vector<T>::pop_back(){
-	//<! Joga exceçao se lista está vazia
+	//<! Throws exception if container is empty
 	if(empty())
 		throw std::out_of_range("[pop_back()] Cannot recover element from an empty vector.");
 
 	return m_data[--m_len];
 }
 
-/* Remove o elemento no início do array. */
+/* Removes the element at the beginning of the container. */
 template <typename T>
 void ls::Vector<T>::pop_front (){
-	//<! Joga exceçao se lista está vazia
+	//<! Throws exception if container is empty
 	if(empty())
 		throw std::out_of_range("[pop_back()] Cannot recover element from an empty vector.");
 
-	//<! Remove o elemento
+	//<! Removes element
 	for(auto i(0ul); i < m_len-1; ++i)
 		m_data[i] = m_data[i+1];
 
-	//<! Atualiza tamanho
+	//<! Updates size
 	m_len--; 
 }
 
-/* Substitui o conteúdo da lista por cópias do valor 'value' */
+/* Replaces the content of the list with copies of 'value'. */
 template <typename T>
 void ls::Vector<T>::assign( const T & value ){
-	//<! Substitui o conteudo 
+	//<! Replaces the content 
 	for( auto i(0ul); i < m_size; ++i)
 		m_data[i] = value;
 }
 
-/* Substitui o conteúdo da lista por cópias dos elementes no intervalo [first,last).*/
+/* Replaces the content of the list with copies of the elements of the range [first,last). */
 template <typename T>
 template <typename InputItr>
 void ls::Vector<T>::assign( InputItr first, InputItr last){
-	//<! Guarda o numero de elementos entre first e last
+	//<! Gets the number of elements between first and last
 	auto distance(0ul);
 	for(auto i(first); i!= last; ++i)
 		distance++;
 
-	//<! Realoca se o novo tamanho é maior que a capacidade
+	//<! Reallocates storage area if new size is greater than capacity
 	if(distance > m_size) reserve(distance);
 
-	//<! Substitui o conteudo da lista
+	//<! Replaces the content
 	for(auto i(0ul); i < distance ; ++i)
 		m_data[i] = *(first++);
 
-	//<! Atualiza tamanho
+	//<! Updates size
 	m_len = distance;
 }
 
-/* Substitui o conteúdo da lista pelos elementos de ilist. */
+/* Replaces the content of the list with copies of the elements of 'ilist'. */
 template< typename T>
 void ls::Vector<T>::assign( std::initializer_list<T> ilist ){
-	//<! Guarda novo tamanho
+	//<! Gets new size
 	auto sz = ilist.size();
 
-	//<! Realoca se o novo tamanho é maior que a capacidade
+	//<! Reallocates storage area if new size is greater than capacity
 	if(sz > m_size) reserve(sz);
 
-	//<! Substitui o conteudo da lista
+	//<! Replaces the content of the container
 	auto i(0);
 	for(auto &e : ilist )
 		m_data[i++] = e;
 
-	//<! Atualiza tamanho
+	//<! Updates size
 	m_len = sz;
 
 }
 
-/* Limpa vector. */
+/* Removes all elements from container. */
 template <typename T>
 void ls::Vector<T>::clear()
 { m_len = 0; }
 
-/* Aumenta a capacidade de armazenamento da lista para um valor que é maior ou igual a new_cap. */
+/* Increase the storage capacity of the array to a value that’s is greater or equal to 'new_cap'. */
 template <typename T>
 void ls::Vector<T>::reserve( std::size_t new_cap ){
 	if(new_cap > m_size){
-		 //<! Aloca novo espaço na memória
+		 //<! Allocates new storage area
 		T *temp = new T[ new_cap ];
 
-		//<! Copia os valores para a nova lista
+		//<! Copy content to the new list
 		for (auto i(0u); i < m_size; i++) 
 			temp[i] = m_data[i];
 
-		delete [] m_data;  //<! Deleta espaço de armazenamento antigo
+		delete [] m_data;  //<! Deallocate old storage area
 
-		m_data = temp;	  //<! Transfere o ponteiro para o novo endereço
-		m_size = new_cap; //<! Atualiza tamanho
+		m_data = temp;	  //<! Pointer pointing to the new adress
+		m_size = new_cap; //<! Updates size
 	}
 }
 
-/* Remove capacidade que não é utilizada. */
+/* Requests the removal of unused capacity. */
 template <typename T>
 void ls::Vector<T>::shrink_to_fit()
-{ m_size = m_len; }
+{ 
+	//!< Reallocates storage area if necessary
+	if( m_len < m_size ){
+		
+		//<! Allocates new storage area
+		T *temp = new T[ m_len+1 ];
+
+		//<! Copy content to the new list
+		for (auto i(0u); i < m_len; i++) 
+			temp[i] = m_data[i];
+
+		delete [] m_data;  //<! Deallocate old storage area
+
+		m_data = temp;	  //<! Pointer pointing to the new adress
+		m_size = m_len; //<! Updates size
+	}
+}
 
 ///////////////////////////
 //  [V] ELEMENT ACCESS   //
 ///////////////////////////
 
-/* Imprime vector. */
+/* Prints vector. */
 template <typename T>
 void ls::Vector<T>::print( ) const{
 	std::cout << ">>> [";
@@ -418,7 +434,7 @@ void ls::Vector<T>::print( ) const{
 	std::cout << "], len=" << m_len << ", capacity=" << m_size <<".\n"; 
 }
 
-/* Recupera elemento na posição pos. */
+/* Gets element at position 'pos' with bounds-checking. */
 template <typename T>
 T & ls::Vector<T>::at( std::size_t pos) const{
 	if( pos < 0 or pos >= m_len)
@@ -427,12 +443,12 @@ T & ls::Vector<T>::at( std::size_t pos) const{
 	return m_data[pos];
 }
 
-/* Retorna o objeto na posição pos. */
+/* Gets the object at position 'pos'. */
 template <typename T>
 T & ls::Vector<T>::operator[]( std::size_t pos) const
 { return m_data[pos]; }
 
-/* Retorna primeiro elemento da lista. */
+/* Returns the object at the beginning of the array. */
 template <typename T>
 T ls::Vector<T>::front() const{
 	//<! Joga exceção se o vetor está vazio
@@ -456,13 +472,13 @@ T ls::Vector<T>::back() const {
 //  [V] OPERATORS        //
 ///////////////////////////
 
-/* Checa se os conteúdos de lhs e rhs são iguais.*/
+/* Returns the object at the end of the array. */
 template <typename T>
 bool operator==( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
-	//<! Checa o número de elementos
+	//<! Checks the number of elements
 	if( lhs.size() != rhs.size() ) return false;
 	else{
-		//<! Verifica se todos os elementos são iguais
+		//<! Checks if all elements are the same
 		for ( auto i(0ul); i < rhs.size(); ++i)
 			if( rhs[i] != lhs[i] ) return false;
 	}
@@ -470,13 +486,13 @@ bool operator==( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
 	return true;
 }
 
-/* Verifica se os conteúdos de lhs e rhs são iguais.*/
+/* Checks if contents of both cantainers are the same.*/
 template <typename T>
 bool operator!=( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
-	//<! Checa o número de elementos
+	//<! Checks number of elements
 	if( lhs.size() != rhs.size() ) return true;
 	else{
-		//<! Verifica se há algum elemento diferente
+		//<! Looking for one element different
 		for ( auto i(0ul); i < rhs.size(); ++i)
 			if( rhs[i] != lhs[i] ) return true;
 	}
@@ -488,27 +504,27 @@ bool operator!=( const ls::Vector<T>& lhs, const ls::Vector<T>& rhs ){
 //  VECTORITERATOR CLASS //
 ///////////////////////////
 
-/* Construtor padrão para classe iterator. */
+/* Iterator's default constructor. */
 template <typename T>
 ls::VectorIterator<T>::VectorIterator(T * current)
 : m_current( current)
 { /*empty*/ }
 
-/* Retorna uma referência para o objeto lozalizado na posição apontada pelo iterador */
+/* Return a reference to the object located at the position pointed by the iterator. */
 template <typename T>
 T& ls::VectorIterator<T>::operator*() const {
 	assert( m_current != nullptr); 				
 	return *m_current;
 }
 
-/* Avança iterador para a próxima posição na lista. (++it)*/
+/* Advances iterator to the next location within the list (++it) */
 template <typename T>
 ls::VectorIterator<T>& ls::VectorIterator<T>::operator++() {
 	m_current++;				
 	return *this;
 }
 
-/* Avança iterador para a próxima posição na lista. (it++) */
+/* Advances iterator to the next location within the list. (it++) */
 template <typename T>
 ls::VectorIterator<T> ls::VectorIterator<T>::operator++(int) {
 	typename ls::Vector<T>::iterator temp = *this; 			
@@ -516,14 +532,14 @@ ls::VectorIterator<T> ls::VectorIterator<T>::operator++(int) {
 	return temp;
 }
 
-/* Move iterador para a posição anterior na lista. (--it) */
+/* Moves iterator to the previous location within the list. (--it) */
 template <typename T>
 ls::VectorIterator<T>& ls::VectorIterator<T>::operator--() {
 	m_current--;				
 	return *this;
 }
 
-/* Move iterador para a posição anterior na lista. (it--) */
+/* Moves iterator to the previous location within the list . (it--) */
 template <typename T>
 ls::VectorIterator<T> ls::VectorIterator<T>::operator--(int) {
 	typename ls::Vector<T>::iterator temp = *this; 			
@@ -531,13 +547,13 @@ ls::VectorIterator<T> ls::VectorIterator<T>::operator--(int) {
 	return temp;
 }
 
-/* Retorna verdadeiro se os iteradores fazem referência para o mesmo ponto da lista. */
+/*  Returns true if both iterators refer to the same location within the list. */
 template <typename T>
 bool ls::VectorIterator<T>::operator==( const typename ls::VectorIterator<T> & rhs ) const{
 	return m_current == rhs.m_current;
 }
 
-/* Retorna verdadeiro se os iteradores fazem referência para pontos diferentes da lista. */
+/* Returns true if both iterators refer to a different location within the list. */
 template <typename T>
 bool  ls::VectorIterator<T>::operator!=( const typename ls::VectorIterator<T> & rhs ) const{
 	return m_current != rhs.m_current;
