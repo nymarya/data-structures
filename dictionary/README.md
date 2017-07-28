@@ -1,6 +1,6 @@
 # Dictionary
 
-## Sobre o projeto
+## About
 
 A classe ```DAL``` (Dictionary with Array List ) implementa o tipo abstrato de dado (TAD) dicionário utilizando um vetor não-ordenado, isto é, os elementos armazenados não seguem uma sequência linear, então as operações são baseadas no valor de suas chaves e não nas posições do conteúdo.
 
@@ -8,7 +8,7 @@ A classe ```DSAL``` (Dictionary with Sorted-Array List ) é semelhanta à classe
 
 #### Performance
 
-| Operações  | DAL           | DSAL  |
+| Operations  | DAL           | DSAL  |
 | :------------- |:-------------| :-----|
 | Search(key, info) | O( n ) | O( 1 ) |
 | Remove(key, info) | O( 1 ) | O( n ) |
@@ -19,20 +19,20 @@ A classe ```DSAL``` (Dictionary with Sorted-Array List ) é semelhanta à classe
 | Predecessor(key, info) | O( n ) | O( 1 ) |
 
 
-## Como executar
+## How to run
 
-| #       | Descrição           | Comando  |
+| #       | Description          | Command  |
 | :------------- |:-------------| :-----|
-| 1      | Compilar | ```$ make``` |
-| 2      | Executar   | ```$ ./dict.out``` |
+| 1      | Compile | ```$ make``` |
+| 2      | Run   | ```$ ./dict.out``` |
 
-## Como utilizar em outros programas
+## How to use
 
-1º Copie os arquivos .h e .inl da pasta ```include/```<br/>
-2º Inclua o arquivo .h no seu programa.<br/>
-3º Instancie a classe com o tipo dos elementos entre ```<>```
+1º Copy files .hpp e .inl from directory ```include/```<br/>
+2º Include file .hpp in your code.<br/>
+3º Instance the class with the namespace ```ls``` and the type of the elements between ```<>```
 
-### Exemplo de uso
+### Example
 ```cpp
 #include <iostream>
 #include "dsal.h"
@@ -82,7 +82,7 @@ int main() {
     std::cout << name << std::endl;
 
     myList.remove( 2017065190, name);
-    std::cout << name << " foi removido. \n";
+    std::cout << name << " was removed. \n";
 
     int id = 2014065192;
     myList.sucessor( 2014065192, id);
@@ -120,10 +120,10 @@ int main() {
 }
 ```
 
-A saída do programa seria:
+The output would be:
 ```
 PoisonIvy
-WonderWoman foi removido
+WonderWoman was removed
 Sucessor( 2014065192 ): 2015065190
 Fruta menos calorica eh: Abacaxi
 Fruta mais calórica eh: Kiwi
@@ -131,8 +131,8 @@ Predecessor(Kiwi,85): Blueberry,75
 ```
 
 
-## Autoria
+## Autorship
 
-Desenvolvido por Mayra Dantas de Azevedo (<mayradazevedo@gmail.com >), 2017.1
+Developed by Mayra Dantas de Azevedo (<mayradazevedo@gmail.com >), 2017.1
 
 &copy; IMD/UFRN 2017.
