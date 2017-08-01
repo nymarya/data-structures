@@ -49,8 +49,9 @@ int main(){
 ## Possíveis erros
 A exceção ```std::out_of_range``` pode ser lançada ao chamar os métodos ```pop_back()```, ```pop_front()```, ```back()``` e ```front()```numa lista vazia.
 
-## Autoria
 
-Desenvolvido por Mayra Dantas de Azevedo (<mayradazevedo@gmail.com >), 2017.1
+## Autorship
+
+Developed by Mayra Dantas de Azevedo (<mayradazevedo@ufrn.edu.br >), 2017.1
 
 &copy; IMD/UFRN 2017.

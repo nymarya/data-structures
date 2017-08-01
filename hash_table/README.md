@@ -106,8 +106,8 @@ O cliente Ringo Starr possui R$2500.25
 ```
 
 
-## Autoria
+## Autorship
 
-Desenvolvido por Mayra Dantas de Azevedo (<mayradazevedo@gmail.com >), 2017.1
+Developed by Mayra Dantas de Azevedo (<mayradazevedo@ufrn.edu.br >), 2017.1
 
 &copy; IMD/UFRN 2017.
