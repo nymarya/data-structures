@@ -1,5 +1,5 @@
-#include "../include/BST.hpp"
-
+#include "BST.h"
+#include <cassert>
 int main()
 {
 	ls::BinarySearchTree<int> bst;
@@ -25,10 +25,10 @@ int main()
 	bst.pre_ordem_itr();
 
 	//test successor
-	auto suc = bst.successor(new ls::Node<int>(30, 30, nullptr, nullptr));
+	auto suc = bst.successor(new ls::BinarySearchTree<int>::Node(30, 30, nullptr, nullptr, 0));
 	assert(suc->key == 35);
 
-	suc = bst.successor(new ls::Node<int>(50, 50, nullptr, nullptr));
+	suc = bst.successor(new ls::BinarySearchTree<int>::Node(50, 50, nullptr, nullptr, 0));
 	assert(suc->key == 65);
 
 	//test predecessor

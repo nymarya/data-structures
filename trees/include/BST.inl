@@ -1,4 +1,4 @@
-#include "BST.hpp"
+#include "BST.h"
 
 template <typename T>
 void ls::BinarySearchTree<T>::insertFromArray(nodeIterator first, nodeIterator last){
@@ -11,7 +11,7 @@ void ls::BinarySearchTree<T>::insertFromArray(nodeIterator first, nodeIterator l
 }
 
 template <typename T>
-void ls::BinarySearchTree<T>::altura(ls::BinarySearchTree<T>::Node * p){
+void ls::BinarySearchTree<T>::altura(Node * p){
     auto aut1 = 1;
     auto aut2 = 1;
 
@@ -28,12 +28,12 @@ void ls::BinarySearchTree<T>::altura(ls::BinarySearchTree<T>::Node * p){
 template <typename T>
 ls::BinarySearchTree<T>::BinarySearchTree()
 {
-    this->root = nullptr;
+    root = nullptr;
 }
 
 template <typename T>
 ls::BinarySearchTree<T>BinarySearchTree(std::vector<int>& newEls){
-    this->root = nullptr;
+    root = nullptr;
     std::sort(newEls.begin(), newEls.end());
     insertFromArray(newEls.begin(), newEls.end());
 }
@@ -44,7 +44,7 @@ ls::BinarySearchTree<T>BinarySearchTree(std::vector<int>& newEls){
 template <typename T>
 void ls::BinarySearchTree<T>::insert(int key, int value)
 {
-    ls::BinarySearchTree<T>::Node *pt = root;
+    Node *pt = root;
     int f = 0;
     pt = search(key, f);
 
@@ -55,16 +55,16 @@ void ls::BinarySearchTree<T>::insert(int key, int value)
     }
     else
     {
-        ls::BinarySearchTree<T>::Node * nNode = new ls::Node(key, value, nullptr, nullptr);
+        Node * nNode = new Node(key, value, nullptr, nullptr, 0);
         if (f == 0)
-            root = nls::Node;
+            root = nNode;
 
         // f == 2 =>left child of 'pt' is empty
         // f== 3 => right child of 'pt' is empty
         if (f == 2)
-            pt->left = nls::Node;
+            pt->left = nNode;
         else if (f == 3)
-            pt->right = nls::Node;
+            pt->right = nNode;
     }
 }
 
@@ -74,15 +74,15 @@ void ls::BinarySearchTree<T>::insert(int key, int value)
 * @param k Key to be searched.
 * @param f Variable that keeps information about the search result.
 * 			If f=0, the tree is empty.
-*			If f=1, the key was found and 'pt' points to the ls::Node where 
+*			If f=1, the key was found and 'pt' points to the Node where 
 *          the key is.
-*          If f=2, the key wasn't found and 'pt' points to the ls::Node without
+*          If f=2, the key wasn't found and 'pt' points to the Node without
 *        	the left child.
-*          If f=3, the key wasn't found and 'pt' points to the ls::Node without
+*          If f=3, the key wasn't found and 'pt' points to the Node without
 *          the right child.
 */
 template <typename T>
-ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::search(int k, int &f)
+typename ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::search(int k, int &f)
 {
     auto rt(root);
     if (rt != nullptr)
@@ -123,12 +123,11 @@ ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::search(int k, int &f)
 }
 
 template <typename T>
-ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::successor(ls::Node *rt)
+typename ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::successor(Node *rt)
 {
-    int f = 0;
     auto pt(root);
 
-    std::stack<ls::BinarySearchTree<T>::Node *> ancestrals;
+    std::stack<Node *> ancestrals;
 
     while (pt != nullptr)
     {
@@ -166,7 +165,7 @@ ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::successor(ls::Node *rt)
 }
 
 template <typename T>
-ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::predecessor(ls::BinarySearchTree<T>::Node *pt ){
+typename ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::predecessor(Node *pt ){
 
     // left subtree is not null, so the predecessor is the max value
     // of this subtree
@@ -198,7 +197,7 @@ ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::predecessor(ls::BinaryS
 template <typename T>
 void ls::BinarySearchTree<T>::level_trasversal()
 {
-    std::queue<ls::BinarySearchTree<T>::Node *> q;
+    std::queue<Node *> q;
     q.push(root);
     while (!q.empty())
     {
@@ -218,12 +217,12 @@ void ls::BinarySearchTree<T>::level_trasversal()
 template <typename T>
 void ls::BinarySearchTree<T>::pre_ordem_itr()
 {
-    std::stack<ls::BinarySearchTree<T>::Node *> s;
+    std::stack<Node *> s;
     s.push(root);
 
     while (not s.empty())
     {
-        ls::Node *temp = s.top();
+        Node *temp = s.top();
         s.pop();
         std::cout << temp->key << "("<< temp->height<<") ";
         if (temp->right != nullptr)
@@ -243,7 +242,8 @@ void ls::BinarySearchTree<T>::pre_ordem_itr()
  * 
  */
 template <typename T>
-void ls::BinarySearchTree<T>::calculaAltura(ls::BinarySearchTree<T>::Node *pt ){
+void ls::BinarySearchTree<T>::calculaAltura(Node *pt )
+{
     if(pt->left != nullptr)
         calculaAltura(pt->left);
     if( pt->right != nullptr)
@@ -256,7 +256,8 @@ void ls::BinarySearchTree<T>::calculaAltura(ls::BinarySearchTree<T>::Node *pt ){
  * @return root
  */
 template <typename T>
-ls::Node * ls::BinarySearchTree<T>::getRoot(){
+typename ls::BinarySearchTree<T>::Node * ls::BinarySearchTree<T>::getRoot()
+{
     return root;
 }
 
@@ -265,7 +266,8 @@ ls::Node * ls::BinarySearchTree<T>::getRoot(){
 * @return Height of the root.
 */
 template <typename T>
-int ls::BinarySearchTree<T>::getMaxHeight(){
+int ls::BinarySearchTree<T>::getMaxHeight()
+{
     if(root->height == 0)
         calculaAltura(root);
     return root->height;
@@ -275,10 +277,11 @@ int ls::BinarySearchTree<T>::getMaxHeight(){
  *
  */
 template <typename T>
-void ls::BinarySearchTree<T>::remove(ls::BinarySearchTree<T>::Node * pt){
+void ls::BinarySearchTree<T>::remove(Node * pt)
+{
     int f = 0;
     auto current = root;
-    auto parent = predecessor;
+    auto parent = predecessor(pt);
 
     while(current->key != pt->key){
         parent = current;
