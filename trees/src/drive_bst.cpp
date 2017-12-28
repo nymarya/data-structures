@@ -25,40 +25,40 @@ int main()
 	bst.pre_ordem_itr();
 
 	//test successor
-	auto suc = bst.successor(new ls::BinarySearchTree<int>::Node(30, 30, nullptr, nullptr, 0));
-	assert(suc->key == 35);
+	auto suc = bst.successor(new Node<int>(30, 30, nullptr, nullptr, 0));
+	assert(suc->getKey() == 35);
 
-	suc = bst.successor(new ls::BinarySearchTree<int>::Node(50, 50, nullptr, nullptr, 0));
-	assert(suc->key == 65);
+	suc = bst.successor(new Node<int>(50, 50, nullptr, nullptr, 0));
+	assert(suc->getKey() == 65);
 
 	//test predecessor
 	int f = 0;
 	auto node = bst.search(35, f);
-	assert(node->key == 35);
+	assert(node->getKey() == 35);
 
 	auto prec = bst.predecessor(node);
-	assert(prec->key == 30);
+	assert(prec->getKey() == 30);
 
 	f=0;
 	node = bst.search(40, f);
-	assert(node->key == 40);
+	assert(node->getKey() == 40);
 
 	prec = bst.predecessor(node);
-	assert(prec->key == 35);
+	assert(prec->getKey() == 35);
 
 	f=0;
 	node = bst.search(50, f);
-	assert(node->key == 50);
+	assert(node->getKey() == 50);
 
 	prec = bst.predecessor(node);
-	assert(prec->key == 40);
+	assert(prec->getKey() == 40);
 
 	f=0;
 	node = bst.search(30, f);
-	assert(node->key == 30);
+	assert(node->getKey() == 30);
 
 	prec = bst.predecessor(node);
-	assert(prec->key == 25);
+	assert(prec->getKey() == 25);
 
 	bst.remove(prec);
 	bst.level_trasversal();
@@ -68,4 +68,7 @@ int main()
 	ls::BinarySearchTree<int> nBST(els);
 	auto n = nBST.getMaxHeight();
 	assert(n == 5);
+
+
+	std::cout << "\n \nOK ;)" << std::endl;
 }
