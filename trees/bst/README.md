@@ -37,59 +37,59 @@ int main() {
     
     ls::BinarySearchTree<int> bst;
 
-	//insert
-	bst.insert(50, 50);
-	bst.insert(35, 35);
-	bst.insert(70, 70);
-	bst.insert(25, 25);
-	bst.insert(65, 65);
-	bst.insert(90, 90);
-	bst.insert(40, 40);
-	bst.insert(80, 80);
-	bst.insert(30, 30);
+    //insert
+    bst.insert(50, 50);
+    bst.insert(35, 35);
+    bst.insert(70, 70);
+    bst.insert(25, 25);
+    bst.insert(65, 65);
+    bst.insert(90, 90);
+    bst.insert(40, 40);
+    bst.insert(80, 80);
+    bst.insert(30, 30);
 
     //traversal
-	bst.level_traversal();
-	std::cout << std::endl;
+    bst.level_traversal();
+    std::cout << std::endl;
 
-	// successor
-	auto suc = bst.successor(new Node<int>(30, 30, nullptr, nullptr, 0));
-	assert(suc->getKey() == 35);
+    // successor
+    auto suc = bst.successor(new Node<int>(30, 30, nullptr, nullptr, 0));
+    assert(suc->getKey() == 35);
 
-	suc = bst.successor(new Node<int>(50, 50, nullptr, nullptr, 0));
-	assert(suc->getKey() == 65);
+    suc = bst.successor(new Node<int>(50, 50, nullptr, nullptr, 0));
+    assert(suc->getKey() == 65);
 
-	// predecessor
-	int f = 0;
-	auto node = bst.search(35, f);
-	assert(node->getKey() == 35);
+    // predecessor
+    int f = 0;
+    auto node = bst.search(35, f);
+    assert(node->getKey() == 35);
 
-	auto prec = bst.predecessor(node);
-	assert(prec->getKey() == 30);
+    auto prec = bst.predecessor(node);
+    assert(prec->getKey() == 30);
 
-	f=0;
-	node = bst.search(40, f);
-	assert(node->getKey() == 40);
+    f=0;
+    node = bst.search(40, f);
+    assert(node->getKey() == 40);
 
-	prec = bst.predecessor(node);
-	assert(prec->getKey() == 35);
+    prec = bst.predecessor(node);
+    assert(prec->getKey() == 35);
 
-	f=0;
-	node = bst.search(50, f);
-	assert(node->getKey() == 50);
+    f=0;
+    node = bst.search(50, f);
+    assert(node->getKey() == 50);
 
-	prec = bst.predecessor(node);
-	assert(prec->getKey() == 40);
+    prec = bst.predecessor(node);
+    assert(prec->getKey() == 40);
 
-	f=0;
-	node = bst.search(30, f);
-	assert(node->getKey() == 30);
+    f=0;
+    node = bst.search(30, f);
+    assert(node->getKey() == 30);
 
-	prec = bst.predecessor(node);
-	assert(prec->getKey() == 25);
+    prec = bst.predecessor(node);
+    assert(prec->getKey() == 25);
 
-	bst.remove(prec);
-	bst.level_traversal();
+    bst.remove(prec);
+    bst.level_traversal();
     
 
     return 0;
