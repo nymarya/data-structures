@@ -176,7 +176,7 @@ Node<T> * ls::BinarySearchTree<T>::predecessor(Node<T> *pt ){
     auto aux = root;
     auto min = pt;
     while( aux != nullptr and aux->getKey() != pt->getKey() ){
-        if(aux->getKey() < min->getKey() )
+        if(aux->getKey() <= pt->getKey())
             min = aux;
         if( aux->getKey() > pt->getKey())
             aux = aux->getLeft();
@@ -278,37 +278,35 @@ void ls::BinarySearchTree<T>::remove(Node<T> * pt)
         }
     }
 
+    auto target = current;
     // node has no child
     if(pt->getLeft() == nullptr and pt->getRight() == nullptr){
-        delete current;
+        current = nullptr;
 
     } else if(not(pt->getLeft() != nullptr and pt->getRight() != nullptr)){
         // node has one child
-        auto target = current;
         if(pt->getLeft() != nullptr){
             current = pt->getLeft();
         }	
         else {
             current = pt->getRight();
-        }
-
-        //free node
-        delete target;   
+        }  
     } else {
         // node has 2 children
         auto fast = pt->getLeft();
 
-        auto target = current;
+        //get predecessor
         while( fast != nullptr){
             current = fast;
             fast = fast->getRight();
         }
-
-        // free node
-        delete target;
+        current->setRight( target->getRight() );
     }
 
+    //free node
+    delete target;
 
+    // update parent
     if( f == 1){
         parent->setLeft(current);
     } else {

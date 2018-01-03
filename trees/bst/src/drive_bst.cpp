@@ -53,6 +53,7 @@ int main()
 	prec = bst.predecessor(node);
 	assert(prec->getKey() == 40);
 
+	// remove node with 1 child
 	f=0;
 	node = bst.search(30, f);
 	assert(node->getKey() == 30);
@@ -61,7 +62,47 @@ int main()
 	assert(prec->getKey() == 25);
 
 	bst.remove(prec);
-	bst.level_traversal();
+	f=0;
+	node = bst.search(30, f);
+	assert(node->getKey() == 30);
+
+	prec = bst.predecessor(node);
+	assert(prec->getKey() == 30 );
+
+	//remove node with 2 children
+	f=0;
+	node = bst.search(70, f);
+	assert(node->getKey() == 70);
+
+	bst.remove(node);
+
+	f= 0;
+	node = bst.search(65, f);
+	suc = bst.successor(node);
+	assert(suc->getKey() ==  80);
+
+	bst.calculateHeight(bst.getRoot());
+	bst.pre_order();
+
+	// remove node chidless
+	f=0;
+	node = bst.search(80, f);
+	assert(node->getKey() == 80);
+
+	bst.remove(node);
+	f=0;
+	node = bst.search(80, f);
+	assert(f != 1);
+
+	f= 0;
+	node = bst.search(90, f);
+	assert(node->getKey() ==  90);
+	
+	prec = bst.predecessor(node);
+	assert(prec->getKey() ==  65);
+
+	bst.calculateHeight(bst.getRoot());
+	bst.pre_order();
 
 	std::vector<int> els = {50, 30, 90, 80, 70, 60, 65, 35, 40, 25, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19};
 
