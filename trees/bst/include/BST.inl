@@ -278,28 +278,34 @@ void ls::BinarySearchTree<T>::remove(Node<T> * pt)
         }
     }
 
-    if(pt->getLeft() == nullptr and pt->getRight() == nullptr)
-        current = nullptr;
+    // node has no child
+    if(pt->getLeft() == nullptr and pt->getRight() == nullptr){
+        delete current;
 
-    else if(not(pt->getLeft() != nullptr and pt->getRight() != nullptr)){
+    } else if(not(pt->getLeft() != nullptr and pt->getRight() != nullptr)){
+        // node has one child
+        auto target = current;
         if(pt->getLeft() != nullptr){
             current = pt->getLeft();
-            f = 1;
         }	
         else {
             current = pt->getRight();
-            f=2;
         }
-            
-    }
 
-    else {
+        //free node
+        delete target;   
+    } else {
+        // node has 2 children
         auto fast = pt->getLeft();
+
+        auto target = current;
         while( fast != nullptr){
             current = fast;
             fast = fast->getRight();
         }
 
+        // free node
+        delete target;
     }
 
 
