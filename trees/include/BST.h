@@ -55,7 +55,7 @@ namespace ls {
             void insert(int key, int value);
 
             /**
-            * 
+            * Serach node at the tree.
             * @param rt Root of the tre.
             * @param k Key to be searched.
             * @param f Variable that keeps information about the search result.
@@ -70,14 +70,14 @@ namespace ls {
             Node<T> *search(int k, int &f);
 
             /**
-             * Return the successor of the param node.
+             * Return the successor of the given node.
              * @param pt Node.
              * @return Successor of 'pt'.
              */
             Node<T> *successor(Node<T> *rt);
 
             /**
-             * Return the predecessor of the param node.
+             * Return the predecessor of the given node.
              * @param pt Node.
              * @return Predecessor of 'pt'.
              */
@@ -91,13 +91,13 @@ namespace ls {
             /**
              * Pre order traversal the tree iteratively.
              */
-            void pre_order_itr();
+            void pre_order();
 
             /**
              * Calculate height of the nodes at the tree.
              * @param pt Root from the tree.
              */
-            void calculateHieght(Node<T> *pt );
+            void calculateHeight(Node<T> *pt );
 
             /**
              * Return root of tree.

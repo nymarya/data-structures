@@ -16,13 +16,13 @@ int main()
 	bst.insert(30, 30);
 
 	int i =0;
-	bst.calculaAltura(bst.search(50, i));
+	bst.calculateHeight(bst.search(50, i));
 
 	//Test traversals
-	bst.level_trasversal();
+	bst.level_traversal();
 	std::cout << std::endl;
 
-	bst.pre_ordem_itr();
+	bst.pre_order();
 
 	//test successor
 	auto suc = bst.successor(new Node<int>(30, 30, nullptr, nullptr, 0));
@@ -61,7 +61,7 @@ int main()
 	assert(prec->getKey() == 25);
 
 	bst.remove(prec);
-	bst.level_trasversal();
+	bst.level_traversal();
 
 	std::vector<int> els = {50, 30, 90, 80, 70, 60, 65, 35, 40, 25, 100, 1, 2, 3, 4, 5, 6, 7, 8, 9,10,11,12,13,14,15,16,17,18,19};
 
