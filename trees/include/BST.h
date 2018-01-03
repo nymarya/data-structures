@@ -16,24 +16,42 @@ namespace ls {
     {
 
         private:
-            Node<T> * root;
+            Node<T> * root; //<! Root of the tree
 
             using nodeIterator = std::vector<int>::iterator;
+
+            /**
+             * Insert elements from given array at the tree.
+             * @param first Iterator pointing to the first element of the range.
+             * @param first Iterator pointing to the last element of the range.
+             */
             void insertFromArray(nodeIterator first, nodeIterator last);
 
-            void altura(Node<T> * p);
+            /**
+             * Update height of given node.
+             * @param p Node.
+             */
+            void height(Node<T> * p);
 
         public:
 
             
-
+            /**
+             * Default constructor.
+             */
             BinarySearchTree();
 
+            /**
+             * Construct tree from vector of keys.
+             * @param newEls Vector of keys.
+             */
             BinarySearchTree(std::vector<int>& newEls);
 
             /**
-            * 
-            */
+             * Insert new node at the tree.
+             * @param key Key of the new node.
+             * @param value Content of the new node.
+             */
             void insert(int key, int value);
 
             /**
@@ -51,25 +69,52 @@ namespace ls {
             */
             Node<T> *search(int k, int &f);
 
+            /**
+             * Return the successor of the param node.
+             * @param pt Node.
+             * @return Successor of 'pt'.
+             */
             Node<T> *successor(Node<T> *rt);
 
+            /**
+             * Return the predecessor of the param node.
+             * @param pt Node.
+             * @return Predecessor of 'pt'.
+             */
             Node<T> * predecessor(Node<T> *pt );
 
-            void level_trasversal();
+            /**
+             * Level traversal the tree iteratively.
+             */
+            void level_traversal();
 
-            void pre_ordem_itr();
+            /**
+             * Pre order traversal the tree iteratively.
+             */
+            void pre_order_itr();
 
-            void calculaAltura(Node<T> *pt );
+            /**
+             * Calculate height of the nodes at the tree.
+             * @param pt Root from the tree.
+             */
+            void calculateHieght(Node<T> *pt );
 
-            
+            /**
+             * Return root of tree.
+             * @return Root node.
+             */
             Node<T> * getRoot();
 
             /**
-            * Get max height of the tree.
-            * @return Height of the root.
-            */
+             * Get max height of the tree.
+             * @return Height of the root.
+             */
             int getMaxHeight( );
 
+            /**
+             * Remove node from tree.
+             * @param pt Node to be removed.
+             */
             void remove(Node<T> * pt);
     };
 
