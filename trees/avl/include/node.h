@@ -42,7 +42,7 @@ class Node
 
         /**
          * Update key.
-         * @key New key
+         * @param key New key
          */
         void setKey(int key);
         
@@ -54,7 +54,7 @@ class Node
         
         /**
          * Update content.
-         * @param New content
+         * @param content New content
          */
         void setContent(T content);
         
@@ -66,19 +66,19 @@ class Node
 
         /**
          * Update left child.
-         * @param New left subtree
+         * @param left New left subtree
          */
         void setLeft(Node<T>* left);
 
         /**
-         * Return content of the node.
+         * Return right child of the node.
          * @return Right subtree.
          */
         Node<T>* getRight();
 
         /**
          * Update right child.
-         * @param New right subtree
+         * @param right New right subtree
          */
         void setRight(Node<T>* right);
 
@@ -90,9 +90,21 @@ class Node
 
         /**
          * Update height.
-         * @param New height
+         * @param height New height
          */
         void setHeight(int height);
+
+        /**
+         * Return balance of the node.
+         * @return Balance.
+         */
+         int getBal();
+         
+        /**
+         * Update balance.
+         * @param bal New balance
+         */
+        void setBal(int bal);
 
 };
 
